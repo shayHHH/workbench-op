@@ -53,7 +53,7 @@
   const initialCustomers = () => [
     {
       id: "C-2026-0718", name: "陈嘉宁", enName: "JIA NING CHEN", type: "个人", region: "中国香港", agent: "杨澜",
-      status: "草稿", risk: "低", updated: "今天 09:12", owner: "交易员 杨澜", dob: "1992-08-16", idMasked: "K8••••(3)",
+      status: "未准入", risk: "低", updated: "今天 09:12", owner: "交易员 杨澜", dob: "1992-08-16", idMasked: "K8••••(3)",
       phone: "+852 •••• 2189", email: "j.chen••@mail.com", source: "交易员 转介", business: "SINO",
       documents: [
         { name: "香港身份证", meta: "ID_card_front.pdf · 已上传", state: "待识别", tone: "blue" },
@@ -64,7 +64,7 @@
     },
     {
       id: "C-2026-0694", name: "Northstar Trading Limited", enName: "NORTHSTAR TRADING LIMITED", type: "企业", region: "新加坡", agent: "杨澜",
-      status: "待客户补件", risk: "中", updated: "今天 08:46", owner: "交易员 杨澜", dob: "2018-04-09", idMasked: "UEN 2018•••19N",
+      status: "材料审核中", risk: "中", updated: "今天 08:46", owner: "交易员 杨澜", dob: "2018-04-09", idMasked: "UEN 2018•••19N",
       phone: "+65 •••• 8821", email: "ops••@northstar.sg", source: "交易员 转介", business: "SGB",
       documents: [
         { name: "公司注册证书", meta: "certificate.pdf · 已验证", state: "已通过", tone: "teal" },
@@ -78,7 +78,7 @@
     },
     {
       id: "C-2026-0588", name: "林雅雯", enName: "YA WEN LIN", type: "个人", region: "中国大陆", agent: "周辰",
-      status: "已批准", risk: "低", updated: "昨天 16:20", owner: "交易员 周辰", dob: "1987-11-03", idMasked: "E9••••(8)",
+      status: "已排单", risk: "低", updated: "今天 10:18", owner: "交易员 周辰", dob: "1987-11-03", idMasked: "E9••••(8)",
       phone: "+86 138 •••• 9077", email: "yawen••@mail.com", source: "已有客户", business: "SINO",
       documents: [
         { name: "身份证明", meta: "passport.pdf · 有效至 2031-08", state: "已通过", tone: "teal" },
@@ -96,14 +96,19 @@
         applicationPdf: { filename: "APP-20260713-0588_v1.pdf", name: "APP-20260713-0588_v1.pdf", url: "assets/trustpass-stage1-template.pdf" },
         signedPdf: { filename: "APP-20260713-0588_signed.pdf", name: "APP-20260713-0588_signed.pdf", url: "assets/trustpass-stage1-template.pdf" }
       },
+      statusLog: [
+        { from: "审核通过", to: "已排单", operator: "交易员 杨澜", time: "今天 10:18", note: "排单 SCH-20260819-001 已提交审核" },
+        { from: "材料审核中", to: "审核通过", operator: "合规 Tina Lau", time: "2026-04-18 14:06", note: "合规审核标记通过" }
+      ],
       timeline: [
+        { title: "排单已提交", detail: "SCH-20260819-001 · 美元出款排单已提交审核", role: "交易员 杨澜", time: "今天 10:18" },
         { title: "追加流水", detail: "为新额度申请上传最近三个月流水", role: "交易员 周辰", time: "昨天 16:20" },
         { title: "客户准入通过", detail: "低风险个人客户", role: "合规 Tina", time: "2026-04-18 14:06" }
       ]
     },
     {
       id: "C-2026-0711", name: "赵明远", enName: "MING YUAN ZHAO", type: "个人", region: "中国大陆", agent: "杨澜",
-      status: "待合规审核", risk: "高", updated: "昨天 15:04", owner: "合规 Tina", dob: "1979-02-27", idMasked: "P1••••(4)",
+      status: "材料审核中", risk: "高", updated: "昨天 15:04", owner: "合规 Tina", dob: "1979-02-27", idMasked: "P1••••(4)",
       phone: "+86 186 •••• 1204", email: "zmy••@mail.com", source: "交易员 转介", business: "SGB",
       documents: [
         { name: "护照", meta: "passport.pdf · 已验证", state: "已通过", tone: "teal" },
@@ -113,14 +118,21 @@
     },
     {
       id: "C-2026-0677", name: "Aurora Capital Pte. Ltd.", enName: "AURORA CAPITAL PTE. LTD.", type: "企业", region: "新加坡", agent: "陈浩",
-      status: "银行处理中", risk: "中", updated: "07-08 11:48", owner: "合规 Amy", dob: "2021-09-15", idMasked: "UEN 2021•••72R",
+      status: "交易中", risk: "中", updated: "07-08 16:40", owner: "运营 陈文静", dob: "2021-09-15", idMasked: "UEN 2021•••72R",
       phone: "+65 •••• 1742", email: "finance••@aurora.sg", source: "交易员 转介", business: "SGB",
       documents: [{ name: "完整 KYB 文件包", meta: "kyb_bundle.zip · 12 项", state: "已通过", tone: "teal" }],
-      timeline: [{ title: "已送银行", detail: "银行受理编号 BK-88219", role: "合规 Amy", time: "07-08 11:48" }]
+      statusLog: [
+        { from: "已排单", to: "交易中", operator: "高级交易员 陈文静", time: "07-08 16:40", note: "HKD 702,000 等值交易处理中" },
+        { from: "审核通过", to: "已排单", operator: "交易员 陈浩", time: "07-08 12:05", note: "排单已提交审核" }
+      ],
+      timeline: [
+        { title: "标记交易中", detail: "HKD 702,000 等值交易处理中", role: "高级交易员 陈文静", time: "07-08 16:40" },
+        { title: "合规审核通过", detail: "企业 KYB 材料合规标记通过", role: "合规 Tina", time: "07-08 11:48" }
+      ]
     },
     {
       id: "C-2026-0662", name: "吴思颖", enName: "SI YING NG", type: "个人", region: "中国香港", agent: "杨澜",
-      status: "材料未完成", risk: "低", updated: "07-07 14:22", owner: "交易员 杨澜", dob: "1995-01-19", idMasked: "A6••••(0)",
+      status: "未准入", risk: "低", updated: "07-07 14:22", owner: "交易员 杨澜", dob: "1995-01-19", idMasked: "A6••••(0)",
       phone: "+852 •••• 9031", email: "syng••@mail.com", source: "门店到访", business: "SINO",
       documents: [
         { name: "香港身份证", meta: "hkid_front.jpg · 已上传", state: "已识别", tone: "teal" },
@@ -130,7 +142,7 @@
     },
     {
       id: "C-2026-0658", name: "Blue Harbor Services Limited", enName: "BLUE HARBOR SERVICES LIMITED", type: "企业", region: "中国香港", agent: "周辰",
-      status: "待运营审核", risk: "中", updated: "07-07 10:15", owner: "运营 陈文静", dob: "2020-06-30", idMasked: "BR 712•••91",
+      status: "材料审核中", risk: "中", updated: "07-07 10:15", owner: "运营 陈文静", dob: "2020-06-30", idMasked: "BR 712•••91",
       phone: "+852 •••• 5168", email: "admin••@blueharbor.hk", source: "中介转介", business: "SGB",
       documents: [
         { name: "商业登记证", meta: "br_2026.pdf · 已上传", state: "待检查", tone: "amber" },
@@ -140,17 +152,25 @@
     },
     {
       id: "C-2026-0636", name: "Mosaic Ventures Pte. Ltd.", enName: "MOSAIC VENTURES PTE. LTD.", type: "企业", region: "新加坡", agent: "杨澜",
-      status: "待提交银行", risk: "中", updated: "07-05 12:08", owner: "运营 陈文静", dob: "2019-12-02", idMasked: "UEN 2019•••44K",
+      status: "审核通过", risk: "中", updated: "07-05 12:08", owner: "运营 陈文静", dob: "2019-12-02", idMasked: "UEN 2019•••44K",
       phone: "+65 •••• 3029", email: "ops••@mosaic.sg", source: "交易员 转介", business: "SGB",
       documents: [{ name: "企业开户文件包", meta: "mosaic_kyb.zip · 10 项", state: "已通过", tone: "teal" }],
       timeline: [{ title: "合规通过", detail: "等待运营提交银行批次", role: "合规 Tina", time: "07-05 12:08" }]
     },
     {
       id: "C-2026-0628", name: "李婉晴", enName: "WAN QING LI", type: "个人", region: "中国香港", agent: "周辰",
-      status: "已批准", risk: "低", updated: "07-04 09:36", owner: "交易员 周辰", dob: "1989-10-21", idMasked: "M3••••(7)",
+      status: "已成交", risk: "低", updated: "07-06 15:12", owner: "交易员 周辰", dob: "1989-10-21", idMasked: "M3••••(7)",
       phone: "+852 •••• 7640", email: "wqli••@mail.com", source: "老客户推荐", business: "SINO",
       documents: [{ name: "完整 KYC 文件包", meta: "kyc_bundle.zip · 8 项", state: "已通过", tone: "teal" }],
-      timeline: [{ title: "客户准入通过", detail: "银行返回通过结果", role: "运营 陈文静", time: "07-04 09:36" }]
+      statusLog: [
+        { from: "交易中", to: "已成交", operator: "高级交易员 陈文静", time: "07-06 15:12", note: "客户交易完成，凭证已归档" },
+        { from: "审核通过", to: "交易中", operator: "高级交易员 陈文静", time: "07-05 10:02", note: "客户开始首笔交易" }
+      ],
+      timeline: [
+        { title: "标记已成交", detail: "客户交易完成，凭证已归档", role: "高级交易员 陈文静", time: "07-06 15:12" },
+        { title: "标记交易中", detail: "客户开始首笔交易", role: "高级交易员 陈文静", time: "07-05 10:02" },
+        { title: "客户准入通过", detail: "合规审核标记通过", role: "合规 Tina", time: "07-04 09:36" }
+      ]
     },
     {
       id: "C-2026-0614", name: "Sunrise Exchange HK Limited", enName: "SUNRISE EXCHANGE HK LIMITED", type: "企业", region: "中国香港", agent: "陈浩",
@@ -161,25 +181,30 @@
     },
     {
       id: "C-2026-0607", name: "郑凯文", enName: "KAIVEN CHENG", type: "个人", region: "中国大陆", agent: "杨澜",
-      status: "银行审核中", risk: "中", updated: "07-02 11:09", owner: "合规 Amy", dob: "1984-05-28", idMasked: "E1••••(5)",
+      status: "审核通过", risk: "中", updated: "07-02 11:09", owner: "交易员 杨澜", dob: "1984-05-28", idMasked: "E1••••(5)",
       phone: "+86 136 •••• 0207", email: "kcheng••@mail.com", source: "交易员 转介", business: "SGB",
-      documents: [{ name: "银行流水", meta: "statement_3m.pdf · 已提交银行", state: "已通过", tone: "teal" }],
-      timeline: [{ title: "银行审核中", detail: "批次 BK-20260702-031 等待回传", role: "运营 陈文静", time: "07-02 11:09" }]
+      documents: [{ name: "银行流水", meta: "statement_3m.pdf · 已通过审核", state: "已通过", tone: "teal" }],
+      timeline: [{ title: "合规审核通过", detail: "个人 KYC 材料合规标记通过，可发起排单", role: "合规 Tina", time: "07-02 11:09" }]
     },
     {
       id: "C-2026-0599", name: "Pacific Crest Holdings Ltd.", enName: "PACIFIC CREST HOLDINGS LTD.", type: "企业", region: "中国香港", agent: "周辰",
-      status: "已终止", risk: "中", updated: "07-01 15:27", owner: "运营 陈文静", dob: "2016-02-17", idMasked: "BR 539•••77",
+      status: "未准入", risk: "中", updated: "07-01 15:27", owner: "运营 陈文静", dob: "2016-02-17", idMasked: "BR 539•••77",
       phone: "+852 •••• 4438", email: "corp••@pacificcrest.hk", source: "已有客户", business: "SINO",
       documents: [{ name: "历史 KYB 文件", meta: "archive_2025.zip · 已归档", state: "已通过", tone: "teal" }],
       timeline: [{ title: "业务终止", detail: "客户主动取消本次申请", role: "运营 陈文静", time: "07-01 15:27" }]
     }
   ].map((customer, index) => ({
     ...customer,
+    documents: (customer.documents || []).map(doc => ({
+      ...doc,
+      flow: doc.flow || (customer.status === "未准入" ? "library" : "compliance"),
+      flowLabel: doc.flowLabel || (customer.status === "未准入" ? "仅存材料库" : "已提交合规")
+    })),
     clientNo: String(20001 + index),
     customerKind: customer.type === "企业" ? "中介" : "直客",
     subCustomers: customer.type === "企业" ? [
-      { id: `${customer.id}-SUB-01`, name: sampleSubCustomers(customer)[0], clientNo: index === 1 ? "20012" : "", status: "资料待补", region: customer.region, type: "个人" },
-      { id: `${customer.id}-SUB-02`, name: sampleSubCustomers(customer)[1], clientNo: "", status: "待建档", region: customer.region, type: "个人" }
+      { id: `${customer.id}-SUB-01`, name: sampleSubCustomers(customer)[0], clientNo: index === 1 ? "20012" : "", status: "未准入", region: customer.region, type: "个人" },
+      { id: `${customer.id}-SUB-02`, name: sampleSubCustomers(customer)[1], clientNo: "", status: "未准入", region: customer.region, type: "个人" }
     ] : []
   }));
 
@@ -286,65 +311,65 @@
     scenarios: [
       {
         id: 1,
-        code: "13",
-        name: "港币/美元/外币 私户打款买U",
-        processDescription: "流程：\n1. 扣款人民币的银行卡流水审核通过后，可以进入 KYC 流程或按 KYC 要求补充文件。\n2. 同名打款申请完成当天 11:30 后报价。\n3. 当天报备后安排人民币账户打款，提前一天预约锁定汇率。\n4. 出款人民币账户的单笔和当天限额需确认后才可安排。\n5. 完成出款后提供截图证明，必须由已审核通过流水的银行卡打出。\n6. 查账后通知客户，一般 30 分钟内。\n7. 到账后 2-3 小时内打出外币到客户报备的指定出款账户，收到款项后交易结束。",
+        code: "1",
+        name: "港币/美元/外币私户打款买U",
+        processDescription: "1. 审核流水，流水通过后我们才能接收该账户款项。\n2. 给我们对应的 KYC 和开户所需的文件。\n3. KYC 和 VA 账户通过后可以开始交易。\n4. 我们提供收款账户信息、收款账户名。\n5. 客户打款到指定的收款账户，提供水单给我们查账，到账后我们通知。\n6. 按照收款当天的汇率计算对应的 U 数，并跟客户确认收 U 地址，排单回 U。\n7. 回 U 后发出 U 水单给客户，客户查收，交易完成。",
         channels: [
           {
-            id: "sgb",
+            id: "s1_sgb",
             name: "SGB",
             theme: "red",
             restrictions: [
-              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
-              { type: "special_proof", content: "如收款人非公户出款人的法人、股东或董事，需要提供关系证明；如属董事或股东，请递交证明。" },
-              { type: "special_proof", content: "资料提交齐全后，如后续遇到银行合规审查需要，仍可能需要提供更多额外文件。" }
+              { type: "bank_ban", content: "暂不接受这三家银行出款给我们：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
               {
-                title: "SGB 出款 - 内地出款人民币材料",
+                title: "SGB - 个人出款材料",
                 items: [
-                  kycEngineItem("公户最近一个月月结单", "需要提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
-                  kycEngineItem("营业执照", "清晰彩照正本或副本。"),
-                  kycEngineItem("法人身份证明", "身份证正反面或护照。")
-                ]
-              },
-              {
-                title: "SGB 出款 - 收款外币私户材料",
-                items: [
-                  kycEngineItem("身份证明文件", "内地人、香港人、台湾人、外国人的护照或通行证，只接受清晰彩色版本原件。"),
-                  kycEngineItem("TP onboarding form", "合规入驻表格。"),
-                  kycEngineItem("换汇原因说明", "详细说明本次换汇用途与背景。", "text"),
-                  kycEngineItem("收款银行账户信息", "地址、账户名称、收款银行名称、开户国家/地区、卡号/IBAN、Swift Code/BIC、ABA。", "bank_account")
+                  kycEngineItem("有效的个人身份证明文件", "护照 / 香港永居身份证 / 通行证等。"),
+                  kycEngineItem("Bitvast Onboarding Form", "入驻表格。"),
+                  kycEngineItem("最近一个月出款账户流水", "需能证明资金来源。", "file", true, "1m"),
+                  kycEngineItem("手持证件及自愿买U声明自拍照", "手持护照/通行证/回乡证以及自愿买U声明自拍一张，具体格式参考示范图片，地址要发文字版本。")
                 ]
               }
             ]
           },
           {
-            id: "sino",
+            id: "s1_sino",
             name: "SINO",
-            theme: "red",
+            theme: "blue",
             restrictions: [
-              { type: "bank_ban", content: "不支持同名打香港星展银行（DBS HK）、香港花旗（CITI HK）、新加坡花旗（CITI SG）。渣打银行只支持香港渣打（SCB HK）。" },
-              { type: "special_proof", content: "如收款人非公户出款人的法人、股东或董事，需要提供关系证明；如属董事或股东，请递交证明。" }
+              { type: "special_proof", content: "此业务方向 SINO 渠道暂停，恢复前请改用 SGB 或外部供应商渠道。" }
+            ],
+            sections: []
+          },
+          {
+            id: "s1_vendor",
+            name: "外部供应商",
+            theme: "amber",
+            restrictions: [
+              { type: "special_proof", content: "环盛 2109 渠道只接受香港本地资金。" },
+              { type: "special_proof", content: "以上资料提交齐全后，因应银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
               {
-                title: "SINO 出款 - 内地出款人民币材料",
+                title: "环盛 2109 - 私户港币/外币买U",
                 items: [
-                  kycEngineItem("公户最近一个月月结单", "需完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
-                  kycEngineItem("营业执照", "营业执照彩色扫描件。"),
-                  kycEngineItem("法人身份证明", "法人身份证或护照。")
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：永居身份证+最近 3 个月有效地址证明；外国人：护照+3 个月内的香港银行月结单作为地址证明。"),
+                  kycEngineItem("出款户口最近 3 个月月结单", "完整月结单，不可遮挡。", "file", true, "3m"),
+                  kycEngineItem("任职公司全称 + 职位", "以文字提供。", "text"),
+                  kycEngineItem("出款人手持证件和自愿买U证明自拍", "详细参考示范图片，收 U 地址需要发文字版。")
                 ]
               },
               {
-                title: "SINO 出款 - 收款外币私户材料",
+                title: "MSB - 私户外币买U（3 月 16 日更新）",
                 items: [
-                  kycEngineItem("身份证明文件", "内地人、香港人、台湾人、外国人原件扫描。"),
-                  kycEngineItem("三个月内有效的地址证明", "水电煤信件、政府信件、中国身份证均可。", "file", true, "3m"),
-                  kycEngineItem("近三个月银行流水", "3 个月内有效，不一定是收款户口银行的月结单。", "file", true, "3m"),
-                  kycEngineItem("手持护照/通行证/回乡证自拍", "或核证副本 Certified True Copy，二选一。"),
-                  kycEngineItem("签署好的同名打款申请表", "只接受扫描版本，签名要用正楷签署全名，需清晰可辨认。"),
-                  kycEngineItem("收款银行账户信息", "包含详细 Swift Code / ABA 等信息。", "bank_account")
+                  kycEngineItem("客户出账账户银行流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源，否则会要求更长时段的流水或额外文件。", "file", true, "1m"),
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色原件，证件不接受水印版本。"),
+                  kycEngineItem("三个月有效的地址证明", "银行月结单 / 水电煤信件 / 政府信件 / 中国身份证均可。", "file", true, "3m"),
+                  kycEngineItem("手持证件及自愿买U声明自拍照", "具体格式参考示范图片，地址要发文字版本。"),
+                  kycEngineItem("签署我们公司的 KYC 表格一份", "只接受扫描版本，签名要用正楷字体签署全名，要清晰可辨认。")
                 ]
               }
             ]
@@ -353,62 +378,60 @@
       },
       {
         id: 2,
-        code: "14",
-        name: "港币/美元/外币 公户打款买U",
-        processDescription: "企业账户以港币/美元/外币打款买 U。需核验企业主体、董事授权、出款流水、资金来源与收款关系证明。",
+        code: "2",
+        name: "港币/美元/外币公户打款买U",
+        processDescription: "1. 审核流水，流水通过后我们才能接收该账户款项。\n2. KYC 审核，KYC 完成后可以进行交易。\n3. 交易前报价，接受报价后可以下一步打款。\n4. 我们提供收款账户信息、收款账户名。\n5. 客户打款到指定的收款账户，提供水单给我们查账，到账后我们通知。\n6. 按照当天汇率计算对应的 U 数，并跟客户确认收 U 地址，排单回 U。\n7. 回 U 后发出 U 水单给客户，客户查收，交易完成。",
         channels: [
           {
-            id: "sgb_corp_buy_u",
+            id: "s2_sgb",
             name: "SGB",
             theme: "red",
             restrictions: [
-              { type: "bank_ban", content: "暂不接受三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
-              { type: "special_proof", content: "如收款人与付款主体不一致，需要补充关系证明或授权说明。" }
+              { type: "bank_ban", content: "暂不接受这三家银行出款给我们：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
               {
-                title: "SGB 渠道 - 企业主体与授权材料",
+                title: "SGB - 企业主体与授权材料",
                 items: [
-                  kycEngineItem("BV Onboarding Form + Board Resolution", "签名需所有董事全名，并清晰公司公章与日期。"),
-                  kycEngineItem("BR/企业注册证书", "需显示已缴费或有效状态。"),
-                  kycEngineItem("CI/公司注册证书", "新成立公司需提供 NNC1。"),
-                  kycEngineItem("NAR1/周年申报表或 NNC1", "需有公司注册处收据或 barcode。")
+                  kycEngineItem("BV Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港身份证（香港需要永居），四角露出、无破损、信息完整、有效期内，彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "护照/港澳通行证、香港身份证，身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。")
                 ]
               },
               {
-                title: "SGB 渠道 - UBO/董事与资金来源",
+                title: "SGB - 资金来源与声明",
                 items: [
-                  kycEngineItem("董事和签署人身份证明", "身份证、护照或通行证彩色正反面。"),
-                  kycEngineItem("25%以上股权股东身份证明", "如股东为公司，需递交股东架构图。"),
-                  kycEngineItem("出款银行流水", "最近一个月流水，需完整显示交易对手信息。", "file", true, "1m")
+                  kycEngineItem("最新一个月出款账户流水证明", "同名账户，截止到入款当天。", "file", true, "1m"),
+                  kycEngineItem("董事手持护照及自愿买U证明合照", "董事手持护照和签署自愿买U证明同时拍照，格式参考示范图片。")
                 ]
               }
             ]
           },
           {
-            id: "sino_corp_buy_u",
+            id: "s2_sino",
             name: "SINO",
-            theme: "red",
+            theme: "blue",
             restrictions: [
-              { type: "bank_ban", content: "SINO 渠道暂不支持同名打香港星展银行、香港花旗、新加坡花旗。" },
-              { type: "special_proof", content: "需提交完整董事授权、股东结构和出款银行流水。" }
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
               {
-                title: "SINO 渠道 - 企业主体材料",
+                title: "SINO - 企业主体与授权材料",
                 items: [
-                  kycEngineItem("Onboarding Form + Board Resolution", "签名需所有董事全名，并清晰公司公章与日期。"),
-                  kycEngineItem("BR/企业注册证书", "需显示已缴费或有效状态。"),
-                  kycEngineItem("CI/公司注册证书", "公司注册证明文件。"),
-                  kycEngineItem("NAR1/周年申报表或 NNC1", "新成立公司提供 NNC1。")
-                ]
-              },
-              {
-                title: "SINO 渠道 - 身份与流水材料",
-                items: [
-                  kycEngineItem("所有董事和签署人身份证明", "身份证、护照或通行证彩色正反面。"),
-                  kycEngineItem("25%以上股权股东身份证明", "自然人股东需身份证明，公司股东需股权结构。"),
-                  kycEngineItem("公户最近一个月月结单", "需显示最新一个月且日期到提交前一天。", "file", true, "1m")
+                  kycEngineItem("公户最近一个月流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("BR / 企业注册证书", "彩色扫描件。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港永居身份证，四角露出、无破损、信息完整、有效期内，彩色原件。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。"),
+                  kycEngineItem("Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("董事手持护照及自愿买U声明合照", "声明文字：本人XXX为XXX公司董事，自愿跟 Big Big Leaf Limited 公司购买数字资产，我的收币地址是：xxxxxx，附签名和日期。")
                 ]
               }
             ]
@@ -417,197 +440,722 @@
       },
       {
         id: 3,
-        code: "15",
-        name: "港币/美元/外币 私户打款换私户人民币",
-        processDescription: "私户外币打款换私户人民币。重点核验客户身份、出款方向流水、换汇原因和收款人民币方向的账户信息。",
+        code: "3",
+        name: "港币/美元/外币私户打款换私户人民币",
+        processDescription: "1. 审核流水，流水通过后我们才能接收该账户款项。\n2. 给我们对应的 KYC 和开户所需的文件。\n3. KYC 和 VA 账户通过后可以开始交易。\n4. 我们提供收款账户信息，收款账户名跟客户同名。\n5. 客户提供收款人民币的账户信息（姓名、银行、支行信息、账户号码）。\n6. 客户打款到指定的收款账户，提供水单给我们查账，到账后我们通知。\n7. T+1 当天完成付款人民币到客户指定的人民币账户。\n8. 收款人需在 20 分钟内查收人民币到账情况。\n9. 交易完成。",
         channels: [
           {
-            id: "sgb_private_fx_private",
+            id: "s3_sgb",
             name: "SGB",
             theme: "red",
             restrictions: [
-              { type: "special_proof", content: "如出款人与收款人非同名，需提交关系证明。" },
-              { type: "bank_ban", content: "暂不接受三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" }
+              { type: "special_proof", content: "如出款和收款非同名，请提供关系证明。" },
+              { type: "bank_ban", content: "暂不接受这三家银行出款给我们：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SGB 渠道 - 私户身份与地址材料", items: [
-                kycEngineItem("身份证明文件", "身份证、护照、通行证或驾驶证清晰彩色版本。"),
-                kycEngineItem("三个月内有效的地址证明", "水电煤账单、政府信件或银行信件均可。", "file", true, "3m"),
-                kycEngineItem("TP onboarding form", "填写并签署完整。")
-              ] },
-              { title: "SGB 渠道 - 资金与收款材料", items: [
-                kycEngineItem("出款银行流水", "最近一个月流水，需显示资金来源。", "file", true, "1m"),
-                kycEngineItem("换汇原因", "说明换汇用途与背景。", "text"),
-                kycEngineItem("收款人民币账户信息", "账户姓名、银行名称、开户地址与账号。", "bank_account")
-              ] }
+              {
+                title: "SGB - 出资方向材料",
+                items: [
+                  kycEngineItem("客户出账账户银行流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色版本，证件正反面齐全。"),
+                  kycEngineItem("TP Onboarding Form", "入驻表格。"),
+                  kycEngineItem("换汇原因", "说明本次换汇用途与背景。", "text"),
+                  kycEngineItem("出款银行账户信息", "账户名称、出款银行名称、出款人开户国家/地区、货币种类。", "bank_account")
+                ]
+              },
+              {
+                title: "SGB - 人民币收款方向材料",
+                items: [
+                  kycEngineItem("收款人身份证正反面 + 通行证/护照", "彩色清晰版本。")
+                ]
+              }
             ]
           },
           {
-            id: "sino_private_fx_private",
+            id: "s3_sino",
             name: "SINO",
-            theme: "red",
+            theme: "blue",
             restrictions: [
-              { type: "special_proof", content: "如同名关系无法核验，需补充关系证明或资金用途证明。" }
+              { type: "special_proof", content: "此业务方向 SINO 渠道暂停。" }
             ],
-            sections: [
-              { title: "SINO 渠道 - 私户基础材料", items: [
-                kycEngineItem("身份证明文件", "身份证、护照或通行证彩色版本。"),
-                kycEngineItem("三个月内有效的地址证明", "日期需在三个月内。", "file", true, "3m"),
-                kycEngineItem("近三个月银行流水", "不一定是收款户口银行的月结单。", "file", true, "3m")
-              ] },
-              { title: "SINO 渠道 - 收款人民币信息", items: [
-                kycEngineItem("换汇原因说明", "填写本次业务背景。", "text"),
-                kycEngineItem("收款人民币账户信息", "账户姓名、银行、开户地址、账号。", "bank_account")
-              ] }
-            ]
+            sections: []
           }
         ]
       },
       {
         id: 4,
-        code: "16",
-        name: "港币/美元/外币 公户打款换私户人民币",
-        processDescription: "企业外币账户打款换私户人民币。需核验企业主体、董事股东身份、出款流水、私户收款人与公司关系。",
+        code: "4",
+        name: "港币/美元/外币公户打款换私户人民币",
+        processDescription: "1. 审核流水，流水通过后我们才能接收该账户款项，并提前询问客户收款人民币的人和出款公户之间的关系证明。\n2. KYC 审核，KYC 完成后可以进行交易。\n3. 交易前报价，客户接受价格后可以进入下一步打款。\n4. 我们提供收款账户信息给客户。\n5. 客户提供收款人民币的账户信息（姓名、银行、支行信息、账户号码）。\n6. 客户打款到指定的收款账户，提供水单给我们查账，到账后我们通知。\n7. T+1 当天完成付款人民币到客户指定的人民币账户。\n8. 收款人需在 20 分钟内查收人民币到账情况。\n9. 交易完成。",
         channels: [
           {
-            id: "sgb_corp_fx_private",
+            id: "s4_sgb",
             name: "SGB",
             theme: "red",
             restrictions: [
-              { type: "special_proof", content: "私户收款人需提供与出款公司之间的关系证明。" }
+              { type: "bank_ban", content: "暂不接受这三家银行出款给我们：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SGB 渠道 - 企业主体材料", items: [
-                kycEngineItem("TP Onboarding Form + Board Resolution", "签名需所有董事全名，并清晰公司公章与日期。"),
-                kycEngineItem("BR/企业注册证书", "需显示有效状态。"),
-                kycEngineItem("CI/公司注册证书", "公司注册证明文件。"),
-                kycEngineItem("NAR1/周年申报表或 NNC1", "新成立公司提供 NNC1。")
-              ] },
-              { title: "SGB 渠道 - 私户收款与流水材料", items: [
-                kycEngineItem("董事和签署人身份证明", "身份证、护照或通行证。"),
-                kycEngineItem("出款银行最近一个月流水", "需完整显示交易对手信息。", "file", true, "1m"),
-                kycEngineItem("私户收款人身份证明", "收款人证件正反面。"),
-                kycEngineItem("收款人与公司关系证明", "证明收款人与出款公司之间的关系。")
-              ] }
+              {
+                title: "SGB - 香港公户公司出款材料",
+                items: [
+                  kycEngineItem("TP Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港身份证（香港需要永居），彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。"),
+                  kycEngineItem("最新一个月出款账户流水证明", "同名账户，截止到出款当天。", "file", true, "1m")
+                ]
+              },
+              {
+                title: "SGB - 私户收款人民币材料",
+                items: [
+                  kycEngineItem("收款私户的身份证正反面", "彩色清晰版本。"),
+                  kycEngineItem("收款人与出款公户的关系证明", "收款人民币的人和出款公户之间的关系证明。")
+                ]
+              }
             ]
           },
           {
-            id: "sino_corp_fx_private",
+            id: "s4_sino",
             name: "SINO",
-            theme: "red",
+            theme: "blue",
             restrictions: [
-              { type: "bank_ban", content: "SINO 渠道受限银行需按黑名单配置拦截。" }
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SINO 渠道 - 企业主体材料", items: [
-                kycEngineItem("Onboarding Form + Board Resolution", "需董事签名、公司章与日期。"),
-                kycEngineItem("BR/企业注册证书", "有效企业注册证明。"),
-                kycEngineItem("CI/公司注册证书", "公司注册证明文件。"),
-                kycEngineItem("股东架构图", "需显示股东关系与持股比例。")
-              ] },
-              { title: "SINO 渠道 - 个人收款材料", items: [
-                kycEngineItem("私户收款人身份证明", "身份证或护照彩色版本。"),
-                kycEngineItem("收款人民币账户信息", "账户、银行、开户地址。", "bank_account"),
-                kycEngineItem("出款银行流水", "最近一个月流水。", "file", true, "1m")
-              ] }
+              {
+                title: "SINO - 香港公户公司出款材料",
+                items: [
+                  kycEngineItem("公户最近一个月流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("BR / 企业注册证书", "彩色扫描件。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港永居身份证，彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。")
+                ]
+              },
+              {
+                title: "SINO - 私户收款人民币材料",
+                items: [
+                  kycEngineItem("收款私户的身份证正反面", "彩色清晰版本。"),
+                  kycEngineItem("收款人与出款公户的关系证明", "收款人民币的人和出款公户之间的关系证明。")
+                ]
+              }
             ]
           }
         ]
       },
       {
         id: 5,
-        code: "17",
+        code: "5",
         name: "卖U换私户美金/港币/其他外币转账",
-        processDescription: "客户卖 U 后换入私户美金、港币或其他外币转账。需核验身份、地址、资金来源、收款银行信息和同名/非同名关系。",
+        processDescription: "1. POBO 开户以及 KYC 审核。\n2. 完成开户及合规审核后，可以交易。\n3. 当天报价。\n4. 接受报价后，出 U 前要进行 KYA、KYT 审核。\n5. KYA、KYT 审核完毕，我们发地址，客户出 U，发出 U 截图。\n6. 我方查收到 U 之后，客户提供出款信息（6 要素）。\n7. 安排 T+1（第二天）出款，出款后发水单给客户。\n8. 客户注意查收款项，交易完成。",
         channels: [
           {
-            id: "sgb_sell_u_private",
+            id: "s5_sgb",
             name: "SGB",
             theme: "red",
             restrictions: [
-              { type: "bank_ban", content: "暂不接受三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" }
+              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SGB 渠道 - 客户身份材料", items: [
-                kycEngineItem("有效身份证明文件", "护照、香港永久居民身份证或通行证。"),
-                kycEngineItem("Bitvast Onboarding Form", "完整填写并签署。"),
-                kycEngineItem("收款银行账户信息", "账户名、银行名、开户国家/地区、卡号/IBAN、Swift Code/BIC。", "bank_account")
-              ] },
-              { title: "SGB 渠道 - 资金用途与证明", items: [
-                kycEngineItem("换汇原因", "填写换汇用途。", "text"),
-                kycEngineItem("同名或关系证明", "非同名需提供关系证明。")
-              ] }
+              {
+                title: "SGB - 个人收款材料",
+                items: [
+                  kycEngineItem("有效的个人身份证明文件", "护照 / 香港永居身份证 / 通行证等。"),
+                  kycEngineItem("Bitvast Onboarding Form", "入驻表格。"),
+                  kycEngineItem("收款银行账户信息", "收款人地址、账户名称、收款银行名称、开户国家/地区、账户号码、Swift Code/BIC、ABA（美国地区银行需要）、货币。", "bank_account")
+                ]
+              }
             ]
           },
           {
-            id: "sino_sell_u_private",
+            id: "s5_sino",
             name: "SINO",
-            theme: "red",
+            theme: "blue",
             restrictions: [
-              { type: "bank_ban", content: "不支持同名打 DBS HK、CITI HK、CITI SG；渣打仅支持 SCB HK。" }
+              { type: "bank_ban", content: "不支持同名打香港星展银行（DBS HK）、香港花旗（CITI HK）、新加坡花旗（CITI SG）；渣打银行只支持香港渣打（SCB HK）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SINO 渠道 - 私户收款材料", items: [
-                kycEngineItem("身份证明文件", "身份证、护照或通行证彩色版本。"),
-                kycEngineItem("三个月内有效的地址证明", "水电煤、政府信件或中国身份证均可。", "file", true, "3m"),
-                kycEngineItem("近三个月银行流水", "不一定是收款户口银行的月结单。", "file", true, "3m"),
-                kycEngineItem("手持证件自拍或 CTC", "手持护照/通行证/回乡证自拍，或 Certified True Copy。")
-              ] },
-              { title: "SINO 渠道 - 收款银行材料", items: [
-                kycEngineItem("签署好的同名打款申请表", "签名需用正楷签署全名。"),
-                kycEngineItem("收款银行账户信息", "完整外币收款账户信息。", "bank_account")
-              ] }
+              {
+                title: "SINO - 个人收款材料",
+                items: [
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色版本，证件不接受水印版本。"),
+                  kycEngineItem("三个月有效的地址证明", "水电煤信件 / 政府信件 / 中国身份证均可。", "file", true, "3m"),
+                  kycEngineItem("无遮挡版本月结单", "3 个月内有效，不一定是收款户口银行的月结单。", "file", true, "3m"),
+                  kycEngineItem("手持证件自拍照或核证副本（二选一）", "自拍接受水印但不可遮挡面部和证件；核证副本 Certified True Copy 需有从业资格的注册会计师出具，如需我司配合出具每次收费 900 HKD，同一客户累计满 10 万 USD 交易可豁免。"),
+                  kycEngineItem("签署后的同名打款申请表格一份", "只接受扫描版本，职业栏目请提供完整公司名加职位，签名要用正楷字体签署全名。"),
+                  kycEngineItem("签署我们公司的 KYC 表格一份", "只接受扫描版本，签名要用正楷字体签署全名。"),
+                  kycEngineItem("收款银行账户信息", "收款人地址、账户名称、收款银行名称、开户国家/地区、账户号码、Swift Code/BIC、ABA、货币。", "bank_account")
+                ]
+              }
             ]
           }
         ]
       },
       {
         id: 6,
-        code: "18",
+        code: "6",
         name: "卖U换香港公户美金/港币/其他外币转账",
-        processDescription: "客户卖 U 后换入香港公户美金、港币或其他外币转账。需核验香港公司主体、董事股东、UBO 和收款公户信息。",
+        processDescription: "1. KYC 审核。\n2. 完成合规审核后，可以交易。\n3. 当天报价。\n4. 接受报价后，出 U 前要进行 KYA、KYT 审核。\n5. KYA、KYT 审核完毕，我们发地址，客户出 U，发出 U 截图。\n6. 我方查收到 U 之后，客户提供出款信息（6 要素）。\n7. 安排 T+1（第二天）出款，出款后会发水单给客户。\n8. 客户注意查收款项，交易完成。",
         channels: [
           {
-            id: "sgb_sell_u_hk_corp",
+            id: "s6_sgb",
             name: "SGB",
             theme: "red",
             restrictions: [
-              { type: "special_proof", content: "公户收款需核验董事签名、公司章、日期及 UBO 结构。" }
+              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SGB 渠道 - 香港公司主体材料", items: [
-                kycEngineItem("BV Onboarding Form + Board Resolution", "签名需所有董事全名，并清晰公司公章与日期。"),
-                kycEngineItem("BR/企业注册证书", "需显示已缴费。"),
-                kycEngineItem("CI/公司注册证书", "公司注册证明文件。"),
-                kycEngineItem("NAR1/周年申报表或 NNC1", "需有收据或 barcode。")
-              ] },
-              { title: "SGB 渠道 - 董事股东与银行信息", items: [
-                kycEngineItem("董事和签署人身份证明", "身份证、护照或通行证。"),
-                kycEngineItem("25%以上股权股东身份证明", "股东为公司需提供股东架构图。"),
-                kycEngineItem("收款公户银行账户信息", "银行名称、账号、Swift Code/BIC、IBAN。", "bank_account")
-              ] }
+              {
+                title: "SGB - 企业收款材料",
+                items: [
+                  kycEngineItem("BV Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港身份证（香港需要永居），彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。")
+                ]
+              }
             ]
           },
           {
-            id: "sino_sell_u_hk_corp",
+            id: "s6_sino",
             name: "SINO",
-            theme: "red",
+            theme: "blue",
             restrictions: [
-              { type: "bank_ban", content: "SINO 渠道需按受限银行清单校验公户收款银行。" }
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
             ],
             sections: [
-              { title: "SINO 渠道 - 香港公司主体材料", items: [
-                kycEngineItem("Onboarding Form + Board Resolution", "董事签名、公司章与日期。"),
-                kycEngineItem("BR/企业注册证书", "有效企业注册证明。"),
-                kycEngineItem("CI/公司注册证书", "公司注册证明文件。"),
-                kycEngineItem("NAR1/周年申报表或 NNC1", "新成立公司提供 NNC1。")
-              ] },
-              { title: "SINO 渠道 - UBO 与银行材料", items: [
-                kycEngineItem("所有董事和签署人身份证明", "彩色正反面。"),
-                kycEngineItem("25%以上股权股东身份证明", "自然人或公司股东均需穿透。"),
-                kycEngineItem("股东架构图", "显示董事签名、单位、公司章和日期。"),
-                kycEngineItem("收款公户银行账户信息", "完整公户外币账户资料。", "bank_account")
-              ] }
+              {
+                title: "SINO - 企业收款材料",
+                items: [
+                  kycEngineItem("Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港永居身份证，彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 7,
+        code: "7",
+        name: "卖U换私户人民币转账",
+        processDescription: "1. 先提供账户收款人的证件给我们做 KYC，KYC 通过后方可交易。\n2. 当天报价。\n3. 接受报价后，出 U 前要进行 KYA、KYT 审核。\n4. KYA、KYT 审核完毕，客户出 U，发出 U 截图。\n5. 我方查收到 U 之后，客户提供收款账户信息（姓名+银行+支行+账户号码）。\n6. 付款人民币到客户指定的账户（尽量当天安排；优质人民币需要等待，当天不能安排则顺延到第二个工作日）。\n7. 收款人需在我们提供出款水单 20 分钟内查收人民币到账情况。\n8. 交易完成。",
+        channels: [
+          {
+            id: "s7_rmb",
+            name: "人民币专列",
+            theme: "teal",
+            restrictions: [],
+            sections: [
+              {
+                title: "人民币专列 - 收款人材料",
+                items: [
+                  kycEngineItem("收款人身份证正反面", "彩色清晰版本。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 8,
+        code: "8",
+        name: "私户人民币转账买U",
+        processDescription: "1. 出款人民币的银行卡流水审核通过后，可以接受做生意。\n2. 完成 KYC 要求提供文件。\n3. 每天 11:30 后报价。\n4. 接受当天报价后安排人民币账户打款（提前一天预约需求）。注意出款人民币账户的单笔和当天限额，确认限额才可以下单安排。\n5. 客户打款人民币，完成后提供截图证明出款（必须是已经审核通过流水的卡打出，否则不承认该款项）。\n6. 我方查账，到账通知客户（一般 30 分钟内）。\n7. 到账后当天回 U，客户收到 U，交易结束。",
+        channels: [
+          {
+            id: "s8_rmb",
+            name: "人民币专列",
+            theme: "teal",
+            restrictions: [],
+            sections: [
+              {
+                title: "人民币专列 - 出款人材料",
+                items: [
+                  kycEngineItem("出款人民币账户一个月银行流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("出款人身份证正反面 + 护照/通行证", "名字 hit 中时需要提供护照/通行证。"),
+                  kycEngineItem("出款人手持证件和自愿买U证明自拍", "详细参考示范图片，收 U 地址需要发文字版。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 9,
+        code: "9",
+        name: "U换内地公户人民币",
+        processDescription: "",
+        channels: [
+          {
+            id: "s9_rmb",
+            name: "人民币专列",
+            theme: "teal",
+            restrictions: [],
+            sections: [
+              {
+                title: "人民币专列 - 收款公户材料",
+                items: [
+                  kycEngineItem("收款账户信息", "收款公户账户完整信息。", "bank_account"),
+                  kycEngineItem("营业执照", "彩色清晰版本。"),
+                  kycEngineItem("法人身份证", "彩色正反面。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 10,
+        code: "10",
+        name: "私户人民币转账买美金/港币/外币",
+        processDescription: "1. 出款人民币的银行卡流水审核通过后，可以接受做生意。\n2. 完成 KYC 要求提供文件，同名打款申请完成。\n3. 每天 11:30 后报价。\n4. 接受当天报价后安排人民币账户打款（提前一天预约需求）。注意出款人民币账户的单笔和当天限额，确认限额才可以下单安排。\n5. 客户打款人民币，完成后提供截图证明出款（必须是已经审核通过流水的卡打出，否则不承认该款项）。\n6. 我方查账，到账通知客户（一般 30 分钟内）。\n7. 到账后 2-3 小时内打出外币到客户报备的指定出款账户。\n8. 客户收到款项，交易结束。",
+        channels: [
+          {
+            id: "s10_sgb",
+            name: "SGB",
+            theme: "red",
+            restrictions: [
+              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "如出款和收款非同名，请提供关系证明。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SGB - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("客户出款账户一个月银行流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("出款客户的身份证正反面", "彩色清晰版本。")
+                ]
+              },
+              {
+                title: "SGB - 收款外币材料",
+                items: [
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色版本。"),
+                  kycEngineItem("TP Onboarding Form", "入驻表格。"),
+                  kycEngineItem("换汇原因", "说明本次换汇用途与背景。", "text"),
+                  kycEngineItem("收款银行账户信息", "收款人地址、账户名称、收款银行名称、开户国家/地区、账户号码、Swift Code/BIC、ABA、货币。", "bank_account")
+                ]
+              }
+            ]
+          },
+          {
+            id: "s10_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [
+              { type: "bank_ban", content: "不支持同名打香港星展银行（DBS HK）、香港花旗（CITI HK）、新加坡花旗（CITI SG）；渣打银行只支持香港渣打（SCB HK）。" },
+              { type: "special_proof", content: "如出款和收款非同名，请提供关系证明。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SINO - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("客户出款账户一个月银行流水", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("出款客户的身份证正反面", "彩色清晰版本。")
+                ]
+              },
+              {
+                title: "SINO - 收款外币材料",
+                items: [
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色版本，证件不接受水印版本。"),
+                  kycEngineItem("三个月有效的地址证明", "水电煤信件 / 政府信件 / 中国身份证均可。", "file", true, "3m"),
+                  kycEngineItem("无遮挡版本月结单", "3 个月内有效，不一定是收款户口银行的月结单。", "file", true, "3m"),
+                  kycEngineItem("手持证件自拍照或核证副本（二选一）", "自拍接受水印但不可遮挡面部和证件；核证副本需注册会计师出具，我司配合出具每次收费 900 HKD，累计满 10 万 USD 交易可豁免。"),
+                  kycEngineItem("签署后的同名打款申请表格一份", "只接受扫描版本，职业栏目请提供完整公司名加职位，正楷签署全名。"),
+                  kycEngineItem("收款银行账户信息", "收款人地址、账户名称、收款银行名称、开户国家/地区、账户号码、Swift Code/BIC、ABA、货币。", "bank_account")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 11,
+        code: "12",
+        name: "公户人民币买U",
+        processDescription: "",
+        channels: [
+          {
+            id: "s12_rmb",
+            name: "人民币专列",
+            theme: "teal",
+            restrictions: [],
+            sections: [
+              {
+                title: "人民币专列 - 出款公户材料",
+                items: [
+                  kycEngineItem("出款公户最近一个月月结单", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("营业执照", "彩色清晰版本。"),
+                  kycEngineItem("法人身份证 + 护照/通行证正反面", "名字 hit 中时需要提供护照/通行证。"),
+                  kycEngineItem("法人手持证件和自愿购买声明书自拍", "声明文字：本人XXX为XXX公司法人，代表XXX公司自愿购买数字资产，我的收币地址是：xxxxxx，附签名和日期。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 12,
+        code: "13",
+        name: "公户人民币买私户美金/港币/外币",
+        processDescription: "1. 出款人民币的银行卡流水审核通过后，可以进入 KYC 流程。\n2. 完成 KYC 要求提供文件，同名打款申请完成。\n3. 每天 11:30 后报价。\n4. 接受当天报价后安排人民币账户打款（提前一天预约需求）。注意出款人民币账户的单笔和当天限额，确认限额才可以下单安排。\n5. 客户打款人民币，完成后提供截图证明出款（必须是已经审核通过流水的卡打出，否则不承认该款项）。\n6. 我方查账，到账通知客户（一般 30 分钟内）。\n7. 到账后 2-3 小时内打出外币到客户报备的指定出款账户。\n8. 客户收到款项，交易结束。",
+        channels: [
+          {
+            id: "s13_sgb",
+            name: "SGB",
+            theme: "red",
+            restrictions: [
+              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "如收款人非公户出款人的法人/股东/董事，需要提供关系证明；如属于董事/股东，请递交证明。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SGB - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("公户最近一个月月结单", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("营业执照", "彩色清晰版本。"),
+                  kycEngineItem("法人身份证", "彩色正反面。")
+                ]
+              },
+              {
+                title: "SGB - 收款外币私户材料",
+                items: [
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色版本。"),
+                  kycEngineItem("TP Onboarding Form", "入驻表格。"),
+                  kycEngineItem("换汇原因", "说明本次换汇用途与背景。", "text"),
+                  kycEngineItem("收款银行账户信息", "收款人地址、账户名称、收款银行名称、开户国家/地区、账户号码、Swift Code/BIC、ABA、货币。", "bank_account")
+                ]
+              }
+            ]
+          },
+          {
+            id: "s13_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [
+              { type: "bank_ban", content: "不支持同名打香港星展银行（DBS HK）、香港花旗（CITI HK）、新加坡花旗（CITI SG）；渣打银行只支持香港渣打（SCB HK）。" },
+              { type: "special_proof", content: "如收款人非公户出款人的法人/股东/董事，需要提供关系证明；如属于董事/股东，请递交证明。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SINO - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("公户最近一个月月结单", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("营业执照", "彩色清晰版本。"),
+                  kycEngineItem("法人身份证", "彩色正反面。")
+                ]
+              },
+              {
+                title: "SINO - 收款外币私户材料",
+                items: [
+                  kycEngineItem("身份证明文件", "内地人：身份证+通行证/护照；香港人：身份证+回乡证/护照；台湾人：身份证+护照；外国人：护照。只接受清晰彩色版本，证件不接受水印版本。"),
+                  kycEngineItem("三个月有效的地址证明", "水电煤信件 / 政府信件 / 中国身份证均可。", "file", true, "3m"),
+                  kycEngineItem("无遮挡版本月结单", "3 个月内有效，不一定是收款户口银行的月结单。", "file", true, "3m"),
+                  kycEngineItem("手持证件自拍照或核证副本（二选一）", "自拍接受水印但不可遮挡面部和证件；核证副本需注册会计师出具，我司配合出具每次收费 900 HKD，累计满 10 万 USD 交易可豁免。"),
+                  kycEngineItem("签署后的同名打款申请表格一份", "只接受扫描版本，签名要用正楷字体签署全名。"),
+                  kycEngineItem("收款银行账户信息", "收款人地址、账户名称、收款银行名称、开户国家/地区、账户号码、Swift Code/BIC、ABA、货币。", "bank_account")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 13,
+        code: "14",
+        name: "公户人民币买公户美金/港币/外币",
+        processDescription: "",
+        channels: [
+          {
+            id: "s14_sgb",
+            name: "SGB",
+            theme: "red",
+            restrictions: [
+              { type: "special_proof", content: "如出款公户和收款公户非同一股东或董事，也非控股关系，请提供关系证明。" },
+              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SGB - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("公户最近一个月月结单", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("营业执照", "彩色清晰版本。"),
+                  kycEngineItem("法人身份证 + 护照/通行证正反面", "彩色清晰版本。"),
+                  kycEngineItem("换汇原因", "说明本次换汇用途与背景。", "text")
+                ]
+              },
+              {
+                title: "SGB - 收款外币公户材料",
+                items: [
+                  kycEngineItem("TP Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港身份证（香港需要永居），彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。")
+                ]
+              }
+            ]
+          },
+          {
+            id: "s14_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [
+              { type: "special_proof", content: "如出款公户和收款公户非同一股东或董事，也非控股关系，请提供关系证明。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SINO - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("公户最近一个月月结单", "需提供最新一个月，日期需显示到提交资料的前一天，并完整显示交易对手信息，能穿透资金来源。", "file", true, "1m"),
+                  kycEngineItem("营业执照", "彩色清晰版本。"),
+                  kycEngineItem("法人身份证 + 护照/通行证正反面", "名字 hit 中时需要提供护照/通行证。")
+                ]
+              },
+              {
+                title: "SINO - 收款外币公户材料",
+                items: [
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港永居身份证，四角露出、无破损、信息完整、有效期内。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "护照/港澳通行证、香港永居身份证，彩色原件。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 14,
+        code: "15",
+        name: "人私换公美（私户人民币换公户外币）",
+        processDescription: "",
+        channels: [
+          {
+            id: "s15_sgb",
+            name: "SGB",
+            theme: "red",
+            restrictions: [
+              { type: "bank_ban", content: "暂不接受这三家银行作为收款行：招商永隆、交通银行、花旗银行（香港）。" },
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SGB - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("客户出款账户一个月银行流水", "不能有任何遮挡，流水通过后才接受此账户与我们交易。", "file", true, "1m"),
+                  kycEngineItem("出款客户身份证正反面 + 护照/通行证正反面", "彩色清晰版本。")
+                ]
+              },
+              {
+                title: "SGB - 收款外币公户材料",
+                items: [
+                  kycEngineItem("TP Onboarding Form + Board Resolution", "签名需要所有董事全名 + 清晰公司公章 + 日期。"),
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港身份证（香港需要永居），彩色原件扫描件或照片。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "身份证需彩色正反面。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。"),
+                  kycEngineItem("出账私户和香港公户之间的关系证明", "证明出款私户与收款公户的关联关系。")
+                ]
+              }
+            ]
+          },
+          {
+            id: "s15_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [
+              { type: "special_proof", content: "以上资料提交齐全后，如后期遇到银行合规审查需要，仍有机会需要提供更多额外文件。" }
+            ],
+            sections: [
+              {
+                title: "SINO - 内地出款人民币材料",
+                items: [
+                  kycEngineItem("客户出款账户一个月银行流水", "不能有任何遮挡，流水通过后才接受此账户与我们交易。", "file", true, "1m"),
+                  kycEngineItem("出款客户身份证正反面 + 护照/通行证正反面", "名字 hit 中时需要提供护照/通行证。")
+                ]
+              },
+              {
+                title: "SINO - 收款外币公户材料（香港公司文件要求）",
+                items: [
+                  kycEngineItem("BR / 企业注册证书", "需要已缴费的。"),
+                  kycEngineItem("CI / 公司注册证书", "彩色扫描件。"),
+                  kycEngineItem("NAR1 / 周年申报表", "如新成立的公司请提供 NNC1，要有公司注册处收据或 barcode。"),
+                  kycEngineItem("所有董事和签署人身份证明", "护照/港澳通行证、香港永居身份证，四角露出、无破损、信息完整、有效期内。"),
+                  kycEngineItem("25% 以上股权股东身份证明", "护照/港澳通行证、香港永居身份证，彩色原件。"),
+                  kycEngineItem("股东架构图", "董事签名+职位+公司章+日期；董事和股东只有一人且为同一人的公司不用。"),
+                  kycEngineItem("出账私户和香港公户之间的关系证明", "证明出款私户与收款公户的关联关系。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 15,
+        code: "16",
+        name: "人民币现金买卖",
+        processDescription: "首先需要确定人民币现金在哪个城市及数量（目前广东省内广州、珠海、中山暂停待恢复，其他地方只做熟人）。\n\n人民币现金换U方向：\n1. 我们当天报价，你方锁定价格。\n2. 我方收款人提供信物 + 联系人联系方式，你们提供地址和联系人电话。\n3. 我们收款同事会联系对方约交付时间地点。\n4. 广东省内一般当天内完成交收；广东省外我们同事预订机票从广东出发，按约定时间地点交收。\n5. 交收使用信物确认，当场点算大数，收走现钞后回广东基地再点算清楚；广东省外 T+1 清点完找 U。\n\nU换人民币现金方向：\n1. 我们当天报价，你方锁定价格。\n2. 确定订单后先全数打 U 给我们，再安排送货。\n3. 现金送货同事会联系对方约交付时间地点，省内当天安排交收、省外按约定时间交付。\n4. 交收只使用信物作为确认。\n\n注意事项：\n1. 不同台交易，现场只数大数，回基地清点完再报数。\n2. 一旦确定单子后违约，需要赔偿总额的 1%。\n3. 单笔一百万起做，最高五百万。\n4. 现金换U方向只接受 100 元面值的人民币纸钞。",
+        channels: []
+      },
+      {
+        id: 16,
+        code: "16B",
+        name: "港币转账换大陆人民币现金",
+        processDescription: "1. 审核流水，流水通过后我们才能接收该账户款项。\n2. 给我们对应的 KYC 和开户所需的文件。\n3. KYC 和 VA 账户通过后可以开始交易。\n4. 我们当天报价，你方锁定价格（报价当天有效）。\n5. 客户打款到指定的收款账户，提供水单给我们查账，到账后我们通知（港币需要打到我们提供的收款账户，该收款账户名跟客户同名）。\n6. 港币到账后安排大陆现金送货，客户提供收货人信息，现金送货同事会联系对方约交付时间地点。\n7. 广东省内一般是港币到账后 T+1 内完成交收；广东省外我们同事预订机票从广东出发，按约定时间交付。\n8. 交收只使用信物作为确认，交货完成后发信物照片到群组确认已交货。\n\n注意事项：\n1. 需港币到账后，才安排人民币送货。\n2. 单笔人民币一百万起做，最高五百万。\n3. 现金交收一旦确定单子后违约，需要赔偿总额的 1%。",
+        channels: []
+      },
+      {
+        id: 17,
+        code: "17",
+        name: "POBO个人客户出资到自己的公户进行注资",
+        processDescription: "1. 注资计划书：写清楚注资金额、分多少次、单次注资金额、时间等要素，然后董事签名写日期，加盖公司公章。\n2. 资金证明要大于交易金额：客户提供的月结单足额且在 3 个月内的可以直接用；不够或超期的，请客户补交。",
+        channels: [
+          {
+            id: "s17_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [],
+            sections: [
+              {
+                title: "SINO - POBO 注资追加材料（在 POBO 基础资料上追加）",
+                items: [
+                  kycEngineItem("公司注册文件", "例如香港公司 BR。"),
+                  kycEngineItem("股权证明", "例如香港公司 NAR1。"),
+                  kycEngineItem("注资计划书", "注明注资金额、次数、单次金额与时间，董事签名写日期，加盖公司公章。"),
+                  kycEngineItem("足额的资金证明", "需大于交易金额，月结单需在 3 个月内。", "file", true, "3m")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 18,
+        code: "18",
+        name: "POBO个人客户出资到自己的信托账户",
+        processDescription: "1. 先问清楚背景，由 Gary 判断能否做，然后开通 POBO 以及 KYC 审核。\n2. 问清楚出资人和受益人是否同一人：同一人需与 Queenie 确认是否需要提供其他资料；非同一人要提供关系证明。\n3. 提供签署版的信托文件。\n4. 月结单作为资金来源证明，月结余额需要大于充值金额。",
+        channels: [
+          {
+            id: "s18_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [],
+            sections: [
+              {
+                title: "SINO - POBO 信托追加材料（在 POBO 基础资料上追加）",
+                items: [
+                  kycEngineItem("信托开户文件", "签署版的信托文件。"),
+                  kycEngineItem("足额的资金证明", "月结余额需大于充值金额。", "file", true, "3m"),
+                  kycEngineItem("收款方的企业注册文件", "信托收款主体的注册文件。")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 19,
+        code: "19",
+        name: "POBO个人账户交保费",
+        processDescription: "",
+        channels: [
+          {
+            id: "s19_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [],
+            sections: [
+              {
+                title: "SINO - POBO 保费追加材料（在 POBO 基础资料上追加）",
+                items: [
+                  kycEngineItem("已购保险的证明文件", "购买全新保险缴首期保费：完整版本投保申请书（有签名版本），后续有正式保单合同后需后补给银行；缴交非首年保费：正式保险合同和保险缴费通知书。"),
+                  kycEngineItem("收款方的企业注册文件", "保险公司注册文件。"),
+                  kycEngineItem("足额的资金证明", "需大于交易金额。", "file", true, "3m"),
+                  kycEngineItem("预交保费优惠政策证明", "提前预交超过 2 年保费时提供，需保险公司出具，可以是小册子、宣传单张等。", "file", false)
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 20,
+        code: "20",
+        name: "POBO个人账户出款到证券账户",
+        processDescription: "",
+        channels: [
+          {
+            id: "s20_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [],
+            sections: [
+              {
+                title: "SINO - POBO 证券出款追加材料（在 POBO 基础资料上追加）",
+                items: [
+                  kycEngineItem("证券行开户书", "开户证明。"),
+                  kycEngineItem("证券电汇信息", "一般证券行有一个电汇指示的通知书。"),
+                  kycEngineItem("收款方的企业注册文件", "证券行注册文件。"),
+                  kycEngineItem("足额的资金证明", "需大于交易金额；月结单足额且在 3 个月内的可直接用，不够或超期需补交。", "file", true, "3m")
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: 21,
+        code: "21",
+        name: "POBO个人账户出款买楼（自己名下）",
+        processDescription: "",
+        channels: [
+          {
+            id: "s21_sino",
+            name: "SINO",
+            theme: "blue",
+            restrictions: [],
+            sections: [
+              {
+                title: "SINO - POBO 购房出款追加材料（在 POBO 基础资料上追加）",
+                items: [
+                  kycEngineItem("购房合同", "香港首期缴费：已盖章及签名的临时合约（无缴款信息则补缴费通知），并需在约定时间后补正式合同；非首期缴费需正式合同。国外直接要购房合同，非英文合同需英文翻译版；仅有预订协议时需提供付款周期或计划。"),
+                  kycEngineItem("律师楼资质证书和律师委托协议", "如委托律所买房需提供，例如营业执照、律师公会资质显示。", "file", false),
+                  kycEngineItem("收款方的企业注册文件", "开发商直接收款时提供。", "file", false),
+                  kycEngineItem("足额的资金证明", "需大于交易金额；月结单足额且在 3 个月内的可直接用，不够或超期需补交。", "file", true, "3m")
+                ]
+              }
             ]
           }
         ]
@@ -831,7 +1379,7 @@
     { id: "APP-20260708-588", customerId: "C-2026-0588", status: "审核通过", stage: "已完成", step: 5, completeness: "8 / 8", updated: "07-10 17:22", owner: "周辰", note: "银行审核通过，可继续额度预约与交易。", history: ["07-10 17:22 · 银行审核通过", "07-09 11:08 · 合规审核通过"] }
   ];
 
-  const customerStorageKey = "bitvast-workbench-customers-v2";
+  const customerStorageKey = "bitvast-workbench-customers-v3";
   const customerPageSize = 8;
   const retiredCustomerIds = new Set(["C-2026-0649"]);
 
@@ -888,12 +1436,14 @@
     numberEdit: null,
     drawerCustomer: null,
     drawerTab: "overview",
+    drawerApplication: null,
     complianceQueueTab: "pending",
     complianceQueueSearch: "",
     complianceQueueType: "全部审核类型",
     complianceQueueStatus: "全部状态",
     complianceQueueConclusion: "全部",
     complianceReviewingCase: null,
+    complianceConclusionDraft: { decision: "", note: "" },
     createStep: 1,
     draftCustomer: { type: "个人", name: "", enName: "", region: "中国香港", agent: "杨澜", business: "SINO", relation: "新客户" },
     mobileNav: false
@@ -904,12 +1454,21 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const escapeHtml = (value = "") => String(value).replace(/[&<>'"]/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
   const statusTone = (status = "") => {
-    if (/完成|批准|确认|通过|锁定|已使用/.test(status)) return "success";
-    if (/拒绝|高风险|退回|异常|终止|取消/.test(status)) return "danger";
+    if (/完成|批准|确认|通过|锁定|已使用|成交/.test(status)) return "success";
+    if (/拒绝|高风险|退回|异常|终止|取消|驳回/.test(status)) return "danger";
     if (/补件|等待|草稿|识别|检查/.test(status)) return "warning";
-    if (/审核|预审|银行|提交|处理中|处理|报价|校验|入款|出款|排单|复核/.test(status)) return "info";
+    if (/审核|预审|银行|提交|处理中|处理|报价|校验|入款|出款|排单|复核|交易中/.test(status)) return "info";
     return "neutral";
   };
+  const customerStatuses = ["未准入", "材料审核中", "合规驳回", "审核通过", "已排单", "交易中", "已成交"];
+  const tradeMarkableStatuses = ["审核通过", "已排单", "交易中", "已成交"];
+  const customerStatusFromCase = status => ({
+    "草稿": "未准入", "材料未完成": "未准入", "已终止": "未准入",
+    "待运营审核": "材料审核中", "待客户补件": "材料审核中", "待合规审核": "材料审核中",
+    "合规驳回": "合规驳回",
+    "待提交银行": "审核通过", "银行审核中": "审核通过", "银行处理中": "审核通过", "已批准": "审核通过", "审核通过": "审核通过",
+    "已排单": "已排单", "交易中": "交易中", "已成交": "已成交"
+  }[status] || null);
   const riskClass = risk => risk === "高" ? "high" : risk === "中" ? "medium" : "low";
   const customerInitials = customer => (customer.customerKind || customer.type) === "中介" ? "中" : customer.name.slice(-2);
   const customerNo = customer => customer.clientNo || "无编号";
@@ -919,6 +1478,19 @@
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   };
   const todayIsoDate = () => isoDate(new Date());
+  const nowDateTime = () => {
+    const current = new Date();
+    const pad = value => String(value).padStart(2, "0");
+    return `${isoDate(current)} ${pad(current.getHours())}:${pad(current.getMinutes())}`;
+  };
+  const setCustomerStatus = (customer, nextStatus, operator, note = "") => {
+    if (!customer || customer.status === nextStatus) return false;
+    customer.statusLog = customer.statusLog || [];
+    customer.statusLog.unshift({ from: customer.status, to: nextStatus, operator, time: nowDateTime(), note });
+    customer.status = nextStatus;
+    customer.updated = "刚刚";
+    return true;
+  };
   const formatUploadDate = value => {
     const raw = String(value || "").trim();
     if (!raw) return "";
@@ -950,7 +1522,7 @@
     customer.parentBroker?.clientNo
   ].filter(Boolean).join(" ").toLowerCase();
   const uploadCustomerEntries = () => state.customers.flatMap(parent => {
-    const parentEntry = { ...parent, uploadKey: parent.id };
+    const parentEntry = { ...parent, uploadKey: parent.id, uploadTarget: parent };
     const subEntries = (parent.subCustomers || []).map((child, index) => {
       const id = child.id || `${parent.id}-SUB-${index + 1}`;
       return {
@@ -960,7 +1532,7 @@
         type: child.type || "个人",
         region: child.region || parent.region,
         agent: child.agent || parent.agent,
-        status: child.status || "待建档",
+        status: child.status || "未准入",
         risk: child.risk || "待评估",
         owner: child.owner || parent.owner,
         documents: child.documents || [],
@@ -1356,7 +1928,7 @@ ${sections.join("\n\n")}
       ops: { eyebrow: "SENIOR TRADER", title: "高级交易员工作台", subtitle: "复核客户材料、补件和排单，处理更高权限的交易动作。", metrics: [["待排单审核", String(state.scheduleOrders.filter(item => item.status !== "草稿").length), "交易员提交"], ["待客户补件", String(state.cases.filter(item => item.status === "待客户补件").length), "需跟进"], ["今日上传材料", "6", "来自 3 位客户"], ["风险提示", "2", "需人工确认"]] },
       payout: { eyebrow: "PAYOUT CLERK", title: "出款员工作台", subtitle: "处理出款队列和凭证匹配，保持付款材料完整归档。", metrics: [["处理队列", String(state.cases.filter(item => opsStatuses.includes(item.status)).length), "按 SLA 排序"], ["待核凭证", "2", "1 项金额不符"], ["交易中", String(state.cases.filter(item => item.status === "交易中").length), "等待进度更新"], ["今日完成", "9", "已归档"]] },
       compliance: { eyebrow: "COMPLIANCE", title: "合规官工作台", subtitle: "只处理已提交合规的案件，自动化结果仅作为判断依据。", metrics: [["待合规审核", String(state.cases.filter(item => item.status === "待合规审核").length), "全部要求人工结论"], ["即将超时", "1", "剩余 3 小时"], ["今日已通过", "5", "均已人工确认"], ["今日已驳回", "2", "已返回处理"]] },
-      manager: { eyebrow: "OPERATIONS MANAGER", title: "运营经理工作台", subtitle: "查看客户池与团队处理概况，当前菜单聚焦客户管理。", metrics: [["全部客户", String(state.customers.length), "演示客户池"], ["待处理客户", String(state.customers.filter(item => item.status !== "已批准").length), "含补件与审核"], ["高风险客户", String(state.customers.filter(item => item.risk === "高").length), "需关注"], ["今日更新", "7", "客户动态"]] },
+      manager: { eyebrow: "OPERATIONS MANAGER", title: "运营经理工作台", subtitle: "查看客户池与团队处理概况，当前菜单聚焦客户管理。", metrics: [["全部客户", String(state.customers.length), "演示客户池"], ["待处理客户", String(state.customers.filter(item => !["审核通过", "已排单", "交易中", "已成交"].includes(item.status)).length), "含准入与审核"], ["高风险客户", String(state.customers.filter(item => item.risk === "高").length), "需关注"], ["今日更新", "7", "客户动态"]] },
       finance: { eyebrow: "FINANCE", title: "财务工作台", subtitle: "查看客户和费率佣金，跟进待财务确认的结算事项。", metrics: [["客户记录", String(state.customers.length), "可查阅"], ["待财务确认", "3", "佣金记录"], ["本月佣金", "HKD 42,180", "已确认"], ["当前费率", "0.35%", "个人客户"]] },
       admin: { eyebrow: "ADMINISTRATION", title: "系统总览", subtitle: "查看规则、权限和审计记录。", metrics: [["活跃用户", "26", "6 个角色组"], ["进行中案件", "38", "跨 4 个阶段"], ["规则版本", "v1.8", "07-08 生效"], ["审计事件", "1,284", "过去 30 天"]] }
     };
@@ -1445,7 +2017,7 @@ ${sections.join("\n\n")}
   function timelineItem(item) { return `<div class="timeline-item"><strong>${item.title}</strong><p>${item.detail}</p><time>${item.role} · ${item.time}</time></div>`; }
 
   function renderCustomers() {
-    const statuses = ["全部状态", ...new Set(state.customers.map(c => c.status))];
+    const statuses = ["全部状态", ...customerStatuses];
     const filtered = state.customers.filter(customer => {
       const query = state.customerSearch.toLowerCase();
       const subCustomerText = (customer.subCustomers || []).map(item => `${item.name}${item.clientNo || ""}`).join("");
@@ -2045,7 +2617,7 @@ ${sections.join("\n\n")}
     const draft = state.draftCustomer;
     if (step === 1) return `<div class="form-section-title"><h2>客户基本信息</h2><p>先确认客户类型，再填写法定名称和身份信息。</p></div><form id="create-form-step"><div class="field full"><label>客户类型</label><div class="type-options"><label class="type-option"><input type="radio" name="clientType" value="个人" ${draft.type === "个人" ? "checked" : ""} /><strong>个人客户</strong><span>KYC，身份证明与地址证明</span></label><label class="type-option"><input type="radio" name="clientType" value="企业" ${draft.type === "企业" ? "checked" : ""} /><strong>企业客户</strong><span>KYB，公司、董事与 UBO 材料</span></label></div></div><div class="field-grid" style="margin-top:16px"><div class="field"><label for="client-name">中文 / 法定名称 <span>*</span></label><input id="client-name" name="name" value="${escapeHtml(draft.name)}" required placeholder="例如：陈嘉宁" /></div><div class="field"><label for="client-en-name">英文名称 <span>*</span></label><input id="client-en-name" name="enName" value="${escapeHtml(draft.enName)}" required placeholder="与证件一致" /></div><div class="field"><label for="client-region">注册 / 居住地区</label><select id="client-region" name="region">${["中国香港", "中国大陆", "新加坡", "其他"].map(v => `<option ${draft.region === v ? "selected" : ""}>${v}</option>`).join("")}</select></div><div class="field"><label for="client-agent">所属 交易员</label><select id="client-agent" name="agent"><option ${draft.agent === "杨澜" ? "selected" : ""}>杨澜 · A-018</option><option ${draft.agent === "周辰" ? "selected" : ""}>周辰 · A-006</option></select></div></div><div class="form-actions"><button class="btn" type="button" data-view="customers">取消</button><button class="btn btn-primary" type="submit">下一步：业务与材料 →</button></div></form>`;
     if (step === 2) return `<div class="form-section-title"><h2>业务关系与材料</h2><p>选择业务类型，文件仅模拟选择，不会读取或上传。</p></div><form id="create-form-step"><div class="field-grid"><div class="field"><label for="business-type">业务类型</label><select id="business-type" name="business"><option ${draft.business === "SINO" ? "selected" : ""}>SINO</option><option ${draft.business === "SGB" ? "selected" : ""}>SGB</option></select></div><div class="field"><label for="relation-type">客户关系</label><select id="relation-type" name="relation">${["新客户", "已有客户追加业务", "关联客户"].map(v => `<option ${draft.relation === v ? "selected" : ""}>${v}</option>`).join("")}</select></div><div class="field full"><label for="demo-file">身份证明 / 公司注册文件</label><input id="demo-file" type="file" /><span class="field-hint">可直接继续，系统会使用演示材料；选择文件也不会读取其内容。</span></div><div class="field full"><label for="demo-statement">银行流水</label><input id="demo-statement" type="file" /><span class="field-hint">如选择“免流水”，正式系统应记录原因并要求授权审批。</span></div></div><div class="form-actions"><button class="btn" type="button" id="create-back">← 上一步</button><button class="btn btn-primary" type="submit">下一步：确认提交 →</button></div></form>`;
-    return `<div class="form-section-title"><h2>确认并建立客户草稿</h2><p>提交后会建立一条独立客户记录，后续仍需完成 OCR 和运营预审。</p></div><div class="detail-grid"><div class="detail-field"><span>客户名称</span><strong>${escapeHtml(draft.name)}</strong></div><div class="detail-field"><span>客户类型</span><strong>${draft.type} ${draft.type === "企业" ? "KYB" : "KYC"}</strong></div><div class="detail-field"><span>业务类型</span><strong>${draft.business}</strong></div><div class="detail-field"><span>客户关系</span><strong>${draft.relation}</strong></div><div class="detail-field"><span>所属 交易员</span><strong>${draft.agent}</strong></div><div class="detail-field"><span>初始状态</span><strong>草稿</strong></div></div><div class="assumption" style="margin-top:17px"><strong>隐私与授权确认</strong><p>提交即表示演示用户已获得客户授权。生产系统必须记录真实授权文本、版本、时间和渠道。</p></div><div class="form-actions"><button class="btn" type="button" id="create-back">← 上一步</button><button class="btn btn-primary" type="button" id="create-submit">建立客户草稿 →</button></div>`;
+    return `<div class="form-section-title"><h2>确认并建立客户草稿</h2><p>提交后会建立一条独立客户记录，后续仍需完成 OCR 和运营预审。</p></div><div class="detail-grid"><div class="detail-field"><span>客户名称</span><strong>${escapeHtml(draft.name)}</strong></div><div class="detail-field"><span>客户类型</span><strong>${draft.type} ${draft.type === "企业" ? "KYB" : "KYC"}</strong></div><div class="detail-field"><span>业务类型</span><strong>${draft.business}</strong></div><div class="detail-field"><span>客户关系</span><strong>${draft.relation}</strong></div><div class="detail-field"><span>所属 交易员</span><strong>${draft.agent}</strong></div><div class="detail-field"><span>初始状态</span><strong>未准入</strong></div></div><div class="assumption" style="margin-top:17px"><strong>隐私与授权确认</strong><p>提交即表示演示用户已获得客户授权。生产系统必须记录真实授权文本、版本、时间和渠道。</p></div><div class="form-actions"><button class="btn" type="button" id="create-back">← 上一步</button><button class="btn btn-primary" type="button" id="create-submit">建立客户草稿 →</button></div>`;
   }
 
   function renderCases() {
@@ -2186,7 +2758,45 @@ ${sections.join("\n\n")}
   function renderComplianceReviewPage(item) {
     const customer = state.customers.find(c => c.id === item.customerId);
     return `<div class="page compliance-review-page"><button class="compliance-back-link" type="button" id="compliance-review-back">← 返回审核队列</button>
-      <section class="case-workspace compliance-review-workspace"><header class="case-workspace-head"><div><p class="eyebrow">${escapeHtml(complianceCustomerNo(item, customer))}</p><h2>${escapeHtml(item.customer)} <span class="status status-info">${escapeHtml(complianceAuditType(item))}</span></h2><p>${escapeHtml(item.type)} · 提交时间 ${escapeHtml(complianceSubmittedAt(item, customer))}</p></div><span class="risk ${riskClass(item.risk)}">${item.risk}风险</span></header>${customer?.materialSubmission ? renderComplianceSubmissionReview(item, customer.materialSubmission, customer) : `<div class="notice-preview"><span>自动化建议 · 不是最终结论</span><p>未命中制裁名单；材料完整性已由上一环节确认，仍需合规官人工给出最终结论。</p></div>`}<footer class="compliance-review-actions"><button class="btn" data-case-action="compliance-reject" data-case-id="${item.id}">驳回并填写原因</button><button class="btn btn-primary" data-case-action="compliance-pass" data-case-id="${item.id}">审核通过</button></footer></section></div>`;
+      <section class="case-workspace compliance-review-workspace"><header class="case-workspace-head"><div><p class="eyebrow">${escapeHtml(complianceCustomerNo(item, customer))}</p><h2>${escapeHtml(item.customer)} <span class="status status-info">${escapeHtml(complianceAuditType(item))}</span></h2><p>${escapeHtml(item.type)} · 提交时间 ${escapeHtml(complianceSubmittedAt(item, customer))}</p></div><span class="risk ${riskClass(item.risk)}">${item.risk}风险</span></header>${customer?.materialSubmission ? renderComplianceSubmissionReview(item, customer.materialSubmission, customer) : `<div class="notice-preview"><span>自动化建议 · 不是最终结论</span><p>未命中制裁名单；材料完整性已由上一环节确认，仍需合规官人工给出最终结论。</p></div>`}${renderComplianceConclusionSection(item)}</section></div>`;
+  }
+
+  function renderComplianceConclusionSection(item) {
+    const draft = state.complianceConclusionDraft || { decision: "", note: "" };
+    const rejectSelected = draft.decision === "reject";
+    const passSelected = draft.decision === "pass";
+    const hint = !draft.decision ? "请先选择审核结论"
+      : rejectSelected ? (draft.note.trim() ? "提交后案件退回 交易员 处理" : "驳回必须填写审核说明")
+      : "提交后案件返回运营，进入待提交银行";
+    return `<footer class="compliance-review-actions compliance-conclusion">
+      <div class="conclusion-title"><h3>审核结论</h3><p>选择结论并填写审核说明；说明会写入案件记录，驳回时为必填。</p></div>
+      <div class="conclusion-options">
+        <label class="conclusion-option ${passSelected ? "selected pass" : ""}"><input type="radio" name="compliance-conclusion" value="pass" ${passSelected ? "checked" : ""} /><span><strong>审核通过</strong><small>案件返回运营，进入待提交银行</small></span></label>
+        <label class="conclusion-option ${rejectSelected ? "selected reject" : ""}"><input type="radio" name="compliance-conclusion" value="reject" ${rejectSelected ? "checked" : ""} /><span><strong>驳回</strong><small>案件退回 交易员，补充后重新提交</small></span></label>
+      </div>
+      <label class="field conclusion-note"><span>审核说明${rejectSelected ? ` <em class="conclusion-required">* 驳回时必填</em>` : "（选填）"}</span><textarea id="compliance-conclusion-note" rows="3" placeholder="${rejectSelected ? "请填写驳回原因，例如缺少的材料或不一致的信息" : "补充审核依据或备注，会写入案件记录"}">${escapeHtml(draft.note)}</textarea></label>
+      <div class="conclusion-submit"><span class="field-hint" id="compliance-conclusion-hint">${hint}</span><button class="btn btn-primary" type="button" id="compliance-conclusion-submit" data-case-id="${item.id}" ${!draft.decision || (rejectSelected && !draft.note.trim()) ? "disabled" : ""}>提交审核结论</button></div>
+    </footer>`;
+  }
+
+  function submitComplianceConclusion(id) {
+    const item = state.cases.find(entry => entry.id === id);
+    if (!item || item.status !== "待合规审核") return;
+    const { decision, note } = state.complianceConclusionDraft;
+    const trimmed = (note || "").trim();
+    if (!decision) return toast("请选择审核结论", "先选择「审核通过」或「驳回」再提交");
+    if (decision === "reject" && !trimmed) {
+      toast("驳回需要填写说明", "请在审核说明中填写驳回原因");
+      $("#compliance-conclusion-note")?.focus();
+      return;
+    }
+    state.complianceConclusionDraft = { decision: "", note: "" };
+    if (decision === "reject") {
+      item.note = trimmed;
+      applyCaseTransition(item, "合规驳回", "合规驳回", trimmed);
+      return;
+    }
+    applyCaseTransition(item, "待提交银行", "合规审核通过", trimmed || "案件已返回运营等待提交银行");
   }
 
   function filteredComplianceCases(tab) {
@@ -2509,7 +3119,7 @@ ${sections.join("\n\n")}
     if (!customer) { flow.mode = "list"; return renderMaterialCustomerPicker(); }
     const steps = ["开始", "客户与业务", "上传与 OCR", "编辑申请表", "确认与 PDF"];
     return `<div class="page material-page">${pageHeader("APPLICATION WORKSPACE", `${customer.name} · 发起申报`, `${flow.applicationId} · ${customer.type === "企业" ? "企业 KYB" : "个人 KYC"} · 草稿自动保存在当前浏览器`, `<button class="btn" id="material-back-list">← 返回客户列表</button>`)}
-      ${customer.status === "待客户补件" ? `<div class="material-reject-note"><strong>补件要求</strong><span>${customer.documents.find(doc => doc.state === "需补件")?.name || "地址证明"}需要重新提交；其余有效材料无需重复上传。</span></div>` : ""}
+      ${customer.status === "合规驳回" || customer.documents.some(doc => doc.state === "需补件") ? `<div class="material-reject-note"><strong>补件要求</strong><span>${customer.documents.find(doc => doc.state === "需补件")?.name || "地址证明"}需要重新提交；其余有效材料无需重复上传。</span></div>` : ""}
       <div class="material-stepper">${steps.map((label, index) => `<button type="button" class="material-step ${flow.step === index + 1 ? "active" : flow.step > index + 1 ? "done" : ""}" data-material-goto="${index + 1}" ${index + 1 > flow.step ? "disabled" : ""}><i>${flow.step > index + 1 ? "✓" : index + 1}</i><span>${label}</span></button>`).join("")}</div>
       <div class="material-work-layout"><main class="material-work-main">${renderMaterialStep(customer, flow)}</main><aside class="material-work-aside">${renderMaterialAside(customer, flow)}</aside></div></div>`;
   }
@@ -2847,9 +3457,9 @@ Currency： ${data.currency || "未填写"}`;
             <div class="kyc-engine-actions"><span>上一次保存时间：${escapeHtml(cfg.lastSavedAt || "--")}</span><button class="btn btn-primary" type="button" id="kyc-config-save">保存并发布新版本</button></div>
           </header>
           <section class="kyc-engine-metrics"><div><strong>${cfg.scenarios.length}</strong><span>业务模式</span></div><div><strong>${totalChannels}</strong><span>绑定渠道</span></div><div><strong>${totalItems}</strong><span>材料/字段项</span></div></section>
-          ${scenario ? renderKycScenarioEditor(scenario, channel) : `<div class="empty-state"><div><i>≣</i><h2>请选择业务类型</h2><p>左侧选择业务模式后维护渠道和材料规则。</p></div></div>`}
+          ${scenario ? renderKycScenarioEditor(scenario, channel) : `<div class="empty-state"><div><i>≣</i><h2>请选择业务类型</h2><p>左侧选择业务模式后维护渠道和材料规则，或点击「新建模式」创建业务类型。</p></div></div>`}
         </main>
-      </div></div>`;
+      </div>${state.kycModal ? renderKycModal() : ""}</div>`;
   }
 
   function renderKycScenarioCard(item) {
@@ -2869,10 +3479,11 @@ Currency： ${data.currency || "未填写"}`;
         <div class="kyc-code-pill">#${escapeHtml(scenario.code)}</div>
         <label class="kyc-engine-title-field"><input data-kyc-scenario-name="${scenario.id}" value="${escapeHtml(scenario.name)}" /><span>请定义该业务交易模式下的整体流转逻辑与各渠道收集规则</span></label>
         <span class="status status-success">已生效 v2.4</span>
+        <div class="kyc-scenario-head-actions"><button class="btn btn-sm" type="button" id="kyc-engine-edit-scenario">编辑信息</button><button class="btn btn-sm kyc-danger-btn" type="button" id="kyc-engine-delete-scenario">删除模式</button></div>
       </div>
       <label class="kyc-process-field"><span>业务流程、时效与${channel ? ` ${escapeHtml(channel.name)} 渠道约束说明` : "渠道约束说明"}（面向业务人员与合规预检）</span><textarea data-kyc-scenario-process="${scenario.id}" rows="7">${escapeHtml(kycCombinedProcessText(scenario, channel))}</textarea></label>
       <section class="kyc-channel-matrix">
-        <header><div><strong>通道渠道与材料收集规则 Matrix</strong><span>同一业务模式可绑定多个渠道，每个渠道维护独立限制和材料模块。</span></div><button class="link-button" type="button" id="kyc-engine-add-channel">＋ 新增绑定渠道</button></header>
+        <header><div><strong>通道渠道与材料收集规则 Matrix</strong><span>同一业务模式可绑定多个渠道，每个渠道维护独立限制和材料模块。</span></div><div class="kyc-matrix-actions">${channel ? `<button class="link-button" type="button" id="kyc-engine-edit-channel">编辑当前渠道</button><button class="link-button kyc-danger-link" type="button" id="kyc-engine-delete-channel">删除当前渠道</button>` : ""}<button class="link-button" type="button" id="kyc-engine-add-channel">＋ 新增绑定渠道</button></div></header>
         <div class="kyc-channel-tabs">${scenario.channels.map((ch, index) => `<button class="${index === activeIndex ? "active" : ""}" type="button" data-kyc-channel-tab="${index}"><i class="kyc-channel-dot ${ch.theme || "blue"}"></i>${escapeHtml(ch.name)} 渠道材料库<span>${kycChannelItemCount(ch)} 项材料</span></button>`).join("") || `<div class="empty-inline">当前业务模式暂无绑定渠道。</div>`}</div>
         ${channel ? renderKycChannelEditor(channel) : ""}
       </section>
@@ -2881,13 +3492,14 @@ Currency： ${data.currency || "未填写"}`;
 
   function renderKycChannelEditor(channel) {
     return `<div class="kyc-channel-editor">
-      <div class="kyc-section-stack">${channel.sections.map((section, index) => renderKycMaterialSection(section, index)).join("")}</div>
+      <div class="kyc-section-stack">${channel.sections.map((section, index) => renderKycMaterialSection(section, index)).join("") || `<div class="empty-inline">当前渠道暂无材料模块。</div>`}</div>
+      <div class="kyc-channel-editor-foot"><button class="btn btn-sm" type="button" id="kyc-engine-add-section">＋ 新增材料模块</button></div>
     </div>`;
   }
 
   function renderKycMaterialSection(section, sectionIndex) {
     return `<section class="kyc-material-section">
-      <header><div><span>模块 ${sectionIndex + 1}</span><input data-kyc-section-title="${sectionIndex}" value="${escapeHtml(section.title)}" /></div><button class="btn btn-sm" type="button" data-kyc-add-section-item="${sectionIndex}">＋ 添加需要收集的材料/字段</button></header>
+      <header><div><span>模块 ${sectionIndex + 1}</span><input data-kyc-section-title="${sectionIndex}" value="${escapeHtml(section.title)}" /></div><div class="kyc-section-head-actions"><button class="btn btn-sm" type="button" data-kyc-add-section-item="${sectionIndex}">＋ 添加需要收集的材料/字段</button><button class="icon-button kyc-section-delete" type="button" data-kyc-delete-section="${sectionIndex}" aria-label="删除模块 ${sectionIndex + 1}" title="删除该材料模块">⌫</button></div></header>
       <div class="kyc-engine-items">${section.items.map((item, itemIndex) => renderKycEngineItem(item, sectionIndex, itemIndex)).join("") || `<div class="empty-inline">当前模块暂无材料项。</div>`}</div>
     </section>`;
   }
@@ -2926,6 +3538,31 @@ Currency： ${data.currency || "未填写"}`;
 
   function kycChannelItemCount(channel) {
     return (channel.sections || []).reduce((sum, section) => sum + (section.items || []).length, 0);
+  }
+
+  function renderKycModal() {
+    const modal = state.kycModal;
+    if (!modal) return "";
+    const draft = modal.draft;
+    const isScenario = modal.mode.startsWith("scenario");
+    const title = { "scenario-new": "新建业务模式", "scenario-edit": "编辑业务模式", "channel-new": "新增绑定渠道", "channel-edit": "编辑渠道信息" }[modal.mode];
+    const subtitle = isScenario ? "定义业务类型的序号、名称与流程说明，创建后可继续绑定渠道和材料模块。" : "渠道绑定在当前业务模式下，每个渠道维护独立限制和材料模块。";
+    const body = isScenario ? `
+        <div class="field"><label for="kyc-modal-code">序号 <span>*</span></label><input id="kyc-modal-code" name="code" value="${escapeHtml(draft.code || "")}" required inputmode="numeric" placeholder="例如：19" /><span class="field-hint">显示为 #序号，不能与现有业务模式重复。</span></div>
+        <div class="field"><label for="kyc-modal-name">业务类型名称 <span>*</span></label><input id="kyc-modal-name" name="name" value="${escapeHtml(draft.name || "")}" required placeholder="例如：港币/美元/外币 私户打款买U" /></div>
+        <div class="field full"><label for="kyc-modal-process">业务流程、时效与约束说明</label><textarea id="kyc-modal-process" name="process" rows="6" placeholder="面向业务人员与合规预检的流程说明，可稍后在编辑器中补充。">${escapeHtml(draft.process || "")}</textarea></div>`
+      : `
+        <div class="field"><label for="kyc-modal-channel-name">渠道名称 <span>*</span></label><input id="kyc-modal-channel-name" name="channelName" value="${escapeHtml(draft.name || "")}" required placeholder="例如：SGB / SINO / DBS" /><span class="field-hint">同一业务模式下渠道名称不能重复。</span></div>
+        <div class="field"><label for="kyc-modal-channel-theme">标识颜色</label><select id="kyc-modal-channel-theme" name="theme">${[["red", "红色"], ["blue", "蓝色"], ["teal", "青绿色"], ["amber", "琥珀色"]].map(([value, label]) => `<option value="${value}" ${draft.theme === value ? "selected" : ""}>${label}</option>`).join("")}</select></div>
+        ${modal.mode === "channel-new" ? `<div class="field full"><label for="kyc-modal-section-title">首个材料模块名称</label><input id="kyc-modal-section-title" name="sectionTitle" value="${escapeHtml(draft.sectionTitle || "")}" placeholder="留空时默认为「渠道名称 基础收集材料」" /></div>` : ""}`;
+    return `<div class="review-launch-backdrop"><section class="customer-number-dialog kyc-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="kyc-modal-title">
+      <header><div><span>KYC CONFIG</span><h2 id="kyc-modal-title">${title}</h2><p>${subtitle}</p></div><button class="icon-button" id="kyc-modal-close" aria-label="关闭" type="button">×</button></header>
+      <form id="kyc-modal-form" class="customer-modal-form">
+        <div class="field-grid customer-create-grid">${body}</div>
+        ${modal.error ? `<div class="form-error">${escapeHtml(modal.error)}</div>` : ""}
+        <div class="form-actions"><button class="btn" type="button" id="kyc-modal-cancel">取消</button><button class="btn btn-primary" type="submit">${modal.mode === "scenario-new" ? "创建业务模式" : modal.mode === "channel-new" ? "绑定渠道" : "保存修改"}</button></div>
+      </form>
+    </section></div>`;
   }
 
   function kycCombinedProcessText(scenario, channel) {
@@ -3380,9 +4017,21 @@ Currency： ${data.currency || "未填写"}`;
     if (complianceFinalFilter) complianceFinalFilter.addEventListener("change", event => { state.complianceQueueConclusion = event.target.value; render(); });
     const complianceReset = $("#compliance-filter-reset");
     if (complianceReset) complianceReset.addEventListener("click", () => { Object.assign(state, { complianceQueueSearch: "", complianceQueueType: "全部审核类型", complianceQueueStatus: "全部状态", complianceQueueConclusion: "全部" }); render(); });
-    $$('[data-compliance-open-review]').forEach(el => el.addEventListener("click", () => { state.complianceReviewingCase = el.dataset.complianceOpenReview; state.selectedCase = el.dataset.complianceOpenReview; render(); }));
+    $$('[data-compliance-open-review]').forEach(el => el.addEventListener("click", () => { state.complianceReviewingCase = el.dataset.complianceOpenReview; state.selectedCase = el.dataset.complianceOpenReview; state.complianceConclusionDraft = { decision: "", note: "" }; render(); }));
     const complianceReviewBack = $("#compliance-review-back");
-    if (complianceReviewBack) complianceReviewBack.addEventListener("click", () => { state.complianceReviewingCase = null; render(); });
+    if (complianceReviewBack) complianceReviewBack.addEventListener("click", () => { state.complianceReviewingCase = null; state.complianceConclusionDraft = { decision: "", note: "" }; render(); });
+    $$('[name="compliance-conclusion"]').forEach(el => el.addEventListener("change", () => { state.complianceConclusionDraft.decision = el.value; render(); }));
+    const conclusionNote = $("#compliance-conclusion-note");
+    if (conclusionNote) conclusionNote.addEventListener("input", event => {
+      state.complianceConclusionDraft.note = event.target.value;
+      const draft = state.complianceConclusionDraft;
+      const submit = $("#compliance-conclusion-submit");
+      if (submit) submit.disabled = !draft.decision || (draft.decision === "reject" && !event.target.value.trim());
+      const hintEl = $("#compliance-conclusion-hint");
+      if (hintEl && draft.decision === "reject") hintEl.textContent = event.target.value.trim() ? "提交后案件退回 交易员 处理" : "驳回必须填写审核说明";
+    });
+    const conclusionSubmit = $("#compliance-conclusion-submit");
+    if (conclusionSubmit) conclusionSubmit.addEventListener("click", () => submitComplianceConclusion(conclusionSubmit.dataset.caseId));
     bindKycConfigEvents();
     $$('[data-select-case]').forEach(el => el.addEventListener("click", () => { state.selectedCase = el.dataset.selectCase; render(); }));
     $$('[data-case-action]').forEach(el => el.addEventListener("click", () => handleCaseAction(el.dataset.caseAction, el.dataset.caseId)));
@@ -3932,11 +4581,28 @@ Swift Code/BIC 代码： CITIHKAX
     if (save) save.addEventListener("click", () => { cfg.lastSavedAt = kycNowLabel(); render(); toast("合规规则配置已保存并发布", `版本时间 ${cfg.lastSavedAt}`); });
     const addScenario = $("#kyc-engine-add-scenario");
     if (addScenario) addScenario.addEventListener("click", () => {
-      const id = Date.now();
-      cfg.scenarios.push({ id, code: String(13 + cfg.scenarios.length), name: "新业务类型 - 出入金换汇场景", processDescription: "请输入业务流程说明...", channels: [] });
-      cfg.selectedScenarioId = id;
-      cfg.activeChannelIndex = 0;
+      const nextCode = String(Math.max(12, ...cfg.scenarios.map(item => Number(item.code) || 0)) + 1);
+      state.kycModal = { mode: "scenario-new", draft: { code: nextCode, name: "", process: "" }, error: "" };
       render();
+    });
+    const editScenario = $("#kyc-engine-edit-scenario");
+    if (editScenario) editScenario.addEventListener("click", () => {
+      const scenario = currentKycScenario();
+      if (!scenario) return;
+      state.kycModal = { mode: "scenario-edit", scenarioId: scenario.id, draft: { code: scenario.code, name: scenario.name, process: scenario.processDescription || "" }, error: "" };
+      render();
+    });
+    const deleteScenario = $("#kyc-engine-delete-scenario");
+    if (deleteScenario) deleteScenario.addEventListener("click", () => {
+      const scenario = currentKycScenario();
+      if (!scenario) return;
+      showConfirm("删除该业务模式？", `#${scenario.code} ${scenario.name} 下的所有渠道与材料配置将一并删除，删除后不可恢复。`, "删除说明", "业务调整，停用该模式", "确认删除", () => {
+        cfg.scenarios = cfg.scenarios.filter(item => item.id !== scenario.id);
+        cfg.selectedScenarioId = cfg.scenarios[0]?.id || null;
+        cfg.activeChannelIndex = 0;
+        render();
+        toast("业务模式已删除", `#${scenario.code} ${scenario.name}`);
+      });
     });
     $$("[data-kyc-scenario]").forEach(el => el.addEventListener("click", () => {
       cfg.selectedScenarioId = Number(el.dataset.kycScenario);
@@ -3957,12 +4623,103 @@ Swift Code/BIC 代码： CITIHKAX
     }));
     const addChannel = $("#kyc-engine-add-channel");
     if (addChannel) addChannel.addEventListener("click", () => {
-      const scenario = currentKycScenario();
-      if (!scenario) return;
-      scenario.channels.push({ id: `ch_${Date.now()}`, name: "DBS", theme: "blue", restrictions: [], sections: [{ title: "DBS 基础收集材料", items: [kycEngineItem("身份证明/营业执照", "清晰扫描件")] }] });
-      cfg.activeChannelIndex = scenario.channels.length - 1;
+      if (!currentKycScenario()) return;
+      state.kycModal = { mode: "channel-new", draft: { name: "", theme: "blue", sectionTitle: "" }, error: "" };
       render();
     });
+    const editChannel = $("#kyc-engine-edit-channel");
+    if (editChannel) editChannel.addEventListener("click", () => {
+      const channel = currentKycEngineChannel();
+      if (!channel) return;
+      state.kycModal = { mode: "channel-edit", channelIndex: cfg.activeChannelIndex || 0, draft: { name: channel.name, theme: channel.theme || "blue" }, error: "" };
+      render();
+    });
+    const deleteChannel = $("#kyc-engine-delete-channel");
+    if (deleteChannel) deleteChannel.addEventListener("click", () => {
+      const scenario = currentKycScenario();
+      const channel = currentKycEngineChannel();
+      if (!scenario || !channel) return;
+      showConfirm("删除该渠道？", `${scenario.name} 下的「${channel.name}」渠道及其全部材料模块将被删除，删除后不可恢复。`, "删除说明", "渠道停用", "确认删除", () => {
+        scenario.channels.splice(cfg.activeChannelIndex || 0, 1);
+        cfg.activeChannelIndex = 0;
+        render();
+        toast("渠道已删除", `${scenario.name} · ${channel.name}`);
+      });
+    });
+    const addSection = $("#kyc-engine-add-section");
+    if (addSection) addSection.addEventListener("click", () => {
+      const channel = currentKycEngineChannel();
+      if (!channel) return;
+      channel.sections.push({ title: `${channel.name} 新材料模块`, items: [] });
+      render();
+    });
+    $$("[data-kyc-delete-section]").forEach(el => el.addEventListener("click", () => {
+      const channel = currentKycEngineChannel();
+      const sectionIndex = Number(el.dataset.kycDeleteSection);
+      const section = channel?.sections[sectionIndex];
+      if (!section) return;
+      showConfirm("删除该材料模块？", `模块「${section.title}」及其 ${section.items.length} 个材料项将被删除，删除后不可恢复。`, "删除说明", "模块不再需要", "确认删除", () => {
+        channel.sections.splice(sectionIndex, 1);
+        render();
+        toast("材料模块已删除", section.title);
+      });
+    }));
+    const kycModalForm = $("#kyc-modal-form");
+    if (kycModalForm) {
+      const closeKycModal = () => { state.kycModal = null; render(); };
+      $("#kyc-modal-close")?.addEventListener("click", closeKycModal);
+      $("#kyc-modal-cancel")?.addEventListener("click", closeKycModal);
+      $(".kyc-modal-dialog")?.closest(".review-launch-backdrop")?.addEventListener("click", event => { if (event.target === event.currentTarget) closeKycModal(); });
+      kycModalForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const modal = state.kycModal;
+        const form = event.currentTarget;
+        if (!modal) return;
+        if (modal.mode.startsWith("scenario")) {
+          const code = form.querySelector('[name="code"]').value.trim();
+          const name = form.querySelector('[name="name"]').value.trim();
+          const process = form.querySelector('[name="process"]').value.trim();
+          if (!code || !name) { modal.error = "序号和业务类型名称为必填项。"; render(); return; }
+          if (cfg.scenarios.some(item => item.code === code && item.id !== modal.scenarioId)) { modal.error = `序号 #${code} 已被其他业务模式使用。`; render(); return; }
+          if (modal.mode === "scenario-new") {
+            const id = Date.now();
+            cfg.scenarios.push({ id, code, name, processDescription: process, channels: [] });
+            cfg.selectedScenarioId = id;
+            cfg.activeChannelIndex = 0;
+            state.kycModal = null;
+            render();
+            toast("业务模式已创建", `#${code} ${name} · 可继续绑定渠道`);
+          } else {
+            const scenario = cfg.scenarios.find(item => item.id === modal.scenarioId);
+            if (scenario) Object.assign(scenario, { code, name, processDescription: process });
+            state.kycModal = null;
+            render();
+            toast("业务模式已更新", `#${code} ${name}`);
+          }
+          return;
+        }
+        const name = form.querySelector('[name="channelName"]').value.trim();
+        const theme = form.querySelector('[name="theme"]').value;
+        const scenario = currentKycScenario();
+        if (!scenario) return;
+        if (!name) { modal.error = "渠道名称为必填项。"; render(); return; }
+        if (scenario.channels.some((ch, index) => ch.name === name && !(modal.mode === "channel-edit" && index === modal.channelIndex))) { modal.error = `当前业务模式下已存在渠道「${name}」。`; render(); return; }
+        if (modal.mode === "channel-new") {
+          const sectionTitle = form.querySelector('[name="sectionTitle"]')?.value.trim() || `${name} 基础收集材料`;
+          scenario.channels.push({ id: `ch_${Date.now()}`, name, theme, restrictions: [], sections: [{ title: sectionTitle, items: [] }] });
+          cfg.activeChannelIndex = scenario.channels.length - 1;
+          state.kycModal = null;
+          render();
+          toast("渠道已绑定", `${scenario.name} · ${name}`);
+        } else {
+          const channel = scenario.channels[modal.channelIndex];
+          if (channel) Object.assign(channel, { name, theme });
+          state.kycModal = null;
+          render();
+          toast("渠道信息已更新", name);
+        }
+      });
+    }
     $$("[data-kyc-section-title]").forEach(el => el.addEventListener("input", event => {
       const channel = currentKycEngineChannel();
       const section = channel?.sections[Number(el.dataset.kycSectionTitle)];
@@ -4098,6 +4855,14 @@ Swift Code/BIC 代码： CITIHKAX
     if (status !== "草稿" && missing.length) return toast("请补齐必填内容", "提交运营前需要单号、客户排单内容和 VA Account");
     const payload = currentSchedulePayload(status);
     state.scheduleOrders.unshift(payload);
+    if (status !== "草稿") {
+      const scheduleCustomer = state.customers.find(item => (payload.customerId && item.id === payload.customerId) || (payload.customerName && item.name === payload.customerName));
+      if (scheduleCustomer && scheduleCustomer.status === "审核通过") {
+        setCustomerStatus(scheduleCustomer, "已排单", `${roles[state.role].label} ${roles[state.role].name}`, `排单 ${payload.id} 已提交审核`);
+        scheduleCustomer.timeline.unshift({ title: "排单已提交", detail: `${payload.id} · ${payload.templateName || "客户排单"}`, role: `${roles[state.role].label} ${roles[state.role].name}`, time: "刚刚" });
+        persistCustomers();
+      }
+    }
     state.view = status === "草稿" ? "schedulingOrders" : "schedulingOrders";
     render();
     toast(status === "草稿" ? "草稿已保存" : "排单已提交运营", `${payload.id} · ${payload.templateName}`);
@@ -4237,7 +5002,7 @@ Swift Code/BIC 代码： CITIHKAX
         const subName = upload.newSubName.trim() || `下级客户 ${clientNo}`;
         customer.subCustomers = customer.subCustomers || [];
         if (!customer.subCustomers.some(item => item.clientNo === clientNo || item.name === subName)) {
-          customer.subCustomers.push({ id: `${customer.id}-SUB-${Date.now().toString(36).toUpperCase()}`, name: subName, clientNo, status: "资料待补", region: customer.region, type: "个人", updated: "刚刚同步" });
+          customer.subCustomers.push({ id: `${customer.id}-SUB-${Date.now().toString(36).toUpperCase()}`, name: subName, clientNo, status: "未准入", region: customer.region, type: "个人", updated: "刚刚同步" });
         }
         archiveSubject = subName;
         archiveLineage = `中介 ${customerNo(customer)} · 新建下级客户 ${clientNo}`;
@@ -4262,7 +5027,7 @@ Swift Code/BIC 代码： CITIHKAX
     }));
 
     targetCustomer.documents = [
-      ...materialRows.map(item => ({ name: item.category, meta: item.meta, state: item.state, tone: item.tone, url: item.url, uploadedAt: todayIsoDate() })),
+      ...materialRows.map(item => ({ name: item.category, meta: item.meta, state: item.state, tone: item.tone, url: item.url, uploadedAt: todayIsoDate(), flow: complianceDestination ? "compliance" : "library", flowLabel: complianceDestination ? destinationLabel.replace("提交到合规", "已提交合规") : "仅存材料库" })),
       ...targetCustomer.documents
     ];
     targetCustomer.updated = "刚刚";
@@ -4275,9 +5040,12 @@ Swift Code/BIC 代码： CITIHKAX
 
     if (complianceDestination) {
       const applicationId = `UPL-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${uploadCodeForCustomer(customer)}`;
-      customer.status = "待合规审核";
-      customer.owner = "合规 Tina";
-      targetCustomer.status = "待合规审核";
+      const masterCustomer = state.customers.find(item => item.id === customer.id);
+      if (masterCustomer && masterCustomer !== targetCustomer) {
+        setCustomerStatus(masterCustomer, "材料审核中", `交易员 ${roles.agent.name}`, "提交 KYC 材料，等待合规审核");
+        masterCustomer.owner = "合规 Tina";
+      }
+      setCustomerStatus(targetCustomer, "材料审核中", `交易员 ${roles.agent.name}`, "提交 KYC 材料，等待合规审核");
       targetCustomer.owner = "合规 Tina";
       targetCustomer.materialSubmission = {
         applicationId,
@@ -4434,7 +5202,7 @@ Swift Code/BIC 代码： CITIHKAX
     const materialOrder = state.materialOrders.find(item => item.id === flow.orderId);
     if (materialOrder) Object.assign(materialOrder, { status: "待运营审核", stage: "运营审核", step: 5, completeness: `${flow.files.filter(file => file.name).length} / ${flow.files.length}`, updated: "刚刚", note: "材料与申请表已提交运营审核。", history: [`刚刚 · 提交运营审核`, ...materialOrder.history] });
     customer.materialSubmission = { applicationId: flow.applicationId, generationPath: flow.generationPath, items: flow.files.filter(file => file.name).map(file => ({ ...file })), applicationPdf: flow.pdfVersions.at(-1) || null, signedPdf: flow.signedPdf, submittedAt: "刚刚" };
-    customer.status = "待运营审核";
+    setCustomerStatus(customer, "材料审核中", `交易员 ${roles.agent.name}`, "提交材料申报，进入审核流程");
     customer.updated = "刚刚";
     customer.owner = "运营 陈文静";
     const submissionLabel = flow.generationPath === "none" ? "仅材料送审" : `签署申请表 ${flow.pdfVersions.at(-1).version}`;
@@ -4736,9 +5504,7 @@ Swift Code/BIC 代码： CITIHKAX
       "bank-submit": ["银行审核中", "提交银行", "银行提交信息和资料快照已保存"],
       "bank-pass": ["审核通过", "录入银行通过", "银行审核结果已保存"],
       "bank-reject": ["已终止", "录入银行拒绝", "本次业务因银行拒绝终止"],
-      trade: ["交易中", "创建关联交易", "案件、库存预约和凭证已关联"],
-      "compliance-pass": ["待提交银行", "合规审核通过", "案件已返回运营等待提交银行"],
-      "compliance-reject": ["合规驳回", "合规驳回", "案件已返回交易员处理，等待补充材料后重新提交"]
+      trade: ["交易中", "创建关联交易", "案件、库存预约和凭证已关联"]
     };
     if (action === "followup" || action === "notify" || action === "progress") {
       const label = action === "followup" ? "补件跟进已保存" : action === "notify" ? "交易员 通知已记录" : "交易进度已更新";
@@ -4766,7 +5532,7 @@ Swift Code/BIC 代码： CITIHKAX
     const transition = transitions[action];
     if (!transition) return;
     const execute = () => applyCaseTransition(item, transition[0], transition[1], transition[2], action === "bank-reject" ? "银行拒绝" : null);
-    if (["supplement", "bank-reject", "compliance-reject"].includes(action)) {
+    if (["supplement", "bank-reject"].includes(action)) {
       showConfirm(`${transition[1]}？`, "此操作会改变案件状态并写入操作记录。", "处理说明", transition[2], "确认提交", execute);
     } else execute();
   }
@@ -4788,7 +5554,9 @@ Swift Code/BIC 代码： CITIHKAX
         name: material.category,
         meta: material.name || material.meta || "已上传材料",
         state: draft.materials[index].decision === "通过" ? "已通过" : draft.materials[index].decision === "待补件" ? "需补件" : "待复核",
-        tone: draft.materials[index].decision === "通过" ? "teal" : draft.materials[index].decision === "待补件" ? "red" : "amber"
+        tone: draft.materials[index].decision === "通过" ? "teal" : draft.materials[index].decision === "待补件" ? "red" : "amber",
+        flow: "compliance",
+        flowLabel: "已提交合规"
       }));
     }
     customer.updated = "刚刚";
@@ -4849,7 +5617,10 @@ Swift Code/BIC 代码： CITIHKAX
       order.history.unshift("刚刚 · 合规驳回，等待交易员重新提交");
     }
     if (customer) {
-      customer.status = nextStatus;
+      const mappedStatus = customerStatusFromCase(nextStatus);
+      if (mappedStatus && !(mappedStatus === "审核通过" && ["已排单", "交易中", "已成交"].includes(customer.status))) {
+        setCustomerStatus(customer, mappedStatus, `${roles[state.role].label} ${roles[state.role].name}`, event);
+      }
       customer.updated = "刚刚";
       customer.owner = item.owner;
       customer.timeline.unshift({ title: event, detail, role: `${roles[state.role].label} ${roles[state.role].name}`, time: "刚刚" });
@@ -4896,7 +5667,7 @@ Swift Code/BIC 代码： CITIHKAX
     const id = `C-2026-${String(720 + state.customers.length).padStart(4, "0")}`;
     const customer = {
       id, name: draft.name, enName: draft.enName, type: draft.type, region: draft.region, agent: draft.agent,
-      status: "草稿", risk: "待评估", updated: "刚刚", owner: `交易员 ${draft.agent}`, dob: "待 OCR 提取", idMasked: "待生成",
+      status: "未准入", risk: "待评估", updated: "刚刚", owner: `交易员 ${draft.agent}`, dob: "待 OCR 提取", idMasked: "待生成",
       phone: "待填写", email: "待填写", source: draft.relation, business: draft.business,
       documents: [
         { name: draft.type === "企业" ? "公司注册文件" : "身份证明", meta: "demo_identity.pdf · 演示材料", state: "待识别", tone: "blue" },
@@ -5018,7 +5789,7 @@ Swift Code/BIC 代码： CITIHKAX
       region: draft.region,
       agent: draft.agent,
       followTrader: draft.followTrader,
-      status: "草稿",
+      status: "未准入",
       risk: "待评估",
       updated: "刚刚",
       owner: draft.agent ? `交易员 ${draft.agent}` : "待分配",
@@ -5045,7 +5816,7 @@ Swift Code/BIC 代码： CITIHKAX
           id: systemId,
           name: draft.name,
           clientNo: displayNo,
-          status: "资料待补",
+          status: "未准入",
           type: draft.subType || "",
           region: draft.region || parentBroker.region,
           agent: draft.agent,
@@ -5219,7 +5990,7 @@ Swift Code/BIC 代码： CITIHKAX
   function advanceFlow() {
     const action = flowActions[state.flowIndex];
     const customer = mainCustomer();
-    customer.status = action.status;
+    setCustomerStatus(customer, /完成/.test(action.status) ? "已成交" : "交易中", `${roles[state.role].label} ${roles[state.role].name}`, action.event);
     customer.updated = "刚刚";
     customer.owner = state.flowIndex + 1 < flowActions.length ? `${roles[flowActions[state.flowIndex + 1].role].label} ${roles[flowActions[state.flowIndex + 1].role].name}` : "交易员 杨澜";
     if (state.flowIndex === 0) {
@@ -5240,6 +6011,7 @@ Swift Code/BIC 代码： CITIHKAX
     if (!customer) return;
     state.drawerCustomer = id;
     state.drawerTab = "overview";
+    state.drawerApplication = null;
     renderDrawer();
     const drawer = $("#detail-drawer");
     const backdrop = $("#drawer-backdrop");
@@ -5254,6 +6026,7 @@ Swift Code/BIC 代码： CITIHKAX
     if (!subCustomer) return;
     state.drawerCustomer = ref;
     state.drawerTab = "overview";
+    state.drawerApplication = null;
     renderDrawer();
     const drawer = $("#detail-drawer");
     const backdrop = $("#drawer-backdrop");
@@ -5288,7 +6061,7 @@ Swift Code/BIC 代码： CITIHKAX
       customerKind: "中介下级客户",
       region: child.region || parent.region,
       agent: child.agent || parent.agent,
-      status: child.status || "待建档",
+      status: child.status || "未准入",
       risk: child.risk || "待评估",
       updated: child.updated || parent.updated || "刚刚同步",
       owner: child.owner || parent.owner,
@@ -5312,16 +6085,141 @@ Swift Code/BIC 代码： CITIHKAX
     const eyebrow = customerKind(customer) === "中介" ? "INTERMEDIARY CUSTOMER" : customerKind(customer) === "中介下级客户" ? "INTERMEDIARY SUB CUSTOMER" : "DIRECT CUSTOMER";
     $("#detail-drawer").innerHTML = `<div class="drawer-head"><div><p class="eyebrow">${eyebrow}</p><h2>${escapeHtml(customer.name)} <span class="status status-${statusTone(customer.status)}">${escapeHtml(customer.status)}</span></h2><p>${escapeHtml(customerNo(customer))} · ${escapeHtml(customer.enName)}</p></div><button class="drawer-close" aria-label="关闭客户详情" type="button">×</button></div><div class="drawer-tabs">${tabs.map(([key, label]) => `<button class="drawer-tab ${state.drawerTab === key ? "active" : ""}" data-drawer-tab="${key}">${label}</button>`).join("")}</div><div class="drawer-body">${renderDrawerBody(customer)}</div>`;
     $(".drawer-close").addEventListener("click", closeDrawer);
-    $$('[data-drawer-tab]').forEach(tab => tab.addEventListener("click", () => { state.drawerTab = tab.dataset.drawerTab; renderDrawer(); }));
+    $$('[data-drawer-tab]').forEach(tab => tab.addEventListener("click", () => { state.drawerTab = tab.dataset.drawerTab; state.drawerApplication = null; renderDrawer(); }));
+    $$('[data-drawer-app]', $("#detail-drawer")).forEach(button => button.addEventListener("click", () => {
+      const records = customerApplications(customer);
+      const expandedId = state.drawerApplication === null ? records[0]?.id : state.drawerApplication;
+      state.drawerApplication = expandedId === button.dataset.drawerApp ? "" : button.dataset.drawerApp;
+      renderDrawer();
+    }));
+    $$('[data-mark-status]', $("#detail-drawer")).forEach(button => button.addEventListener("click", () => {
+      const target = state.customers.find(item => item.id === customer.id);
+      if (!target || !tradeMarkableStatuses.includes(target.status)) return;
+      const nextStatus = button.dataset.markStatus;
+      const operator = `${roles[state.role].label} ${roles[state.role].name}`;
+      showConfirm(`标记为「${nextStatus}」？`, `${target.name} 将由 ${operator} 手动标记为「${nextStatus}」，操作人和操作时间会写入状态变更记录。`, "操作备注", nextStatus === "交易中" ? "客户已开始交易" : "客户交易已完成", "确认标记", note => {
+        if (!setCustomerStatus(target, nextStatus, operator, note)) return;
+        target.timeline.unshift({ title: `标记${nextStatus}`, detail: note || `状态由内部人员手动标记为「${nextStatus}」`, role: operator, time: "刚刚" });
+        persistCustomers();
+        render();
+        renderDrawer();
+        toast("客户状态已更新", `${target.name} → ${nextStatus} · 操作人 ${operator}`);
+      });
+    }));
+  }
+
+  function renderDrawerStatusSection(c) {
+    const customer = state.customers.find(item => item.id === c.id);
+    if (!customer) return "";
+    const canMark = tradeMarkableStatuses.includes(customer.status);
+    const log = customer.statusLog || [];
+    return `<section class="drawer-status-section">
+      <h3>状态管理</h3>
+      ${canMark
+        ? `<p class="drawer-status-hint">合规审核已通过。内部工作人员可手动标记交易状态，操作人和操作时间会自动记录。</p>
+          <div class="case-actions drawer-status-actions">
+            <button class="btn btn-sm ${customer.status === "交易中" ? "" : "btn-primary"}" type="button" data-mark-status="交易中" ${customer.status === "交易中" ? "disabled" : ""}>标记为交易中</button>
+            <button class="btn btn-sm ${customer.status === "已成交" ? "" : "btn-primary"}" type="button" data-mark-status="已成交" ${customer.status === "已成交" ? "disabled" : ""}>标记为已成交</button>
+          </div>`
+        : `<p class="drawer-status-hint">当前状态「${escapeHtml(customer.status)}」。合规审核通过后，才可手动标记「交易中」或「已成交」。</p>`}
+      <h3>状态变更记录</h3>
+      ${log.length
+        ? `<div class="timeline">${log.map(entry => `<div class="timeline-item"><strong>${escapeHtml(entry.from)} → ${escapeHtml(entry.to)}</strong>${entry.note ? `<p>${escapeHtml(entry.note)}</p>` : ""}<time>操作人 ${escapeHtml(entry.operator)} · 操作时间 ${escapeHtml(entry.time)}</time></div>`).join("")}</div>`
+        : `<p class="drawer-status-empty">暂无状态变更记录。</p>`}
+    </section>`;
   }
 
   function renderDrawerBody(c) {
     const parentFields = c.parentBroker ? `${detailField("上级中介", `${escapeHtml(c.parentBroker.name)} · ${escapeHtml(customerNo(c.parentBroker))}`)}${detailField("下级类型", c.subType ? escapeHtml(c.subType) : "待完善")}` : "";
-    if (state.drawerTab === "overview") return `<div class="detail-grid">${detailField("客户编号", escapeHtml(customerNo(c)))}${detailField("客户类型", escapeHtml(customerKind(c)))}${parentFields}${detailField("风险等级", `${escapeHtml(c.risk)}风险`)}${detailField("地区", escapeHtml(c.region))}${detailField("所属 交易员", escapeHtml(c.agent))}</div>`;
-    if (state.drawerTab === "documents") return `<h3>材料清单</h3><div class="document-list">${c.documents.length ? c.documents.map(doc => `<div class="document-row"><span class="doc-icon">PDF</span><div><strong>${escapeHtml(doc.name)}</strong><small>${escapeHtml(doc.meta)}</small><small class="document-upload-time">上传时间：${escapeHtml(documentUploadTime(doc, c))}</small></div><span class="status status-${statusTone(doc.state)}">${escapeHtml(doc.state)}</span>${doc.url ? `<div class="document-actions"><button class="btn btn-sm" type="button" data-pdf-preview="${doc.url}" data-pdf-name="${escapeHtml(doc.name)}">预览</button><a class="btn btn-sm" href="${doc.url}" download="${escapeHtml(doc.name)}">下载</a></div>` : ""}</div>`).join("") : `<div class="empty-inline">暂无材料，后续上传后会同步到客户档案。</div>`}</div>`;
+    if (state.drawerTab === "overview") return `<div class="detail-grid">${detailField("客户编号", escapeHtml(customerNo(c)))}${detailField("客户类型", escapeHtml(customerKind(c)))}${parentFields}${detailField("风险等级", `${escapeHtml(c.risk)}风险`)}${detailField("地区", escapeHtml(c.region))}${detailField("所属 交易员", escapeHtml(c.agent))}</div>${c.parentBroker ? "" : renderDrawerStatusSection(c)}`;
+    if (state.drawerTab === "documents") return `<h3>材料清单</h3><div class="document-list">${c.documents.length ? c.documents.map(doc => `<div class="document-row"><span class="doc-icon">PDF</span><div><strong>${escapeHtml(doc.name)}${doc.flowLabel ? `<em class="doc-flow-tag ${doc.flow === "compliance" ? "compliance" : "library"}">${escapeHtml(doc.flowLabel)}</em>` : ""}</strong><small>${escapeHtml(doc.meta)}</small><small class="document-upload-time">上传时间：${escapeHtml(documentUploadTime(doc, c))}</small></div><span class="status status-${statusTone(doc.state)}">${escapeHtml(doc.state)}</span>${doc.url ? `<div class="document-actions"><button class="btn btn-sm" type="button" data-pdf-preview="${doc.url}" data-pdf-name="${escapeHtml(doc.name)}">预览</button><a class="btn btn-sm" href="${doc.url}" download="${escapeHtml(doc.name)}">下载</a></div>` : ""}</div>`).join("") : `<div class="empty-inline">暂无材料，后续上传后会同步到客户档案。</div>`}</div>`;
     if (state.drawerTab === "timeline") return `<h3>完整业务时间线</h3><div class="timeline">${c.timeline.map(timelineItem).join("")}</div>`;
     if (state.drawerTab === "funding") return `<h3>交易与凭证</h3><div class="detail-grid" style="margin-top:14px">${detailField("预约库存", c.id === "C-2026-0718" && state.flowIndex >= 8 ? "20,000 USDT / HKD 156,400" : "暂无")}${detailField("库存状态", c.id === "C-2026-0718" && state.flowIndex >= 9 ? "已锁定" : "待申请")}${detailField("凭证状态", c.id === "C-2026-0718" && state.flowIndex >= 11 ? "已匹配" : "待上传")}</div>`;
-    return `<h3>业务申请</h3><div class="document-list"><div class="document-row"><span class="doc-icon">APP</span><div><strong>${c.type === "企业" ? "企业 KYB 准入" : "个人 KYC 准入"}</strong><small>${c.id} · 最后更新 ${c.updated}</small></div><span class="status status-${statusTone(c.status)}">${c.status}</span></div></div>`;
+    return renderDrawerApplications(c);
+  }
+
+  function applicationTimeWeight(time = "") {
+    const clock = time.match(/(\d{1,2}):(\d{2})/);
+    const minutes = clock ? Number(clock[1]) * 60 + Number(clock[2]) : 0;
+    if (time.includes("刚刚")) return 4000000;
+    if (time.includes("今天")) return 3000000 + minutes;
+    if (time.includes("昨天")) return 2000000 + minutes;
+    const date = time.match(/(\d{1,2})-(\d{1,2})/);
+    if (date) return (Number(date[1]) * 100 + Number(date[2])) * 1440 + minutes;
+    return 0;
+  }
+
+  function applicationCaseIcon(type = "") {
+    if (type.includes("KYB")) return "KYB";
+    if (type.includes("KYC")) return "KYC";
+    if (type.includes("补件")) return "补件";
+    if (type.includes("追加")) return "追加";
+    if (type.includes("交易")) return "交易";
+    return "案件";
+  }
+
+  function customerApplications(c) {
+    const accessType = c.type === "企业" ? "企业 KYB 准入" : "个人 KYC 准入";
+    const orders = state.materialOrders.filter(order => order.customerId === c.id).map(order => ({
+      kind: "准入申请", icon: "APP", id: order.id, type: accessType, status: order.status,
+      source: `交易员 ${order.owner} 提交`, agent: order.owner, owner: order.owner, time: order.updated,
+      stage: order.stage, completeness: order.completeness, note: order.note, history: order.history || [],
+      withMaterials: true
+    }));
+    const cases = state.cases.filter(item => item.customerId === c.id).map(item => ({
+      kind: "审核案件", icon: applicationCaseIcon(item.type), id: item.id, type: item.type, status: item.status,
+      source: item.source, agent: item.agent, owner: item.owner, time: item.entered,
+      sla: item.sla, completeness: item.completeness, note: item.note,
+      bankRef: item.bankRef, result: item.result, history: [],
+      withMaterials: /KYC|KYB|补件/.test(item.type)
+    }));
+    return [...orders, ...cases].sort((a, b) => applicationTimeWeight(b.time) - applicationTimeWeight(a.time));
+  }
+
+  function applicationMaterials(c) {
+    const items = c.materialSubmission?.items;
+    if (items?.length) return items.map(item => ({ name: item.category, meta: item.name, state: item.opsDecision || "待审核" }));
+    return (c.documents || []).map(doc => ({ name: doc.name, meta: doc.meta, state: doc.state }));
+  }
+
+  function renderApplicationDetail(c, record) {
+    const fields = [
+      ["提交来源", record.source],
+      ["所属 交易员", record.agent],
+      ["当前处理人", record.owner],
+      record.stage ? ["办理阶段", record.stage] : null,
+      record.sla ? ["时效 SLA", record.sla] : null,
+      record.completeness ? ["材料完整度", record.completeness] : null,
+      record.bankRef && record.bankRef !== "未提交" ? ["银行参考号", record.bankRef] : null,
+      record.result ? ["当前结论", record.result] : null
+    ].filter(Boolean);
+    const materials = record.withMaterials ? applicationMaterials(c) : [];
+    return `<div class="application-detail">
+      <div class="detail-grid">${fields.map(([label, value]) => detailField(escapeHtml(label), escapeHtml(value))).join("")}</div>
+      ${record.note ? `<p class="application-note">处理备注：${escapeHtml(record.note)}</p>` : ""}
+      ${record.withMaterials ? `<h4>已提交材料</h4>${materials.length
+        ? `<div class="application-materials">${materials.map(item => `<div class="application-material-row"><div><strong>${escapeHtml(item.name)}</strong>${item.meta ? `<small>${escapeHtml(item.meta)}</small>` : ""}</div><span class="status status-${statusTone(item.state)}">${escapeHtml(item.state)}</span></div>`).join("")}</div>`
+        : `<div class="empty-inline">该申请暂未关联材料。</div>`}` : ""}
+      ${record.history.length ? `<h4>办理记录</h4><ul class="application-history">${record.history.map(entry => `<li>${escapeHtml(entry)}</li>`).join("")}</ul>` : ""}
+    </div>`;
+  }
+
+  function renderDrawerApplications(c) {
+    const records = customerApplications(c);
+    if (!records.length) return `<h3>业务申请</h3><div class="empty-inline" style="margin-top:14px">暂无业务申请记录。交易员 在业务准入提交后，会自动同步到这里。</div>`;
+    const expandedId = state.drawerApplication === null ? records[0].id : state.drawerApplication;
+    return `<h3>业务申请</h3><p class="drawer-section-hint">共 ${records.length} 条记录，来自 交易员 在业务准入提交的申请及后续审核案件。点击记录查看已提交材料与办理进度。</p><div class="application-list">${records.map(record => {
+      const open = record.id === expandedId;
+      return `<article class="application-card ${open ? "open" : ""}">
+        <button class="application-summary" type="button" data-drawer-app="${escapeHtml(record.id)}" aria-expanded="${open}">
+          <span class="doc-icon">${escapeHtml(record.icon)}</span>
+          <div><strong>${escapeHtml(record.type)}</strong><small>${escapeHtml(record.id)} · ${escapeHtml(record.kind)} · ${escapeHtml(record.time)}</small></div>
+          <span class="status status-${statusTone(record.status)}">${escapeHtml(record.status)}</span>
+          <i class="application-caret">${open ? "▾" : "▸"}</i>
+        </button>
+        ${open ? renderApplicationDetail(c, record) : ""}
+      </article>`;
+    }).join("")}</div>`;
   }
 
   function detailField(label, value) { return `<div class="detail-field"><span>${label}</span><strong>${value}</strong></div>`; }
@@ -5330,12 +6228,12 @@ Swift Code/BIC 代码： CITIHKAX
     const root = $("#confirm-root");
     root.innerHTML = `<div class="confirm-backdrop"><div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirm-title"><h2 id="confirm-title">${title}</h2><p>${message}</p><div class="field"><label for="confirm-note">${fieldLabel}</label><textarea id="confirm-note">${defaultValue}</textarea></div><div class="confirm-actions"><button class="btn" id="confirm-cancel">取消</button><button class="btn btn-primary" id="confirm-accept">${confirmLabel}</button></div></div></div>`;
     $("#confirm-cancel").addEventListener("click", () => root.innerHTML = "");
-    $("#confirm-accept").addEventListener("click", () => { root.innerHTML = ""; onConfirm(); });
+    $("#confirm-accept").addEventListener("click", () => { const note = $("#confirm-note")?.value.trim() || ""; root.innerHTML = ""; onConfirm(note); });
     $("#confirm-note").focus();
   }
 
   function confirmReset() { showConfirm("重置全部演示数据？", "角色、客户状态和完整流程将恢复到初始状态。", "确认说明", "重新开始业务演示", "确认重置", resetAll); }
-  function resetAll() { localStorage.removeItem(customerStorageKey); const templates = initialScheduleTemplates(); state = { role: "agent", view: "dashboard", customers: initialCustomers(), cases: initialCases(), caseReviewDrafts: {}, flowIndex: 0, caseStatus: "待运营审核", selectedCase: "OPS-260718", commissionConfirmed: false, materialFlow: initialMaterialFlow(), quickMaterialUpload: initialQuickMaterialUpload(), kycConfig: initialKycConfig(), materialOrders: initialMaterialOrders(), scheduleTemplates: templates, scheduleOrders: initialScheduleOrders(templates), scheduleNavOpen: true, businessAccessNavOpen: true, quote: initialQuoteState(), selectedScheduleTemplateId: "", scheduleForm: initialScheduleForm(null), scheduleTemplateDraft: { name: "", description: "", fields: initialScheduleForm(null) }, customerSearch: "", customerStatus: "全部状态", customerType: "全部类型", customerPage: 1, expandedIntermediaries: ["C-2026-0694"], customerModal: null, numberEdit: null, drawerCustomer: null, drawerTab: "overview", complianceQueueTab: "pending", complianceQueueSearch: "", complianceQueueType: "全部审核类型", complianceQueueStatus: "全部状态", complianceQueueConclusion: "全部", complianceReviewingCase: null, createStep: 1, draftCustomer: { type: "个人", name: "", enName: "", region: "中国香港", agent: "杨澜", business: "SINO", relation: "新客户" }, mobileNav: false }; state.caseReviewDrafts = initialCaseReviewDrafts(state.cases, state.customers); $("#role-select").value = state.role; render(); toast("演示数据已重置", "可以重新开始业务演示"); }
+  function resetAll() { localStorage.removeItem(customerStorageKey); const templates = initialScheduleTemplates(); state = { role: "agent", view: "dashboard", customers: initialCustomers(), cases: initialCases(), caseReviewDrafts: {}, flowIndex: 0, caseStatus: "待运营审核", selectedCase: "OPS-260718", commissionConfirmed: false, materialFlow: initialMaterialFlow(), quickMaterialUpload: initialQuickMaterialUpload(), kycConfig: initialKycConfig(), materialOrders: initialMaterialOrders(), scheduleTemplates: templates, scheduleOrders: initialScheduleOrders(templates), scheduleNavOpen: true, businessAccessNavOpen: true, quote: initialQuoteState(), selectedScheduleTemplateId: "", scheduleForm: initialScheduleForm(null), scheduleTemplateDraft: { name: "", description: "", fields: initialScheduleForm(null) }, customerSearch: "", customerStatus: "全部状态", customerType: "全部类型", customerPage: 1, expandedIntermediaries: ["C-2026-0694"], customerModal: null, numberEdit: null, drawerCustomer: null, drawerTab: "overview", drawerApplication: null, complianceQueueTab: "pending", complianceQueueSearch: "", complianceQueueType: "全部审核类型", complianceQueueStatus: "全部状态", complianceQueueConclusion: "全部", complianceReviewingCase: null, complianceConclusionDraft: { decision: "", note: "" }, createStep: 1, draftCustomer: { type: "个人", name: "", enName: "", region: "中国香港", agent: "杨澜", business: "SINO", relation: "新客户" }, mobileNav: false }; state.caseReviewDrafts = initialCaseReviewDrafts(state.cases, state.customers); $("#role-select").value = state.role; render(); toast("演示数据已重置", "可以重新开始业务演示"); }
   function resetFlowOnly() { const replacement = initialCustomers()[0]; const index = state.customers.findIndex(c => c.id === replacement.id); state.customers[index] = replacement; state.flowIndex = 0; persistCustomers(); render(); toast("主流程已重置", "其他演示客户保持不变"); }
 
   function toast(title, message) {
