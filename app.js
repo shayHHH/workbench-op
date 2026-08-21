@@ -2681,20 +2681,20 @@ ${sections.join("\n\n")}
     if (state.role !== "agent") return `<div class="page">${pageHeader("SCHEDULE CENTER", "排单中心", "当前角色不能处理排单报价。")}<div class="empty-state"><div><i>锁</i><h2>无处理权限</h2><p>请切换至初级交易员视角查看待排单订单。</p></div></div></div>`;
     return `<div class="page payout-workbench">
       ${payoutMetricGrid([
-        payoutMetric("待排单订单", "1", "笔"),
-        payoutMetric("涉及待出款总额", "$ 150,000.00", "USD", "blue"),
-        payoutMetric("今日已锁汇/已排单", "5", "笔", "green"),
-        `<article class="payout-metric-card"><span>可用出款通道额度</span><div class="payout-channel-limits"><b class="limit-sgb">SGB:<br>$1.2M</b><b class="limit-sino">SINO:<br>$850K</b></div></article>`
+        payoutMetric("待排单订单", "1", "笔", "", "当前队列", "最早提交 10:15"),
+        payoutMetric("涉及待出款总额", "$ 150,000.00", "USD", "blue", "待配置汇率", "人民币扣款待确认"),
+        payoutMetric("今日已锁汇 / 已排单", "5", "笔", "green", "当日完成", "平均处理 18 分钟"),
+        `<article class="payout-metric-card payout-channel-card"><span>可用出款通道额度</span><div class="payout-channel-limits"><b class="limit-sgb"><span>SGB</span><strong>$1.2M</strong><small>可用 68%</small></b><b class="limit-sino"><span>SINO</span><strong>$850K</strong><small>可用 42%</small></b></div></article>`
       ])}
       <section class="payout-queue-card">
-        <header class="payout-queue-head"><div><i class="payout-head-icon blue">≣</i><h2>初审合规已通过 — 待交易员排单报价 (ORDER QUEUE)</h2></div><label class="payout-search"><input placeholder="搜索订单号/客户名..." /></label></header>
+        <header class="payout-queue-head"><div><i class="payout-head-icon blue">≣</i><div><h2>初审合规通过：待交易员排单报价</h2><p>按提交时间处理，完成路由、汇率和出款批次配置。</p></div></div><label class="payout-search"><input placeholder="搜索订单号 / 客户名..." /></label></header>
         <div class="payout-grid payout-grid-trader payout-grid-head"><span>订单号 / 时间</span><span>客户主体与交易模式</span><span>拟出款金额/币种</span><span>合规预检状态</span><span>排单处理</span></div>
         <article class="payout-grid payout-grid-trader payout-row">
-          <div><strong class="mono">ORD-20260821-001</strong><small>2026-08-21 10:15</small></div>
-          <div><strong>深圳市海源贸易有限公司</strong><em>#13 公户RMB买私户外币</em></div>
-          <div><strong>USD 150,000.00</strong><small>扣款人民币: ¥1,085,250.00</small></div>
-          <div><span class="payout-check">✓ 初审材料核验无误</span></div>
-          <div><button class="payout-action blue" type="button">≡ 配置排单与汇率</button></div>
+          <div class="payout-primary"><strong class="mono">ORD-20260821-001</strong><small>今天 10:15 · 普通优先级</small></div>
+          <div><strong>深圳市海源贸易有限公司</strong><div class="payout-tags"><em>#13</em><em>公户 RMB 买私户外币</em></div><small>交易员：杨澜</small></div>
+          <div class="payout-amount"><strong>USD 150,000.00</strong><small>扣款人民币 ¥1,085,250.00</small></div>
+          <div><span class="payout-check">初审材料核验无误</span><small class="payout-note">KYC、流水、收款关系已齐备</small></div>
+          <div class="payout-action-cell"><button class="payout-action blue" type="button">配置排单与汇率</button><small>下一步：选择通道</small></div>
         </article>
       </section>
     </div>`;
@@ -2704,19 +2704,19 @@ ${sections.join("\n\n")}
     if (state.role !== "ops") return `<div class="page">${pageHeader("PAYOUT RISK AUDIT", "出款审核", "当前角色不能复核出款排单。")}<div class="empty-state"><div><i>锁</i><h2>无审核权限</h2><p>请切换至高级交易员视角处理出款审核。</p></div></div></div>`;
     return `<div class="page payout-workbench">
       ${payoutMetricGrid([
-        payoutMetric("待出款审核", "1", "笔", "orange"),
-        payoutMetric("需审核出款金额", "$ 85,000.00", "USD"),
-        payoutMetric("今日已被驳回/退回", "0", "笔", "red")
+        payoutMetric("待出款审核", "1", "笔", "orange", "风控复核", "SINO 清算网络"),
+        payoutMetric("需审核出款金额", "$ 85,000.00", "USD", "", "待核路由", "锁定汇率 7.235"),
+        payoutMetric("今日驳回 / 退回", "0", "笔", "red", "当日结果", "暂无退回补正")
       ], "three")}
       <section class="payout-queue-card">
-        <header class="payout-queue-head"><div><i class="payout-head-icon amber">♙</i><h2>交易员排单完成 — 待出款审核员复核 (PAYOUT RISK AUDIT)</h2></div></header>
+        <header class="payout-queue-head"><div><i class="payout-head-icon amber">♙</i><div><h2>交易员排单完成：待出款审核员复核</h2><p>复核路由、汇率、收款人行和批次风险参数。</p></div></div></header>
         <div class="payout-grid payout-grid-audit payout-grid-head"><span>订单号</span><span>排单路由与汇率</span><span>拟出款金/收款人行</span><span>排单人与批次</span><span>风控复核</span></div>
         <article class="payout-grid payout-grid-audit payout-row">
-          <div><strong class="mono">ORD-20260821-002</strong><small>宁波卓越进出口有限公司</small></div>
-          <div><span class="payout-route sino">SINO 清算网络</span><small>锁定汇率: 1 USD = 7.235 RMB</small></div>
-          <div><strong>USD 85,000.00</strong><small>收款行: 渣打银行(香港) SCB HK (中国香港)</small></div>
-          <div><strong>交易员: Trader-John</strong><small>批次: 当日11:30批次 (加急优先级)</small></div>
-          <div><button class="payout-action amber" type="button">⌕ 审核风控参数</button></div>
+          <div class="payout-primary"><strong class="mono">ORD-20260821-002</strong><small>宁波卓越进出口有限公司</small></div>
+          <div><span class="payout-route sino">SINO 清算网络</span><small>1 USD = 7.235 RMB · 已锁汇</small></div>
+          <div class="payout-amount"><strong>USD 85,000.00</strong><small>渣打银行(香港) SCB HK · 中国香港</small></div>
+          <div><strong>Trader-John</strong><small>当日 11:30 批次 · 加急优先级</small></div>
+          <div class="payout-action-cell"><button class="payout-action amber" type="button">审核风控参数</button><small>需确认收款行限制</small></div>
         </article>
       </section>
     </div>`;
@@ -2725,20 +2725,20 @@ ${sections.join("\n\n")}
   function renderPayoutOperations() {
     return `<div class="page payout-workbench">
       ${payoutMetricGrid([
-        payoutMetric("待外联网银出款", "1", "笔", "green"),
-        payoutMetric("待出款总额", "$ 220,000.00", "USD"),
-        payoutMetric("今日已完成打款", "12", "笔", "blue"),
-        `<article class="payout-metric-card"><span>快捷网银入口</span><div class="payout-bank-links"><button type="button">↗ SGB<br>网银</button><button type="button">↗ SINO<br>网银</button></div></article>`
+        payoutMetric("待外联网银出款", "1", "笔", "green", "审核已通过", "等待执行打款"),
+        payoutMetric("待出款总额", "$ 220,000.00", "USD", "", "当前批次", "SGB 通道"),
+        payoutMetric("今日已完成打款", "12", "笔", "blue", "含回单上传", "最近完成 16:40"),
+        `<article class="payout-metric-card payout-bank-card"><span>快捷网银入口</span><div class="payout-bank-links"><button type="button"><strong>↗ SGB</strong><small>企业网银</small></button><button type="button"><strong>↗ SINO</strong><small>清算网银</small></button></div></article>`
       ])}
       <section class="payout-queue-card">
-        <header class="payout-queue-head"><div><i class="payout-head-icon green">▣</i><h2>审核通过待出款 — 外部系统出款与上传回单 (PAYOUT OPERATIONS)</h2></div></header>
+        <header class="payout-queue-head"><div><i class="payout-head-icon green">▣</i><div><h2>审核通过待出款：外部系统出款与上传回单</h2><p>出款员提取账户要素，完成网银打款后上传付款凭证。</p></div></div></header>
         <div class="payout-grid payout-grid-operations payout-grid-head"><span>出款单号 / 通道</span><span>出款金额 / 币种</span><span>收款账户（包含SWIFT/IBAN）</span><span>审核员意见</span><span>执行打款</span></div>
         <article class="payout-grid payout-grid-operations payout-row">
-          <div><strong class="mono">ORD-20260821-003</strong><span class="payout-route sgb">通道: SGB</span></div>
-          <div><strong class="payout-green-text">USD<br>220,000.00</strong></div>
-          <div><strong>WANG FANG</strong><small>账号/IBAN: SGB-BH-9920112<br>银行: 新加坡海湾银行 SGB Bank (SGBBH22X)</small></div>
-          <div><span class="payout-check large">✓ 风控审核通过 (审核员: Risk-Auditor-Alex)</span></div>
-          <div><button class="payout-action green" type="button">↗ 提取要素与确认出款</button></div>
+          <div class="payout-primary"><strong class="mono">ORD-20260821-003</strong><span class="payout-route sgb">通道：SGB</span><small>预计今日完成</small></div>
+          <div class="payout-amount"><strong class="payout-green-text">USD 220,000.00</strong><small>企业网银出款</small></div>
+          <div><strong>WANG FANG</strong><small>IBAN: SGB-BH-9920112<br>新加坡海湾银行 SGB Bank (SGBBH22X)</small></div>
+          <div><span class="payout-check large">风控审核通过</span><small class="payout-note">审核员：Risk-Auditor-Alex</small></div>
+          <div class="payout-action-cell"><button class="payout-action green" type="button">提取要素并确认出款</button><small>完成后上传回单</small></div>
         </article>
       </section>
     </div>`;
@@ -2748,13 +2748,13 @@ ${sections.join("\n\n")}
     return `<section class="payout-metric-grid ${modifier}">${cards.join("")}</section>`;
   }
 
-  function payoutMetric(label, value, unit, tone = "") {
-    return `<article class="payout-metric-card"><span>${label}</span><strong class="${tone}">${value} <small>${unit}</small></strong></article>`;
+  function payoutMetric(label, value, unit, tone = "", meta = "", foot = "") {
+    return `<article class="payout-metric-card"><div class="payout-metric-label"><span>${label}</span>${meta ? `<em>${meta}</em>` : ""}</div><strong class="${tone}">${value} <small>${unit}</small></strong>${foot ? `<p>${foot}</p>` : ""}</article>`;
   }
 
   function scheduleOrdersTable(rows, mode) {
     if (!rows.length) return `<div class="empty-state"><div><i>≣</i><h2>暂无排单</h2><p>${mode === "ops" ? "交易员提交排单后会出现在这里。" : "创建排单并保存草稿或提交运营后会出现在这里。"}</p></div></div>`;
-    return `<div class="data-table-wrap"><table class="data-table schedule-orders-table"><thead><tr><th>排单编号</th><th>客户</th><th>Account / 币种</th><th>金额 / 币种</th><th>状态</th><th>更新时间</th><th>操作</th></tr></thead><tbody>${rows.map(order => `<tr><td><strong>${order.id}</strong><div class="muted">${order.priority} · ${order.expectedPayoutDate || "未定日期"}</div></td><td>${escapeHtml(order.customerName)}<div class="muted">${order.customerId}</div></td><td>${escapeHtml(order.templateName || "客户粘贴排单")}</td><td>${escapeHtml(order.fields.amount || "未填写")}<div class="muted">${escapeHtml(order.fields.currency || "未填写币种")}</div></td><td><span class="status status-${statusTone(order.status)}">${order.status}</span></td><td class="muted">${order.updated}</td><td>${scheduleOrderActions(order, mode)}</td></tr>`).join("")}</tbody></table></div>`;
+    return `<div class="data-table-wrap schedule-orders-wrap"><table class="data-table schedule-orders-table"><thead><tr><th>排单编号</th><th>客户主体</th><th>账户 / 模板</th><th>金额 / 币种</th><th>处理状态</th><th>更新时间</th><th>操作</th></tr></thead><tbody>${rows.map(order => `<tr><td><div class="schedule-order-id"><strong>${order.id}</strong><span>${order.priority} · ${order.expectedPayoutDate || "未定日期"}</span></div></td><td><div class="schedule-customer-cell"><strong>${escapeHtml(order.customerName)}</strong><span>${escapeHtml(order.customerId || "未绑定客户编号")}</span></div></td><td><div class="schedule-account-cell"><strong>${escapeHtml(order.templateName || "客户粘贴排单")}</strong><span>${escapeHtml(order.fields.payoutAccount || order.fields.accountName || "待补账户要素")}</span></div></td><td><div class="schedule-amount-cell"><strong>${escapeHtml(order.fields.amount || "未填写")}</strong><span>${escapeHtml(order.fields.currency || "未填写币种")}</span></div></td><td><span class="status status-${statusTone(order.status)}">${order.status}</span></td><td class="muted">${order.updated}</td><td>${scheduleOrderActions(order, mode)}</td></tr>`).join("")}</tbody></table></div>`;
   }
 
   function scheduleOrderActions(order, mode) {

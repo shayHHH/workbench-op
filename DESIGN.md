@@ -2,13 +2,17 @@
 name: Bitvast Workbench
 description: 交易执行、客户准入、地址校验、资金运营与合规审批的一体化工作台
 colors:
-  ink-950: "oklch(24% 0.018 175)"
-  ink-600: "oklch(49% 0.013 175)"
-  ink-200: "oklch(86% 0.008 175)"
-  ink-100: "oklch(93% 0.006 175)"
-  paper: "oklch(98.2% 0.006 92)"
-  surface: "oklch(99.3% 0.004 92)"
-  surface-muted: "oklch(96.5% 0.007 100)"
+  ink-950: "oklch(23% 0.018 54)"
+  ink-800: "oklch(35% 0.016 54)"
+  ink-700: "oklch(42% 0.015 54)"
+  ink-600: "oklch(49% 0.013 54)"
+  ink-500: "oklch(58% 0.012 54)"
+  ink-300: "oklch(76% 0.010 54)"
+  ink-200: "oklch(86% 0.009 54)"
+  ink-100: "oklch(93% 0.007 54)"
+  paper: "oklch(98.1% 0.009 72)"
+  surface: "oklch(99.2% 0.006 72)"
+  surface-muted: "oklch(96.3% 0.011 72)"
   orange-primary: "oklch(58% 0.183 51)"
   orange-hover: "oklch(66% 0.196 53)"
   orange-soft: "oklch(93.5% 0.055 66)"
@@ -22,13 +26,13 @@ typography:
   headline:
     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
     fontSize: "26px"
-    fontWeight: 700
+    fontWeight: 720
     lineHeight: 1.18
     letterSpacing: "-0.035em"
   title:
     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
     fontSize: "18px"
-    fontWeight: 700
+    fontWeight: 720
     lineHeight: 1.3
   body:
     fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
@@ -44,6 +48,7 @@ rounded:
   sm: "7px"
   md: "11px"
   lg: "16px"
+  xl: "18px"
   pill: "999px"
 spacing:
   xs: "4px"
@@ -70,100 +75,148 @@ components:
     rounded: "{rounded.sm}"
     padding: "8px 10px"
     height: "40px"
-  status-success:
-    backgroundColor: "{colors.orange-soft}"
-    textColor: "{colors.orange-primary}"
-    rounded: "{rounded.pill}"
-    padding: "3px 8px"
+  workflow-panel:
+    backgroundColor: "{colors.surface}"
+    rounded: "{rounded.lg}"
+    border: "1px solid {colors.ink-100}"
+  rule-assistant:
+    width: "384px"
+    backgroundColor: "{colors.surface}"
+    border: "1px solid {colors.ink-100}"
 ---
 
 # Design System: Bitvast Workbench
 
 ## Overview
 
-**Creative North Star: "安静的运营控制台"**
+**Creative North Star: "安静的业务准入控制台"**
 
-Bitvast Workbench 是供 Agent / Sales、Operations Staff 和 Compliance Officer 在日间办公室持续使用的高密度产品界面。页面首先回答当前交易状态、责任人和下一步动作，再渐进披露客户资料、地址校验、收付款凭证、规则依据和历史事件。
+Bitvast Workbench 是供交易员、客户准入运营、合规审核人员、财务出款人员和系统管理员在日间办公室持续使用的高密度产品界面。它要让用户快速确认当前客户、业务类型、材料要求、审核依据和下一步动作。
 
-系统拒绝传统银行后台的老旧表格堆叠、狭窄字号、颜色繁杂和层级混乱。可预测的导航、固定字号和清晰状态是信任的来源；装饰不参与业务表达。
+界面基于参考 HTML 的工作台模式：深墨侧栏、暖灰应用底、白色业务面板、右侧规则助手、底部固定提交栏。设计目标不是营销式吸引注意，而是让敏感材料处理过程稳定、可追溯、可解释。
 
 **Key Characteristics:**
-- 暖色纸张背景与深墨侧栏构成稳定框架
-- Bitvast 橙色只标记主操作、选择和进度
-- 数据表格紧凑，表单和详情保持充足留白
-- 150–240ms 状态动效，减少动画偏好下近乎即时
-- 桌面侧栏在 820px 以下转为可收起导航
+- 深墨侧栏固定业务范围，顶部栏承载全局搜索、角色视角和当前用户。
+- 主内容采用浅灰工作台底，白色面板承载具体业务任务。
+- 表单流程优先使用步骤面板，编号清晰，操作集中。
+- 右侧规则助手展示 KYC 流程、渠道限制、材料清单和就绪度。
+- 底部提交栏只承载提交目标、取消和主提交动作。
+- 色彩克制，Bitvast 橙色只用于主操作、当前选择和关键进度。
+
+## Layout
+
+### App Shell
+
+桌面端采用 `sidebar + topbar + workspace` 三段式结构。侧栏宽度保持 232px 到 256px，顶部栏高度保持 56px 到 68px。主内容区使用 `paper` 或 `surface-muted` 作为工作台底色，避免大面积纯白。
+
+### Business Access Workspace
+
+材料上传、客户准入、审核发起等流程页面使用三段式工作区：
+
+1. 左侧主操作区，宽度自适应，承载步骤面板。
+2. 右侧规则助手，桌面固定宽度 360px 到 400px，sticky 跟随滚动。
+3. 底部提交栏，固定在工作台底部，只放提交模式和关键动作。
+
+右侧规则助手不是装饰。它必须回答：当前业务是什么、当前渠道是什么、有哪些限制、还缺哪些材料。
+
+### Step Panels
+
+步骤面板用于客户选择、业务路由、材料上传、申请表确认等顺序任务。面板顶部包含编号、标题和必要的状态或计数；面板正文只放当前步骤需要填写或确认的内容。
+
+步骤编号采用小尺寸实心橙色方块或胶囊，不使用大图标和大面积彩色背景。
 
 ## Colors
 
-暖灰中性色覆盖绝大部分界面，带橙色倾向的深墨色提供稳定文字与侧栏，Bitvast 橙色作为唯一业务强调色。警告、危险和信息色只出现在明确状态中。
+暖灰中性色覆盖绝大部分界面。深墨色负责侧栏和主文字，橙色负责主操作和当前选择。红色、蓝色、绿色只用于明确语义状态。
 
-**The One Voice Rule.** `orange-primary` 在单屏中只用于主操作、当前选择和关键进度。它的稀少就是层级。
+**Accent Rule.** 单屏中橙色只允许出现在主按钮、当前选中项、步骤编号和少量进度状态上。大面积橙色背景会削弱业务重点。
 
-**The Semantic Pair Rule.** 每个语义深色都必须与对应浅色背景配对，并且始终附带文字；禁止只用颜色表达风险。
+**Semantic Rule.** 风险、限制、成功、信息必须使用“浅色底 + 深色文字 + 明确文案”，禁止只靠颜色表达状态。
 
 ## Typography
 
-全系统使用平台系统无衬线字体栈，在中文和英文办公环境中保持原生、快速和清楚。页面标题为 26px，区块标题为 18px，正文为 14px，表格与控件标签使用 10–12px。
+使用系统无衬线字体栈。标题需要清楚，但不能像营销页面一样夸张。页面标题 22px 到 26px，区块标题 14px 到 18px，控件标签和表格字段 10px 到 12px。
 
-正文说明限制在约 70 个字符宽度。表格可以更宽，但禁止通过缩小字号塞入更多列。
-
-**The Operational Clarity Rule.** 标题负责定位，标签负责解释，数字负责比较。禁止使用展示字体、渐变文字或无业务意义的超大数字。
-
-## Elevation
-
-界面以色调分层和 1px 细边界表达结构。静态区块没有阴影；只有抽屉、确认层和 Toast 使用 `0 22px 60px` 的柔和悬浮阴影。
-
-**The Flat-by-Default Rule.** 只有暂时离开文档流的元素才获得阴影。如果一张静态卡片看起来悬浮，它就过度设计了。
+业务说明和规则文本保持 65 到 75 字符宽度。规则助手中的长文本使用 10px 到 11px，行高至少 1.5，优先可读而不是压缩。
 
 ## Components
 
 ### Buttons
 
-- **Shape:** 稳定轻圆角（7px），标准高度 38px，小尺寸 32px。
-- **Primary:** Bitvast 橙色底与暖白文字，只给当前页面的首要动作。
-- **Secondary:** 暖白底、细中性边界，用于查看、返回和次要动作。
-- **Focus:** 3px 半透明橙色焦点环，键盘操作始终可见。
+- 主按钮：橙色实心，用于“确认并提交”“保存并发布”等当前唯一主动作。
+- 次按钮：白底中性边框，用于取消、查看、返回、预览。
+- 危险按钮：白底红字或浅红底，只用于驳回、删除、终止。
+- 禁止渐变按钮。参考 HTML 中的渐变意图转译为单色橙色主按钮。
 
-### Status chips
+### Fields
 
-- **Style:** 文字、5px 圆点和浅色背景共同表达状态。
-- **Shape:** 完全胶囊形，只用于状态和风险，不作为普通装饰标签。
+输入框、选择器、文本域统一为 40px 最小高度、7px 圆角、1px 中性边框。聚焦时使用橙色焦点环。字段标签放在控件上方，格式为清楚的业务语言，例如“路由出款通道”“业务说明 / 风险备注”。
 
-### Cards / Containers
+### Panels
 
-- **Corner Style:** 主要容器 11px，内部紧凑容器 7px。
-- **Background:** 主要内容使用 `surface`，次级处理区使用 `surface-muted`。
-- **Border:** 1px `ink-100`，禁止彩色粗侧边线和嵌套卡片。
+普通业务面板使用白色底、1px 中性边框、11px 或 16px 圆角。面板内部可以使用 `surface-muted` 做二级区域，但禁止“卡片套卡片”的多层阴影。
 
-### Inputs / Fields
+静态面板默认无阴影。只有抽屉、下拉、确认层、Toast 和底部固定提交栏可以使用轻阴影。
 
-- **Style:** 40px 最小高度、7px 圆角、1px 中性边界。
-- **Focus:** 边界切换为橙色并显示焦点环。
-- **Error:** 使用危险色说明和文字原因，不通过晃动或只变红提示。
+### Rule Assistant
 
-### Navigation
+规则助手用于展示系统建议和合规依据。它包含：
 
-- 深墨侧栏宽 232px，当前项使用低对比橙色底。
-- 顶栏高 68px，承载搜索、角色视角和当前用户。
-- 820px 以下隐藏侧栏并显示菜单按钮；主内容保持完整键盘可达。
+- Header：KYC 规则智能校验、业务类型、渠道。
+- Flow card：业务标准流程，使用浅琥珀底。
+- Restriction card：渠道限制，使用浅红底。
+- Checklist：材料清单、必填/选填、有效期、当前就绪度。
 
-### Workflow stepper
+规则助手必须显式声明“规则建议不是人工最终结论”的边界，避免让自动化看起来替代合规判断。
 
-- 已完成步骤使用实心橙色和勾号，当前步骤使用橙色描边与外环，未来步骤保持中性。
-- 高层步骤与实际动作分离，允许补件和角色切换等多个动作落在同一业务阶段。
+### Upload Zone
 
-## Do's and Don'ts
+上传区使用 2px dashed 边框、16px 圆角、浅灰底。hover 或 dragover 时切换为浅橙底和橙色边框。图标可以使用上传符号，但不可使用装饰插画。
 
-### Do:
-- **Do** 优先展示当前责任、截止时间和下一步动作。
-- **Do** 让客户主档、审批、地址、库存、凭证、交易和佣金共用一条可追溯时间线。
-- **Do** 使用 7px / 11px 两级圆角和 8px 基础间距节奏。
-- **Do** 让颜色、文字和形状共同表达状态，并满足 WCAG 2.1 AA。
+上传后的文件行包含：
 
-### Don't:
-- **Don't** 采用“老旧表格堆叠、狭窄字号、颜色繁杂和层级混乱”的传统银行后台观感。
-- **Don't** 使用装饰性金融图形、夸张渐变、玻璃拟态或缺乏业务意义的动画。
-- **Don't** 把所有信息包装成相同卡片，禁止嵌套卡片和大于 1px 的彩色侧边线。
-- **Don't** 使用纯黑或纯白，所有中性色必须带轻微品牌色温。
-- **Don't** 让 OCR 或规则建议看起来像已经替代人工决定。
+- 文件类型图标或扩展名。
+- 文件名、大小、格式和检测到的材料类型。
+- 关联材料类型下拉。
+- 删除操作。
+
+### Sticky Submit Bar
+
+提交栏固定在底部，背景为 `surface`，顶部 1px 边框，轻阴影。左侧放提交模式单选项，右侧放取消和主提交按钮。移动端改为文档流内纵向布局，避免遮挡内容。
+
+## Navigation
+
+侧栏分组使用小号 uppercase 标签。当前导航项使用低对比橙色背景和橙色文字，不使用高饱和大色块。徽标用于数量提示，不能替代状态文案。
+
+顶部搜索框保持可预测：搜索客户、案件编号或交易编号。角色选择和当前用户信息在右侧，保持稳定位置。
+
+## Tables And Lists
+
+表格用于审核队列、客户管理、工单列表等高密度信息。表头用浅灰底和 10px 标签，行高不低于 56px。列表项 hover 使用轻浅色背景，不使用显著位移。
+
+材料清单和审核材料行应优先使用列表，不使用重复的大卡片网格。
+
+## Motion
+
+只为状态变化使用 150ms 到 220ms 的过渡。允许 hover 背景、焦点环、抽屉进入和拖拽状态变化。禁止页面加载动画和装饰性动效。
+
+## Responsive Behavior
+
+1100px 以下，右侧规则助手下沉到主内容下方。820px 以下，侧栏收起并由菜单按钮打开。560px 以下，底部提交栏进入文档流，提交模式纵向排列。
+
+## Do's And Don'ts
+
+### Do
+
+- 优先展示当前客户、当前业务、当前渠道、下一步动作。
+- 把规则、限制和材料清单放在用户操作旁边，而不是藏到说明文档里。
+- 使用固定字号、可预测表单和标准控件。
+- 保持色彩稀少，让状态和主操作自然突出。
+
+### Don't
+
+- 不照搬 Tailwind 类名、外部图标依赖或 Vue 结构到当前静态工作台。
+- 不使用装饰性渐变、玻璃拟态、过度阴影或营销式 hero。
+- 不把每个区域都做成同样大小的卡片。
+- 不使用纯黑、纯白或只靠颜色表达风险。
+- 不让 OCR、KYC 规则或智能校验看起来替代人工审核。
