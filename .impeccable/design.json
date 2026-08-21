@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-10T12:00:00+08:00",
+  "title": "Design System: OrbitFlow Operations",
+  "extensions": {
+    "colorMeta": {
+      "teal-primary": {
+        "role": "primary",
+        "displayName": "运营深青",
+        "canonical": "oklch(42% 0.083 174)",
+        "tonalRamp": ["oklch(18% 0.035 174)", "oklch(28% 0.055 174)", "oklch(42% 0.083 174)", "oklch(49% 0.096 174)", "oklch(62% 0.078 174)", "oklch(76% 0.052 174)", "oklch(88% 0.036 174)", "oklch(96% 0.014 174)"]
+      },
+      "ink-950": {
+        "role": "neutral",
+        "displayName": "青墨",
+        "canonical": "oklch(24% 0.018 175)",
+        "tonalRamp": ["oklch(15% 0.018 175)", "oklch(24% 0.018 175)", "oklch(36% 0.016 175)", "oklch(49% 0.013 175)", "oklch(62% 0.011 175)", "oklch(76% 0.009 175)", "oklch(86% 0.008 175)", "oklch(95% 0.006 175)"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "暖纸",
+        "canonical": "oklch(98.2% 0.006 92)",
+        "tonalRamp": ["oklch(20% 0.008 92)", "oklch(32% 0.008 92)", "oklch(45% 0.007 92)", "oklch(58% 0.007 92)", "oklch(71% 0.006 92)", "oklch(83% 0.006 92)", "oklch(92% 0.006 92)", "oklch(98.2% 0.006 92)"]
+      }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "页面标题", "purpose": "页面定位与主要任务。" },
+      "title": { "displayName": "区块标题", "purpose": "工作队列和详情分组。" },
+      "body": { "displayName": "正文", "purpose": "业务说明、表单和操作依据。" },
+      "label": { "displayName": "标签", "purpose": "字段、状态和紧凑元数据。" }
+    },
+    "shadows": [
+      { "name": "float", "value": "0 22px 60px color-mix(in oklch, var(--ink-950) 17%, transparent)", "purpose": "抽屉、确认层和 Toast。" }
+    ],
+    "motion": [
+      { "name": "ease-out-quint", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "150–240ms 状态转换。" }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "560px" },
+      { "name": "mobile-nav", "value": "820px" },
+      { "name": "two-column", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "页面唯一首要操作。",
+      "html": "<button class=\"ds-btn-primary\">确认并继续</button>",
+      "css": ".ds-btn-primary{height:38px;padding:0 14px;border:1px solid var(--teal-700);border-radius:7px;background:var(--teal-700);color:var(--surface);font:650 14px system-ui;transition:160ms cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:var(--teal-600)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklch,var(--teal-600) 24%,transparent)}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "查看、返回和次要操作。",
+      "html": "<button class=\"ds-btn-secondary\">查看详情</button>",
+      "css": ".ds-btn-secondary{height:38px;padding:0 14px;border:1px solid var(--ink-200);border-radius:7px;background:var(--surface);color:var(--ink-950);font:650 14px system-ui}.ds-btn-secondary:hover{background:var(--surface-muted)}.ds-btn-secondary:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklch,var(--teal-600) 24%,transparent)}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "业务表单标准字段。",
+      "html": "<label class=\"ds-label\">客户名称<input class=\"ds-field\" value=\"陈嘉宁\"></label>",
+      "css": ".ds-label{display:grid;gap:6px;color:var(--ink-950);font:650 11px system-ui}.ds-field{height:40px;padding:8px 10px;border:1px solid var(--ink-200);border-radius:7px;background:var(--surface);font:400 14px system-ui}.ds-field:focus{outline:none;border-color:var(--teal-600);box-shadow:0 0 0 3px color-mix(in oklch,var(--teal-600) 24%,transparent)}"
+    },
+    {
+      "name": "Success Status",
+      "kind": "chip",
+      "refersTo": "status-success",
+      "description": "已批准、已完成等正向业务状态。",
+      "html": "<span class=\"ds-status\">已批准</span>",
+      "css": ".ds-status{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;background:var(--teal-100);color:var(--teal-700);font:700 10px system-ui}.ds-status:before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "description": "深墨侧栏中的当前模块。",
+      "html": "<button class=\"ds-nav-item\">◎ 完整流程沙盘</button>",
+      "css": ".ds-nav-item{width:210px;height:41px;padding:0 11px;border:0;border-radius:7px;background:color-mix(in oklch,var(--teal-600) 21%,var(--ink-950));color:var(--surface);font:560 14px system-ui;text-align:left}.ds-nav-item:hover{background:color-mix(in oklch,var(--teal-600) 28%,var(--ink-950))}.ds-nav-item:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklch,var(--teal-600) 24%,transparent)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "安静的运营控制台",
+    "overview": "OrbitFlow 是供 Agent、运营和合规人员在日间办公室持续使用的高密度产品界面。页面首先回答当前状态、责任人和下一步动作，再渐进披露客户资料、规则依据和历史事件。系统拒绝传统银行后台的老旧表格堆叠、狭窄字号、颜色繁杂和层级混乱。",
+    "keyCharacteristics": ["暖色纸张背景与深墨侧栏构成稳定框架", "深青绿只标记主操作、选择和进度", "数据表格紧凑，表单和详情保持充足留白", "150–240ms 状态动效", "820px 以下转为可收起导航"],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "主强调色只用于主操作、当前选择和关键进度。", "section": "colors" },
+      { "name": "The Operational Clarity Rule", "body": "标题负责定位，标签负责解释，数字负责比较。", "section": "typography" },
+      { "name": "The Flat-by-Default Rule", "body": "只有暂时离开文档流的元素才获得阴影。", "section": "elevation" }
+    ],
+    "dos": ["Do 优先展示当前责任、截止时间和下一步动作。", "Do 让颜色、文字和形状共同表达状态。"],
+    "donts": ["Don't 使用老旧表格堆叠、狭窄字号、颜色繁杂和层级混乱。", "Don't 使用夸张渐变、玻璃拟态或无意义动画。", "Don't 使用嵌套卡片和大于 1px 的彩色侧边线。"]
+  }
+}

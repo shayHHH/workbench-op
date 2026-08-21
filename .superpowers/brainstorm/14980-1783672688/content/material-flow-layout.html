@@ -1,0 +1,65 @@
+<h2>材料与补件：选择一种页面结构</h2>
+<p class="subtitle">三种方案都支持选择客户、按客户类型生成材料清单、上传/补件、生成 PDF，并提供预览和下载。</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#f6f8f7">
+      <div style="display:grid;grid-template-columns:34% 1fr;height:270px;border:1px solid #d7dfdc;border-radius:8px;overflow:hidden;background:white">
+        <div style="border-right:1px solid #e1e7e5;padding:10px">
+          <strong style="font-size:12px">选择客户</strong>
+          <div style="margin-top:9px;border:1px solid #247264;border-radius:6px;padding:8px;font-size:10px">陈嘉宁<br><span style="color:#76817e">个人 · 待补件</span></div>
+          <div style="margin-top:6px;border:1px solid #e1e7e5;border-radius:6px;padding:8px;font-size:10px">Northstar Trading<br><span style="color:#76817e">企业 · 草稿</span></div>
+        </div>
+        <div style="padding:10px">
+          <div style="display:flex;gap:5px;font-size:9px"><b>1 开始</b><span>›</span><b>2 身份</b><span>›</span><b style="color:#247264">3 上传</b><span>›</span><b>4 确认</b><span>›</span><b>5 提交</b></div>
+          <h4 style="margin:14px 0 6px;font-size:12px">陈嘉宁 · 材料提交</h4>
+          <div style="border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px">身份证明 <button style="float:right">上传</button></div>
+          <div style="margin-top:6px;border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px">地址证明 <button style="float:right">重新上传</button></div>
+          <div style="margin-top:12px;display:flex;justify-content:space-between"><button>返回</button><button style="background:#247264;color:white">继续</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>A. 左侧客户列表 + 右侧分步表单</h3><p>客户列表始终保留，方便连续处理多个客户；但提交表单的可用宽度较小。</p></div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#f6f8f7">
+      <div style="height:270px;border:1px solid #d7dfdc;border-radius:8px;overflow:hidden;background:white">
+        <div style="padding:10px;border-bottom:1px solid #e1e7e5;display:flex;justify-content:space-between;font-size:10px"><span>材料与补件 / <b>陈嘉宁</b></span><span>保存于 10:42</span></div>
+        <div style="padding:12px 16px">
+          <div style="display:flex;gap:7px;font-size:9px"><b>✓ 开始</b><span>›</span><b>✓ 身份</b><span>›</span><b style="color:#247264">3 上传</b><span>›</span><b>4 确认</b><span>›</span><b>5 提交</b></div>
+          <div style="display:grid;grid-template-columns:1fr 160px;gap:10px;margin-top:14px">
+            <div>
+              <h4 style="margin:0 0 7px;font-size:12px">材料提交与 OCR 准备</h4>
+              <div style="border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px">身份证明 <button style="float:right">上传</button></div>
+              <div style="margin-top:6px;border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px">地址证明 <button style="float:right">重新上传</button></div>
+              <div style="margin-top:12px;text-align:right"><button style="background:#247264;color:white">继续确认</button></div>
+            </div>
+            <div style="border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px"><b>上传概览</b><p style="color:#76817e">2 / 4 份</p><hr style="border:0;border-top:1px solid #e1e7e5"><b>最终文件</b><p>申请汇总.pdf</p><button>预览</button> <button>下载</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>B. 客户选择后进入独立工作页（推荐）</h3><p>先在客户选择页确定对象，再进入完整宽度的五步流程；最接近正式申报系统，PDF 结果也有固定位置。</p></div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:14px;background:#f6f8f7">
+      <div style="height:270px;border:1px solid #d7dfdc;border-radius:8px;overflow:hidden;background:white;position:relative">
+        <div style="padding:12px;font-size:10px"><b>客户列表</b><div style="margin-top:10px;height:12px;background:#edf1ef"></div><div style="margin-top:7px;height:12px;background:#edf1ef"></div><div style="margin-top:7px;height:12px;background:#edf1ef"></div></div>
+        <div style="position:absolute;right:0;top:0;width:72%;height:100%;background:white;border-left:1px solid #d7dfdc;padding:12px;box-shadow:-10px 0 20px rgba(20,40,35,.08)">
+          <div style="display:flex;justify-content:space-between;font-size:10px"><b>陈嘉宁 · 发起申报</b><span>×</span></div>
+          <div style="margin-top:15px;font-size:9px;color:#247264">1 开始　2 身份　3 上传　4 确认　5 提交</div>
+          <div style="margin-top:12px;border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px">身份证明 <button style="float:right">上传</button></div>
+          <div style="margin-top:6px;border:1px solid #e1e7e5;border-radius:6px;padding:9px;font-size:10px">地址证明 <button style="float:right">上传</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>C. 客户列表 + 右侧大型抽屉</h3><p>返回列表最快，但五步流程和 PDF 预览都塞进抽屉后容易拥挤，移动端也较难处理。</p></div>
+  </div>
+</div>
+
+<div class="pros-cons" style="margin-top:18px">
+  <div class="pros"><h4>推荐 B 的原因</h4><ul><li>与 tp-client03 的五步流程一致</li><li>保留 tp-admin-02 的客户业务准入入口</li><li>上传、OCR、确认和 PDF 结果都有足够空间</li></ul></div>
+  <div class="cons"><h4>需要接受的取舍</h4><ul><li>切换客户需要先返回客户选择页</li><li>需要保存草稿，避免返回时丢失材料状态</li></ul></div>
+</div>

@@ -1,0 +1,192 @@
+direction: right
+
+vars: {
+  laneFill: "#F8FAFC"
+  laneStroke: "#CBD5E1"
+  headerFill: "#1F3B63"
+  nodeFill: "#6B5ACD"
+  decisionFill: "#7B6FE3"
+  startFill: "#C77DFF"
+  textLight: "#FFFFFF"
+}
+
+title: "U 回收现金交易泳道图" {
+  shape: text
+  style: {
+    font-size: 28
+    bold: true
+  }
+}
+
+swimlanes: {
+  grid-columns: 3
+  grid-gap: 0
+  style: {
+    fill: transparent
+    stroke: transparent
+  }
+
+  customer: {
+    label: "客户"
+    grid-columns: 1
+    style: {
+      fill: ${laneFill}
+      stroke: ${laneStroke}
+    }
+
+    header: "客户" {
+      style: {
+        fill: ${headerFill}
+        stroke: ${headerFill}
+        font-color: ${textLight}
+        bold: true
+      }
+    }
+    step1: "1. 表达出 U 意向" {
+      shape: oval
+      style: {
+        fill: ${startFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step3: "3. 确认报价" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step6: "6. 提供转 U 出来的地址" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step8: "8. 将 U 发送到公司地址\n前置小金额测试" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step12: "12. 线下现金交易" {
+      shape: oval
+      style: {
+        fill: ${startFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+  }
+
+  trader: {
+    label: "交易员"
+    grid-columns: 1
+    style: {
+      fill: ${laneFill}
+      stroke: ${laneStroke}
+    }
+
+    header: "交易员" {
+      style: {
+        fill: ${headerFill}
+        stroke: ${headerFill}
+        font-color: ${textLight}
+        bold: true
+      }
+    }
+    step2: "2. 报回收报价" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step4: "4. 确认是否有足够现金交易" {
+      shape: diamond
+      style: {
+        fill: ${decisionFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step11: "11. 准备现金" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+  }
+
+  wallet_ops: {
+    label: "钱包运营"
+    grid-columns: 1
+    style: {
+      fill: ${laneFill}
+      stroke: ${laneStroke}
+    }
+
+    header: "钱包运营" {
+      style: {
+        fill: ${headerFill}
+        stroke: ${headerFill}
+        font-color: ${textLight}
+        bold: true
+      }
+    }
+    step5: "5. 生成收 U 钱包地址\n2 个月一换\n给客户" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step7: "7. KYA 客户地址" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step9: "9. 查询 U 是否到账" {
+      shape: diamond
+      style: {
+        fill: ${decisionFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    wait_arrival: "未到账\n继续查询" {
+      style: {
+        fill: "#A78BFA"
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+    step10: "10. 根据收到的 U 数量与约定价格\n计算支付给客户的现金总额\nU * rate = 法币金额" {
+      style: {
+        fill: ${nodeFill}
+        stroke: "#111827"
+        font-color: ${textLight}
+      }
+    }
+  }
+}
+
+swimlanes.customer.step1 -> swimlanes.trader.step2
+swimlanes.trader.step2 -> swimlanes.customer.step3
+swimlanes.customer.step3 -> swimlanes.trader.step4
+swimlanes.trader.step4 -> swimlanes.wallet_ops.step5: "是"
+swimlanes.trader.step4 -> swimlanes.trader.step2: "否 / 重新报价或结束"
+swimlanes.wallet_ops.step5 -> swimlanes.customer.step6
+swimlanes.customer.step6 -> swimlanes.wallet_ops.step7
+swimlanes.wallet_ops.step7 -> swimlanes.customer.step8: "地址通过"
+swimlanes.customer.step8 -> swimlanes.wallet_ops.step9
+swimlanes.wallet_ops.step9 -> swimlanes.wallet_ops.step10: "到账"
+swimlanes.wallet_ops.step9 -> swimlanes.wallet_ops.wait_arrival: "未到账"
+swimlanes.wallet_ops.wait_arrival -> swimlanes.wallet_ops.step9
+swimlanes.wallet_ops.step10 -> swimlanes.trader.step11
+swimlanes.trader.step11 -> swimlanes.customer.step12
