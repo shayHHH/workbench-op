@@ -8,6 +8,7 @@
     compliance: { label: "合规官", name: "Tina Lau", title: "合规官 · CO-02", initials: "TL" },
     manager: { label: "运营经理", name: "陆景然", title: "Operations Manager · OM-01", initials: "OM" },
     finance: { label: "财务", name: "许嘉怡", title: "Finance · FN-05", initials: "FN" },
+    wallet: { label: "钱包运营", name: "梁子豪", title: "Wallet Ops · WO-02", initials: "WO" },
     admin: { label: "Admin", name: "Peter Wong", title: "System Administrator", initials: "PW" }
   };
 
@@ -18,8 +19,10 @@
     ],
     ops: [
       ["dashboard", "工作台", "⌂", 6], ["customers", "客户管理", "♙"], ["tradeOrders", "交易订单", "▤"],
-      ["paymentReview", "付款审核", "◫"], ["quoteCenter", "报价管理", "₿"],
-      ["businessAccess", "业务准入", "⇪"], ["scheduleReviewCenter", "出款审核", "▦"], ["exceptionCenter", "异常处理", "▲"]
+      ["quoteCenter", "报价管理", "₿"], ["businessAccess", "业务准入", "⇪"], ["exceptionCenter", "异常处理", "▲"]
+    ],
+    wallet: [
+      ["dashboard", "工作台", "⌂"], ["tradeOrders", "交易订单", "▤"], ["walletRecords", "哈希与凭证", "◈"]
     ],
     payout: [
       ["dashboard", "工作台", "⌂", 5], ["cases", "出款任务", "▦", 5], ["receipts", "凭证匹配", "▧", 2], ["payoutRecords", "出款记录", "◷"]
@@ -217,23 +220,23 @@
   const opsStatuses = ["待运营审核", "待客户补件", "合规驳回", "待提交银行", "银行审核中", "审核通过", "交易中", "已终止"];
 
   const initialCases = () => [
-    { id: "OPS-260718", customerId: "C-2026-0718", customer: "陈嘉宁", type: "个人 KYC", status: "待运营审核", source: "交易员 提交", agent: "杨澜", owner: "陈文静", entered: "今天 09:42", sla: "剩余 1h 36m", risk: "低", completeness: "8 / 9", previous: "交易员 完成材料提交", next: "审核材料并决定补件或提交合规", note: "地址证明第二页签发机构信息不清晰。", bankRef: "未提交", result: "待处理" },
-    { id: "OPS-260694", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", status: "待客户补件", source: "运营退回", agent: "杨澜", owner: "杨澜", entered: "今天 08:46", sla: "剩余 5h 14m", risk: "中", completeness: "7 / 9", previous: "运营发起补件", next: "跟进 UBO 名单签署页", note: "缺少 UBO 名单最后一页签署。", bankRef: "未提交", result: "等待客户" },
-    { id: "OPS-260711", customerId: "C-2026-0711", customer: "赵明远", type: "个人 KYC", status: "合规驳回", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "昨天 16:28", sla: "已等待 17h", risk: "高", completeness: "9 / 9", previous: "合规驳回", next: "通知 交易员 补充资金来源说明", note: "资金来源说明不足以解释近期大额入账。", bankRef: "未提交", result: "合规驳回" },
-    { id: "OPS-260677", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业 KYB", status: "待提交银行", source: "合规通过", agent: "陈浩", owner: "陈文静", entered: "今天 09:05", sla: "剩余 3h 55m", risk: "中", completeness: "12 / 12", previous: "合规审核通过", next: "填写银行提交信息", note: "材料快照已生成，可提交银行。", bankRef: "待生成", result: "合规通过" },
-    { id: "OPS-260681", customerId: "C-2026-0588", customer: "林雅雯", type: "个人 KYC", status: "银行审核中", source: "运营送审", agent: "周辰", owner: "陈文静", entered: "昨天 11:20", sla: "已等待 22h", risk: "低", completeness: "9 / 9", previous: "已提交 HSBC APP", next: "录入银行审核结果", note: "银行批次 B-0710-03。", bankRef: "BK-20260710-018", result: "等待银行" },
+    { id: "OPS-260718", customerId: "C-2026-0718", customer: "陈嘉宁", type: "个人 KYC", businessType: "港币/美元/外币私户打款买U", status: "待运营审核", source: "交易员 提交", agent: "杨澜", owner: "陈文静", entered: "今天 09:42", sla: "剩余 1h 36m", risk: "低", completeness: "8 / 9", previous: "交易员 完成材料提交", next: "审核材料并决定补件或提交合规", note: "地址证明第二页签发机构信息不清晰。", bankRef: "未提交", result: "待处理" },
+    { id: "OPS-260694", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", businessType: "公户人民币买私户美金/港币/外币", status: "待客户补件", source: "合规退回", agent: "杨澜", owner: "杨澜", entered: "今天 08:46", sla: "剩余 5h 14m", risk: "中", completeness: "7 / 9", previous: "合规发起补件", next: "跟进 UBO 名单签署页", note: "缺少 UBO 名单最后一页签署。", bankRef: "未提交", result: "等待客户" },
+    { id: "OPS-260711", customerId: "C-2026-0711", customer: "赵明远", type: "个人 KYC", businessType: "卖U换私户人民币转账", status: "合规驳回", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "昨天 16:28", sla: "已等待 17h", risk: "高", completeness: "9 / 9", previous: "合规驳回", next: "通知 交易员 补充资金来源说明", note: "资金来源说明不足以解释近期大额入账。", bankRef: "未提交", result: "合规驳回" },
+    { id: "OPS-260677", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业 KYB", businessType: "公户人民币买公户美金/港币/外币", status: "待提交银行", source: "合规通过", agent: "陈浩", owner: "陈文静", entered: "今天 09:05", sla: "剩余 3h 55m", risk: "中", completeness: "12 / 12", previous: "合规审核通过", next: "填写银行提交信息", note: "材料快照已生成，可提交银行。", bankRef: "待生成", result: "合规通过" },
+    { id: "OPS-260681", customerId: "C-2026-0588", customer: "林雅雯", type: "个人 KYC", businessType: "U换现金", status: "银行审核中", source: "运营送审", agent: "周辰", owner: "陈文静", entered: "昨天 11:20", sla: "已等待 22h", risk: "低", completeness: "9 / 9", previous: "已提交 HSBC APP", next: "录入银行审核结果", note: "银行批次 B-0710-03。", bankRef: "BK-20260710-018", result: "等待银行" },
     { id: "OPS-260644", customerId: "C-2026-0588", customer: "林雅雯", type: "追加业务", status: "审核通过", source: "银行回传", agent: "周辰", owner: "陈文静", entered: "07-09 15:06", sla: "已通过", risk: "低", completeness: "9 / 9", previous: "银行审核通过", next: "创建或关联交易", note: "银行结果已验证。", bankRef: "BK-20260709-041", result: "通过" },
     { id: "OPS-260633", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业交易", status: "交易中", source: "运营建单", agent: "陈浩", owner: "陈文静", entered: "07-08 16:40", sla: "T+1", risk: "中", completeness: "12 / 12", previous: "已关联额度和水单", next: "更新交易进度", note: "HKD 702,000 等值交易处理中。", bankRef: "BK-20260708-019", result: "执行中" },
-    { id: "OPS-260601", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", status: "已终止", source: "银行结果", agent: "杨澜", owner: "陈文静", entered: "07-06 14:12", sla: "已关闭", risk: "中", completeness: "9 / 9", previous: "银行审核拒绝", next: "无后续操作", note: "银行未接受本次申请，需新建业务后方可重提。", bankRef: "BK-20260705-008", result: "银行拒绝", terminationType: "银行拒绝", terminationReason: "银行内部准入标准未满足" },
-    { id: "CMP-260702", customerId: "C-2026-0718", customer: "陈嘉宁", type: "个人 KYC", status: "待合规审核", source: "运营提交", agent: "杨澜", owner: "Tina Lau", entered: "今天 10:08", sla: "剩余 3h 52m", risk: "低", completeness: "9 / 9", previous: "运营材料审核通过", next: "合规人工复核", note: "规则建议低风险，地址证明异常已由运营确认。", bankRef: "未提交", result: "待合规结论" },
-    { id: "OPS-260731", customerId: "C-2026-0588", customer: "林雅雯", type: "个人 KYC", status: "待运营审核", source: "交易员 新申报", agent: "周辰", owner: "陈文静", entered: "今天 10:42", sla: "剩余 3h 18m", risk: "低", completeness: "7 / 8", previous: "交易员 提交材料", next: "核对银行月结单与地址证明", note: "申请表已签署，银行月结单文件名与材料项不一致。", bankRef: "未提交", result: "待处理" },
-    { id: "OPS-260728", customerId: "C-2026-0718", customer: "陈嘉宁", type: "地址证明补件", status: "待客户补件", source: "运营退回", agent: "杨澜", owner: "陈文静", entered: "今天 09:26", sla: "剩余 1d 6h", risk: "低", completeness: "7 / 8", previous: "运营发起补件", next: "等待 交易员 上传地址证明第二页", note: "当前地址证明缺少签发机构信息页。", bankRef: "未提交", result: "等待客户材料" },
-    { id: "OPS-260724", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", status: "合规驳回", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "昨天 18:05", sla: "已等待 16h", risk: "高", completeness: "11 / 12", previous: "合规驳回", next: "补充 UBO 资金来源证明", note: "最终受益人资金来源说明缺少支持文件。", bankRef: "未提交", result: "合规驳回" },
-    { id: "OPS-260719", customerId: "C-2026-0711", customer: "赵明远", type: "个人 KYC", status: "待提交银行", source: "合规通过", agent: "杨澜", owner: "陈文静", entered: "今天 08:54", sla: "剩余 4h 06m", risk: "中", completeness: "8 / 8", previous: "合规审核通过", next: "填写银行批次与外部参考号", note: "材料快照已锁定，等待选择提交银行。", bankRef: "待生成", result: "合规通过" },
-    { id: "OPS-260714", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业 KYB", status: "银行审核中", source: "运营送审", agent: "陈浩", owner: "陈文静", entered: "昨天 15:40", sla: "已等待 19h", risk: "中", completeness: "12 / 12", previous: "已提交 BOC Online", next: "跟进银行补充问题", note: "银行要求确认董事授权书签署日期。", bankRef: "BK-20260712-027", result: "等待银行" },
+    { id: "OPS-260601", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", businessType: "公户人民币买私户美金/港币/外币", status: "已终止", source: "银行结果", agent: "杨澜", owner: "陈文静", entered: "07-06 14:12", sla: "已关闭", risk: "中", completeness: "9 / 9", previous: "银行审核拒绝", next: "无后续操作", note: "银行未接受本次申请，需新建业务后方可重提。", bankRef: "BK-20260705-008", result: "银行拒绝", terminationType: "银行拒绝", terminationReason: "银行内部准入标准未满足" },
+    { id: "CMP-260702", customerId: "C-2026-0718", customer: "陈嘉宁", type: "个人 KYC", businessType: "港币/美元/外币私户打款买U", status: "待合规审核", source: "运营提交", agent: "杨澜", owner: "Tina Lau", entered: "今天 10:08", sla: "剩余 3h 52m", risk: "低", completeness: "9 / 9", previous: "运营材料审核通过", next: "合规人工复核", note: "规则建议低风险，地址证明异常已由运营确认。", bankRef: "未提交", result: "待合规结论" },
+    { id: "OPS-260731", customerId: "C-2026-0588", customer: "林雅雯", type: "个人 KYC", businessType: "U换现金", status: "待运营审核", source: "交易员 新申报", agent: "周辰", owner: "陈文静", entered: "今天 10:42", sla: "剩余 3h 18m", risk: "低", completeness: "7 / 8", previous: "交易员 提交材料", next: "核对银行月结单与地址证明", note: "申请表已签署，银行月结单文件名与材料项不一致。", bankRef: "未提交", result: "待处理" },
+    { id: "OPS-260728", customerId: "C-2026-0718", customer: "陈嘉宁", type: "地址证明补件", status: "待客户补件", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "今天 09:26", sla: "剩余 1d 6h", risk: "低", completeness: "7 / 8", previous: "合规发起补件", next: "等待 交易员 上传地址证明第二页", note: "当前地址证明缺少签发机构信息页。", bankRef: "未提交", result: "等待客户材料" },
+    { id: "OPS-260724", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", businessType: "公户人民币买私户美金/港币/外币", status: "合规驳回", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "昨天 18:05", sla: "已等待 16h", risk: "高", completeness: "11 / 12", previous: "合规驳回", next: "补充 UBO 资金来源证明", note: "最终受益人资金来源说明缺少支持文件。", bankRef: "未提交", result: "合规驳回" },
+    { id: "OPS-260719", customerId: "C-2026-0711", customer: "赵明远", type: "个人 KYC", businessType: "卖U换私户人民币转账", status: "待提交银行", source: "合规通过", agent: "杨澜", owner: "陈文静", entered: "今天 08:54", sla: "剩余 4h 06m", risk: "中", completeness: "8 / 8", previous: "合规审核通过", next: "填写银行批次与外部参考号", note: "材料快照已锁定，等待选择提交银行。", bankRef: "待生成", result: "合规通过" },
+    { id: "OPS-260714", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业 KYB", businessType: "公户人民币买公户美金/港币/外币", status: "银行审核中", source: "运营送审", agent: "陈浩", owner: "陈文静", entered: "昨天 15:40", sla: "已等待 19h", risk: "中", completeness: "12 / 12", previous: "已提交 BOC Online", next: "跟进银行补充问题", note: "银行要求确认董事授权书签署日期。", bankRef: "BK-20260712-027", result: "等待银行" },
     { id: "OPS-260705", customerId: "C-2026-0718", customer: "陈嘉宁", type: "个人追加业务", status: "审核通过", source: "银行回传", agent: "杨澜", owner: "陈文静", entered: "07-11 17:22", sla: "已通过", risk: "低", completeness: "8 / 8", previous: "银行审核通过", next: "创建额度预约或关联交易", note: "HSBC APP 已返回通过结果。", bankRef: "BK-20260711-052", result: "通过" },
     { id: "OPS-260698", customerId: "C-2026-0588", customer: "林雅雯", type: "个人交易", status: "交易中", source: "运营建单", agent: "周辰", owner: "陈文静", entered: "07-10 13:18", sla: "T+1", risk: "低", completeness: "8 / 8", previous: "已关联额度和水单", next: "等待银行执行结果", note: "USD 62,000 等值交易正在执行。", bankRef: "BK-20260710-061", result: "执行中" },
-    { id: "OPS-260690", customerId: "C-2026-0711", customer: "赵明远", type: "个人 KYC", status: "已终止", source: "业务取消", agent: "杨澜", owner: "陈文静", entered: "07-09 11:35", sla: "已关闭", risk: "中", completeness: "8 / 8", previous: "交易员 申请取消", next: "无后续操作", note: "客户调整业务计划，主动取消本次申请。", bankRef: "未提交", result: "业务取消", terminationType: "业务取消", terminationReason: "客户主动取消本次准入申请" }
+    { id: "OPS-260690", customerId: "C-2026-0711", customer: "赵明远", type: "个人 KYC", businessType: "卖U换私户人民币转账", status: "已终止", source: "业务取消", agent: "杨澜", owner: "陈文静", entered: "07-09 11:35", sla: "已关闭", risk: "中", completeness: "8 / 8", previous: "交易员 申请取消", next: "无后续操作", note: "客户调整业务计划，主动取消本次申请。", bankRef: "未提交", result: "业务取消", terminationType: "业务取消", terminationReason: "客户主动取消本次准入申请" }
   ];
 
   const flowActions = [
@@ -1386,10 +1389,10 @@
   );
 
   const initialMaterialOrders = () => [
-    { id: "APP-20260713-718", customerId: "C-2026-0718", status: "材料未完成", stage: "上传材料", step: 3, completeness: "4 / 8", updated: "今天 09:12", owner: "杨澜", note: "已保存客户资料，仍有 4 个材料项未上传。", history: ["今天 09:12 · 保存材料草稿", "今天 08:55 · 发起审核"] },
-    { id: "APP-20260712-694", customerId: "C-2026-0694", status: "待客户补件", stage: "补件处理中", step: 3, completeness: "6 / 7", updated: "今天 08:46", owner: "杨澜", note: "运营要求补充 UBO 名单最后一页签署版。", history: ["今天 08:46 · 运营发起补件", "昨天 17:30 · 提交运营审核"] },
-    { id: "APP-20260711-711", customerId: "C-2026-0711", status: "待运营审核", stage: "运营审核", step: 5, completeness: "8 / 8", updated: "昨天 15:04", owner: "杨澜", note: "材料与客户签署申请表已提交，等待运营处理。", history: ["昨天 15:04 · 提交运营审核", "昨天 14:52 · 客户签署版已回传"] },
-    { id: "APP-20260708-588", customerId: "C-2026-0588", status: "审核通过", stage: "已完成", step: 5, completeness: "8 / 8", updated: "07-10 17:22", owner: "周辰", note: "银行审核通过，可继续额度预约与交易。", history: ["07-10 17:22 · 银行审核通过", "07-09 11:08 · 合规审核通过"] }
+    { id: "APP-20260713-718", customerId: "C-2026-0718", businessType: "港币/美元/外币私户打款买U", status: "材料未完成", stage: "上传材料", step: 3, completeness: "4 / 8", updated: "今天 09:12", owner: "杨澜", note: "已保存客户资料，仍有 4 个材料项未上传。", history: ["今天 09:12 · 保存材料草稿", "今天 08:55 · 发起审核"] },
+    { id: "APP-20260712-694", customerId: "C-2026-0694", businessType: "公户人民币买私户美金/港币/外币", status: "待客户补件", stage: "补件处理中", step: 3, completeness: "6 / 7", updated: "今天 08:46", owner: "杨澜", note: "合规要求补充 UBO 名单最后一页签署版。", history: ["今天 08:46 · 合规发起补件", "昨天 17:30 · 提交合规审核"] },
+    { id: "APP-20260711-711", customerId: "C-2026-0711", businessType: "卖U换私户人民币转账", status: "待合规审核", stage: "合规审核", step: 4, completeness: "8 / 8", updated: "昨天 15:04", owner: "杨澜", note: "材料已直接提交合规审核，等待合规处理。", history: ["昨天 15:04 · 提交合规审核"] },
+    { id: "APP-20260708-588", customerId: "C-2026-0588", businessType: "U换现金", status: "审核通过", stage: "已完成", step: 5, completeness: "8 / 8", updated: "07-10 17:22", owner: "周辰", note: "银行审核通过，可继续额度预约与交易。", history: ["07-10 17:22 · 银行审核通过", "07-09 11:08 · 合规审核通过"] }
   ];
 
   const initialDepartmentMembers = () => [
@@ -1480,6 +1483,7 @@
     recon: null,
     orderView: null,
     orderModal: null,
+    fundingModal: null,
     paymentModal: null,
     orderSearch: "",
     orderStatusFilter: "全部状态",
@@ -1881,7 +1885,7 @@ ${sections.join("\n\n")}
       schedulingGenerate: renderScheduleGenerate, schedulingOrders: renderScheduleOrders, schedulingOps: renderOpsScheduleCenter,
       tradeOrders: renderTradeOrders, customerPayments: renderCustomerPayments, paymentReview: renderPaymentReview,
       exceptionCenter: renderExceptionCenter, exceptionMonitor: renderExceptionMonitor, payoutRecords: renderPayoutRecords,
-      ledger: renderLedgerCenter, inventory: renderInventoryCenter, dailyRecon: renderDailyRecon, fundOps: renderFundOps, profitBoard: renderProfitBoard,
+      walletRecords: renderWalletRecords, ledger: renderLedgerCenter, inventory: renderInventoryCenter, dailyRecon: renderDailyRecon, fundOps: renderFundOps, profitBoard: renderProfitBoard,
       department: renderDepartmentManagement, commissions: renderCommissions, config: renderConfig, kycConfig: renderKycConfig, audit: renderAudit, tracking: renderTracking
     };
     main.innerHTML = (renderers[state.view] || renderDashboard)();
@@ -1911,7 +1915,7 @@ ${sections.join("\n\n")}
   }
 
   function roleHasView(role, view) {
-    return navByRole[role].some(item => navItemHasView(item, view)) || (["agent", "ops"].includes(role) && view === "create") || (["agent", "ops"].includes(role) && isQuoteChildView(view)) || (role === "agent" && isScheduleChildView(view)) || (role === "ops" && view === "schedulingOps") || (role === "payout" && view === "tradeOrders");
+    return navByRole[role].some(item => navItemHasView(item, view)) || (["agent", "ops"].includes(role) && view === "create") || (["agent", "ops"].includes(role) && isQuoteChildView(view)) || (role === "agent" && isScheduleChildView(view)) || (role === "ops" && view === "schedulingOps") || (role === "payout" && view === "tradeOrders") || (role === "wallet" && ["tradeOrders", "walletRecords"].includes(view));
   }
 
   function isQuoteChildView(view) {
@@ -2015,6 +2019,7 @@ ${sections.join("\n\n")}
       payout: { eyebrow: "PAYOUT CLERK", title: "出款员工作台", subtitle: "处理出款队列和凭证匹配，保持付款材料完整归档。", metrics: [["待出款", String(state.payoutOrders.filter(item => item.status === "待出款").length), "审核已通过"], ["待核凭证", "2", "1 项金额不符"], ["已出款", String(state.payoutOrders.filter(item => item.status === "已出款").length), "回单已归档"], ["今日完成", "9", "已归档"]] },
       compliance: { eyebrow: "COMPLIANCE", title: "合规官工作台", subtitle: "只处理已提交合规的案件，自动化结果仅作为判断依据。", metrics: [["待合规审核", String(state.cases.filter(item => item.status === "待合规审核").length), "全部要求人工结论"], ["即将超时", "1", "剩余 3 小时"], ["今日已通过", "5", "均已人工确认"], ["今日已驳回", "2", "已返回处理"]] },
       manager: { eyebrow: "OPERATIONS MANAGER", title: "运营经理工作台", subtitle: "交易总览、资金管理、每日对账、盈利来源与异常监控。", metrics: [["全部订单", String(state.tradeOrders.length), "交易订单总览"], ["进行中订单", String(state.tradeOrders.filter(order => !["已完成", "已取消"].includes(order.status)).length), "含异常"], ["异常订单", String(exceptionOrders().length), "异常监控"], ["对账状态", state.recon?.status || "未开始", `对账日期 ${state.recon?.date || ""}`]] },
+      wallet: { eyebrow: "WALLET OPS", title: "钱包运营工作台", subtitle: "收 U 地址、地址 KYA、链上入款到账与链上出款登记。", metrics: [["待链上入款确认", String(state.tradeOrders.filter(order => order.status === "待收款确认" && fundingKind(order, "inflow") === "chain").length), "查链上到账"], ["待地址 KYA", String(state.tradeOrders.filter(order => fundingKind(order, "outflow") === "chain" && ["待客户付款", "待收款确认", "待排单"].includes(order.status) && order.walletOps?.kya !== "通过").length), "白名单校验"], ["待链上出款", String(state.tradeOrders.filter(order => order.status === "待出款" && fundingKind(order, "outflow") === "chain").length), "审核已通过"], ["USDT 钱包可用", `${fmtMoney(treasuryAccount("wallet-USDT")?.available || 0)}`, "热钱包余额"]] },
       finance: { eyebrow: "FINANCE", title: "财务工作台", subtitle: "账务流水、库存管理、每日对账与盈利来源。", metrics: [["账务流水", String(state.ledger.length), "全部记录"], ["库存预警", String(inventoryWarnings().length), "低库存/仓位风险"], ["对账状态", state.recon?.status || "未开始", `对账日期 ${state.recon?.date || ""}`], ["本月佣金", "HKD 42,180", "已确认"]] },
       admin: { eyebrow: "ADMINISTRATION", title: "系统总览", subtitle: "查看规则、权限和审计记录。", metrics: [["活跃用户", "26", "6 个角色组"], ["进行中案件", "38", "跨 4 个阶段"], ["规则版本", "v1.8", "07-08 生效"], ["审计事件", "1,284", "过去 30 天"]] }
     };
@@ -2023,6 +2028,7 @@ ${sections.join("\n\n")}
       agent: `<button class="btn" data-view="customers">查看客户</button><button class="btn btn-primary" data-view="materialsUpload">上传材料</button>`,
       ops: `<button class="btn" data-view="customers">查看客户</button><button class="btn btn-primary" data-view="scheduleReviewCenter">出款审核</button>`,
       payout: `<button class="btn btn-primary" data-view="cases">处理队列</button>`,
+      wallet: `<button class="btn btn-primary" data-view="tradeOrders">钱包任务</button><button class="btn" data-view="walletRecords">哈希与凭证</button>`,
       compliance: `<button class="btn btn-primary" data-view="cases">进入审核队列</button>`,
       manager: `<button class="btn btn-primary" data-view="customers">查看客户管理</button>`,
       finance: `<button class="btn" data-view="customers">查看客户</button><button class="btn btn-primary" data-view="commissions">费率与佣金</button>`,
@@ -2032,7 +2038,7 @@ ${sections.join("\n\n")}
     return `<div class="page">${pageHeader(d.eyebrow, d.title, d.subtitle, actions)}${roleContext()}
       <section class="metric-strip" aria-label="关键指标">${d.metrics.map((m, i) => metric(m[0], m[1], m[2], ["◌", "!", "◇", "✓"][i])).join("")}</section>
       <div class="dashboard-grid">
-        <section class="section"><div class="section-header"><div><h2>${["agent", "finance"].includes(state.role) ? "我的待办" : "优先处理队列"}</h2><p>按时限和风险自动排序</p></div><button class="link-button" data-view="${state.role === "admin" || state.role === "compliance" || state.role === "payout" ? navByRole[state.role][1][0] : "customers"}">查看全部 →</button></div>${renderTasks()}</section>
+        <section class="section"><div class="section-header"><div><h2>新的待处理请求</h2><p>从这里直接进入详情完成分配、确认或驳回</p></div><button class="link-button" data-view="${["admin", "compliance", "payout"].includes(state.role) ? navByRole[state.role][1][0] : "tradeOrders"}">查看全部 →</button></div>${renderRequestWidget()}</section>
         <div class="flow-side">
           <section class="section"><div class="section-header"><div><h2>今日处理负载</h2><p>基于 Demo 队列</p></div></div><div class="queue-summary">${queueProgress("已完成", 14, 21, 67)}${queueProgress("即将超时", 2, 21, 10)}${queueProgress("需要协作", 5, 21, 24)}</div></section>
           <section class="section"><div class="section-header"><div><h2>接下来</h2><p>交收与截止时间</p></div></div><div class="agenda">${agenda("10:30", "现金验收", "Jack · HKD 156,400")}${agenda("14:00", "KYC复核", "U换转账 · 第三方账户")}${agenda("18:00", "地址测试", "Ha Ma · 10 U 测试")}</div></section>
@@ -2045,6 +2051,49 @@ ${sections.join("\n\n")}
   }
   function queueProgress(label, value, total, percent) { return `<div class="queue-progress"><div class="queue-label"><strong>${label}</strong><span>${value} / ${total}</span></div><div class="progress-track"><i style="width:${percent}%"></i></div></div>`; }
   function agenda(time, title, sub) { return `<div class="agenda-row"><time>${time}</time><div><strong>${title}</strong><span>${sub}</span></div></div>`; }
+
+  function pendingRequests() {
+    const role = state.role;
+    const rows = [];
+    const push = (icon, title, type, status, time, attrs, action) => rows.push({ icon, title, type, status, time, attrs, action });
+    const orderReq = (order, type, action) => push("单", `${order.customerName} · ${order.id}`, type, order.status, order.updated, `data-order-open="${order.id}"`, action);
+    if (role === "agent") {
+      state.tradeOrders.filter(order => order.paymentRejected || order.dispatchRejected || order.exception).slice(0, 2).forEach(order => orderReq(order, `交易订单 · ${orderFlags(order)[0]?.label || "需要处理"}`, "去处理"));
+      state.tradeOrders.filter(order => order.status === "待排单").slice(0, 2).forEach(order => orderReq(order, "交易订单 · 收款已确认，待发起排单", "去排单"));
+      state.tradeOrders.filter(order => order.status === "待客户付款").slice(0, 2).forEach(order => orderReq(order, "交易订单 · 等待登记客户付款", "去登记"));
+      state.materialOrders.filter(order => /补件|驳回/.test(order.status)).slice(0, 1).forEach(order => { const customer = state.customers.find(item => item.id === order.customerId); push("补", `${customer?.name || order.customerId} · ${order.id}`, "业务准入 · 处理补件", order.status, order.updated, `data-view="documents"`, "去补件"); });
+    }
+    if (role === "ops") {
+      state.payments.filter(item => item.status === "待确认").slice(0, 3).forEach(item => push("款", `${item.customerName} · ${item.id}`, `客户付款 · ${moneyPair(item.currency, item.amount)} 待收款确认`, "待确认", item.submittedAt, `data-order-open="${item.orderId}"`, "去确认"));
+      state.payoutOrders.filter(item => item.status === "出款审核中" && item.orderId).slice(0, 2).forEach(item => push("排", `${item.customerName} · ${item.id}`, `出款排单 · ${item.currency} ${item.amount} 待审核`, "出款审核中", item.submittedAt || item.updated, `data-order-open="${item.orderId}"`, "去审核"));
+      exceptionOrders().slice(0, 2).forEach(order => orderReq(order, `附加异常 · ${order.exception.reason}`, "去处理"));
+    }
+    if (role === "payout") {
+      state.payoutOrders.filter(item => item.status === "待出款").slice(0, 4).forEach(item => push("付", `${item.customerName} · ${item.id}`, `出款任务 · ${item.currency} ${item.amount} · ${item.channel} 通道`, "待出款", item.reviewedAt || item.updated, item.orderId ? `data-order-open="${item.orderId}"` : `data-view="cases"`, "去出款"));
+    }
+    if (role === "compliance") {
+      state.cases.filter(item => item.status === "待合规审核").slice(0, 4).forEach(item => { const customer = state.customers.find(entry => entry.id === item.customerId); push("审", `${item.customer} · ${item.id}`, `合规审核 · ${item.type} · ${item.risk}风险`, "待合规审核", complianceSubmittedAt(item, customer), `data-compliance-open-review="${item.id}"`, "去审核"); });
+    }
+    if (role === "manager") {
+      exceptionOrders().slice(0, 2).forEach(order => orderReq(order, `附加异常 · ${order.exception.reason}`, "查看"));
+      state.tradeOrders.filter(order => !["已完成", "已取消"].includes(order.status) && !order.exception).slice(0, 2).forEach(order => orderReq(order, `交易订单 · ${orderStatusHint(order)}`, "查看"));
+    }
+    if (role === "finance") {
+      state.payments.filter(item => item.status === "待确认").slice(0, 3).forEach(item => push("款", `${item.customerName} · ${item.id}`, `客户付款 · ${moneyPair(item.currency, item.amount)} 待确认到账`, "待确认", item.submittedAt, `data-order-open="${item.orderId}"`, "去确认"));
+      state.tradeOrders.filter(order => order.paymentRejected).slice(0, 2).forEach(order => orderReq(order, "付款驳回记录 · 等待重新登记", "查看"));
+    }
+    if (role === "admin") {
+      push("权", "权限变更 · Peter", "为新人员分配角色", "待确认", "今天", `data-view="config"`, "去处理");
+      push("审", "异常下载", "同一用户 30 分钟内下载 12 份文件", "需检查", "剩余 1h", `data-view="audit"`, "去检查");
+    }
+    return rows.slice(0, 5);
+  }
+
+  function renderRequestWidget() {
+    const rows = pendingRequests();
+    if (!rows.length) return `<div class="empty-inline" style="margin:16px">暂无待处理请求，新提交的请求会出现在这里。</div>`;
+    return `<div class="request-list">${rows.map(row => `<div class="request-row"><span class="task-icon">${row.icon}</span><div class="request-main"><strong>${escapeHtml(row.title)}</strong><span>${escapeHtml(row.type)} · 提交 ${escapeHtml(row.time || "刚刚")}</span></div><span class="status status-${statusTone(row.status)}">${escapeHtml(row.status)}</span><button class="btn btn-sm btn-primary" type="button" ${row.attrs}>${escapeHtml(row.action)} →</button></div>`).join("")}</div>`;
+  }
 
   function renderTasks() {
     const roleTasks = {
@@ -2844,19 +2893,35 @@ ${sections.join("\n\n")}
         <button type="button" class="${state.complianceQueueTab === "processed" ? "active" : ""}" data-compliance-tab="processed" role="tab" aria-selected="${state.complianceQueueTab === "processed"}">已处理审核</button>
       </div>
       ${state.complianceQueueTab === "processed" ? renderProcessedComplianceToolbar() : renderPendingComplianceToolbar()}
-      <div class="data-table-wrap compliance-table-wrap">
-        <table class="data-table compliance-table">
-          ${state.complianceQueueTab === "processed" ? renderProcessedComplianceTable(processed) : renderPendingComplianceTable(pending)}
-        </table>
-      </div>
+      ${state.complianceQueueTab === "processed"
+        ? `<div class="data-table-wrap compliance-table-wrap"><table class="data-table compliance-table">${renderProcessedComplianceTable(processed)}</table></div>`
+        : renderPendingComplianceCards(pending)}
       <div class="pagination-bar compliance-pagination"><span>共 ${activeRows.length} 条</span><div><button class="btn btn-sm" disabled>‹</button><button class="btn btn-sm btn-primary">1</button><button class="btn btn-sm" disabled>›</button></div><span>10 条/页</span></div>
     </div>`;
   }
 
   function renderComplianceReviewPage(item) {
     const customer = state.customers.find(c => c.id === item.customerId);
+    const activity = activityGroups((customer?.timeline || []).slice(0, 6));
     return `<div class="page compliance-review-page"><button class="compliance-back-link" type="button" id="compliance-review-back">← 返回审核队列</button>
-      <section class="case-workspace compliance-review-workspace"><header class="case-workspace-head"><div><p class="eyebrow">${escapeHtml(complianceCustomerNo(item, customer))}</p><h2>${escapeHtml(item.customer)} <span class="status status-info">${escapeHtml(complianceAuditType(item))}</span></h2><p>${escapeHtml(item.type)} · 提交时间 ${escapeHtml(complianceSubmittedAt(item, customer))}</p></div><span class="risk ${riskClass(item.risk)}">${item.risk}风险</span></header>${customer?.materialSubmission ? renderComplianceSubmissionReview(item, customer.materialSubmission, customer) : `<div class="notice-preview"><span>自动化建议 · 不是最终结论</span><p>未命中制裁名单；材料完整性已由上一环节确认，仍需合规官人工给出最终结论。</p></div>`}${renderComplianceConclusionSection(item)}</section></div>`;
+      <div class="compliance-review-grid">
+      <section class="case-workspace compliance-review-workspace"><header class="case-workspace-head"><div><p class="eyebrow">${escapeHtml(complianceCustomerNo(item, customer))}</p><h2>${escapeHtml(item.customer)} <span class="status status-info">${escapeHtml(complianceAuditType(item))}</span></h2><p>${escapeHtml(item.type)} · 提交时间 ${escapeHtml(complianceSubmittedAt(item, customer))}</p></div><span class="risk ${riskClass(item.risk)}">${item.risk}风险</span></header>${customer?.materialSubmission ? renderComplianceSubmissionReview(item, customer.materialSubmission, customer) : `<div class="notice-preview"><span>自动化建议 · 不是最终结论</span><p>未命中制裁名单；材料完整性已由上一环节确认，仍需合规官人工给出最终结论。</p></div>`}${renderComplianceConclusionSection(item)}</section>
+      <aside class="section compliance-review-aside">
+        <div class="section-header"><div><h2>工单属性</h2><p>案件与客户关键信息</p></div></div>
+        <div class="order-attr-table compliance-attr-table">
+          ${orderAttrRow("▦", "工单编号", `<strong>${escapeHtml(item.id)}</strong>`)}
+          ${orderAttrRow("♙", "客户", customer ? `<button class="link-button" type="button" data-open-customer="${customer.id}">${escapeHtml(`${item.customer}（${complianceCustomerNo(item, customer)}）`)}</button>` : escapeHtml(item.customer))}
+          ${orderAttrRow("≡", "审核类型", `${escapeHtml(item.type)} · ${escapeHtml(complianceAuditType(item))}`)}
+          ${orderAttrRow("▲", "风险等级", `${escapeHtml(item.risk)}风险`)}
+          ${orderAttrRow("◇", "材料完整度", escapeHtml(item.completeness || "—"))}
+          ${orderAttrRow("◉", "当前处理人", escapeHtml(item.owner || "—"))}
+          ${orderAttrRow("◷", "提交时间", escapeHtml(complianceSubmittedAt(item, customer)))}
+        </div>
+        ${item.note ? `<div class="order-panel-note">上一环节说明：${escapeHtml(item.note)}</div>` : ""}
+        <div class="section-header compliance-activity-header"><div><h2>活动</h2><p>客户档案最近动态</p></div></div>
+        ${activity.length ? activity.map(group => `<div class="activity-group"><h4>${escapeHtml(group.key)}</h4>${group.items.map(entry => `<div class="activity-item"><i></i><div><strong>${escapeHtml(entry.title)}</strong><p>${escapeHtml(entry.detail)}</p><time>${escapeHtml(entry.role)} · ${escapeHtml(entry.time)}</time></div></div>`).join("")}</div>`).join("") : `<div class="empty-inline">暂无活动记录</div>`}
+      </aside>
+      </div></div>`;
   }
 
   function renderComplianceConclusionSection(item) {
@@ -2965,11 +3030,12 @@ ${sections.join("\n\n")}
     </div>`;
   }
 
-  function renderPendingComplianceTable(rows) {
-    return `<thead><tr><th>客户名称</th><th>客户编号</th><th>审核类型</th><th>状态</th><th>提交时间</th><th>操作</th></tr></thead><tbody>${rows.length ? rows.map(item => {
+  function renderPendingComplianceCards(rows) {
+    if (!rows.length) return `<div class="empty-state"><div><i>▦</i><h2>暂无待处理审核工单</h2><p>交易员或运营提交合规后，工单会以请求卡出现在这里。</p></div></div>`;
+    return `<div class="request-card-list">${rows.map(item => {
       const customer = state.customers.find(c => c.id === item.customerId);
-      return `<tr><td>${escapeHtml(item.customer)}</td><td>${escapeHtml(complianceCustomerNo(item, customer))}</td><td><span class="audit-type-badge">${escapeHtml(complianceAuditType(item))}</span></td><td><span class="compliance-dot pending">待审核</span></td><td>${escapeHtml(complianceSubmittedAt(item, customer))}</td><td class="table-actions"><button class="link-button" type="button" data-compliance-open-review="${item.id}">前往审核</button><button class="link-button muted-link" type="button" data-open-customer="${item.customerId}">详情</button></td></tr>`;
-    }).join("") : `<tr><td colspan="6"><div class="empty-inline">暂无待处理审核工单。</div></td></tr>`}</tbody>`;
+      return `<article class="request-card"><div class="request-card-main"><div class="request-card-title"><strong>${escapeHtml(item.customer)}</strong><span class="audit-type-badge">${escapeHtml(complianceAuditType(item))}</span><span class="status status-warning">待审核</span></div><span class="request-card-sub">${escapeHtml(complianceCustomerNo(item, customer))} · ${escapeHtml(item.type)} · ${escapeHtml(item.risk)}风险 · 提交 ${escapeHtml(complianceSubmittedAt(item, customer))}</span></div><div class="case-actions"><button class="btn btn-sm btn-primary" type="button" data-compliance-open-review="${item.id}">前往审核 →</button><button class="btn btn-sm" type="button" data-open-customer="${item.customerId}">客户详情</button></div></article>`;
+    }).join("")}</div>`;
   }
 
   function renderProcessedComplianceTable(rows) {
@@ -3016,7 +3082,6 @@ ${sections.join("\n\n")}
               </div>
               <div class="mu-step-body">
                 <div class="quick-customer-combobox mu-customer-field"><input id="quick-upload-customer" value="${escapeHtml(upload.customerNo)}" placeholder="输入客户编号如 20001 或公司名" autocomplete="off" aria-autocomplete="list" aria-expanded="${upload.customerDropdownOpen}" />${upload.customerDropdownOpen ? renderQuickCustomerDropdown(matchingCustomers, upload.customerHighlightIndex) : ""}</div>
-                ${intermediary ? renderQuickIntermediaryPanel(customer, upload) : ""}
               </div>
             </section>
 
@@ -3171,31 +3236,11 @@ ${sections.join("\n\n")}
     return `<div class="quick-customer-empty compact"><strong>等待客户匹配</strong><span>· 输入编号或名称后自动匹配</span></div>`;
   }
 
-  function renderQuickIntermediaryPanel(customer, upload) {
-    const subCustomers = customer.subCustomers || [];
-    const selectedSub = subCustomers.find(item => item.clientNo) || subCustomers[0];
-    const newClientNo = nextAvailableClientNo();
-    const targetText = upload.archiveTarget === "self" ? `${customer.name} 自身档案库` : upload.subMode === "existing" && selectedSub ? `${selectedSub.name} (${selectedSub.clientNo || "待分配编号"})` : `${upload.newSubName || "新建下级客户"} (${newClientNo})`;
-    return `<section class="quick-intermediary-panel">
-      <div class="quick-broker-banner">
-        <span aria-hidden="true">中</span>
-        <div><strong>匹配到中介客户</strong><small>${escapeHtml(customer.name)} · ${customerNo(customer)} · 下级客户 ${subCustomers.length} 个</small></div>
-      </div>
-      <div class="quick-target-grid">
-        <label class="quick-choice ${upload.archiveTarget === "self" ? "selected" : ""}"><input type="radio" name="quickArchiveTarget" value="self" ${upload.archiveTarget === "self" ? "checked" : ""} /><span><strong>中介机构自身</strong><small>框架协议、渠道资质或通用合规材料。</small></span></label>
-        <label class="quick-choice ${upload.archiveTarget === "sub" ? "selected" : ""}"><input type="radio" name="quickArchiveTarget" value="sub" ${upload.archiveTarget === "sub" ? "checked" : ""} /><span><strong>中介代理的下级客户</strong><small>本次业务对应的具体客户主体。</small></span></label>
-        <label class="quick-choice ${upload.archiveTarget === "sub" && upload.subMode === "existing" ? "selected" : ""}"><input type="radio" name="quickSubMode" value="existing" ${upload.archiveTarget === "sub" && upload.subMode === "existing" ? "checked" : ""} /><span><strong>选择已有下级客户</strong><small>${selectedSub ? "从已备案名册归档。" : "当前暂无可用下级客户。"}</small></span></label>
-        <label class="quick-choice ${upload.archiveTarget === "sub" && upload.subMode === "new" ? "selected" : ""}"><input type="radio" name="quickSubMode" value="new" ${upload.archiveTarget === "sub" && upload.subMode === "new" ? "checked" : ""} /><span><strong>登记全新下级客户</strong><small>自动预分配直客规则编号。</small></span></label>
-      </div>
-      ${upload.archiveTarget === "sub" && upload.subMode === "new" ? `<label class="field quick-subclient-name"><span>新下级客户全称</span><input id="quick-subclient-name" value="${escapeHtml(upload.newSubName)}" placeholder="例如 新加坡海峡创新基金 Ltd" autocomplete="off" /></label>` : ""}
-      <div class="quick-archive-summary"><span>最终归档主体</span><strong>${escapeHtml(targetText)}</strong><small>${upload.archiveTarget === "self" ? "适用于中介自身主档案材料。" : "材料仍与中介保持渠道关联。"}</small></div>
-    </section>`;
-  }
 
   function renderQuickUploadFile(file, index, channel = null) {
     const ext = file.name.split(".").pop()?.toUpperCase() || "FILE";
     const detected = detectQuickMaterialType(file.name);
-    return `<article class="quick-file-row"><span class="doc-icon">${ext.slice(0, 4)}</span><div><strong>${escapeHtml(file.name)}</strong><small>${formatFileSize(file.size)} · ${escapeHtml(file.type || "已知文件格式")} · ${detected}</small></div><select data-quick-file-category="${index}" aria-label="关联材料类型">${quickMaterialCategoryOptions(channel, file.mappedCategory || "")}</select><button class="icon-button" type="button" data-quick-file-remove="${index}" aria-label="移除文件">×</button></article>`;
+    return `<article class="quick-file-row"><span class="doc-icon">${ext.slice(0, 4)}</span><div><strong>${escapeHtml(file.name)}</strong><small>${formatFileSize(file.size)} · ${escapeHtml(file.type || "已知文件格式")} · ${detected}</small></div>${file.url ? `<button class="btn btn-sm quick-file-preview" type="button" data-pdf-preview="${file.url}" data-pdf-name="${escapeHtml(file.name)}">预览</button>` : `<span></span>`}<select data-quick-file-category="${index}" aria-label="关联材料类型">${quickMaterialCategoryOptions(channel, file.mappedCategory || "")}</select><button class="icon-button" type="button" data-quick-file-remove="${index}" aria-label="移除文件">×</button></article>`;
   }
 
   function renderMaterialCustomerPicker() {
@@ -3270,7 +3315,7 @@ ${sections.join("\n\n")}
         <section class="section supplement-upload-section"><div class="section-header"><div><h2>补交材料</h2><p>拖拽文件到下方区域或点击选择文件，每份文件需匹配一个材料项。支持 JPG、PNG、PDF。</p></div></div>
           <div class="supplement-dropzone" id="supplement-dropzone"><i>⇪</i><strong>拖拽文件到这里上传</strong><small>或点击选择文件 · 可一次选择多份</small><input id="supplement-file-input" type="file" multiple accept=".jpg,.jpeg,.png,.pdf" hidden /></div>
           ${uploads.length ? `<div class="supplement-file-list">${uploads.map((file, index) => `<article class="supplement-file-row"><span class="doc-icon">${file.type.includes("pdf") ? "PDF" : "IMG"}</span><div><strong>${escapeHtml(file.name)}</strong><small>${formatFileSize(file.size)} · 待提交</small></div><label class="supplement-match"><span>匹配材料项</span><select data-supplement-match="${index}"><option value="">请选择材料项</option>${options.map(option => `<option value="${escapeHtml(option)}" ${file.itemKey === option ? "selected" : ""}>${escapeHtml(option)}${targets.includes(option) ? "（需补件）" : ""}</option>`).join("")}</select></label><button class="icon-button" type="button" data-supplement-remove="${index}" aria-label="移除文件">×</button></article>`).join("")}</div>` : ""}
-          <footer class="supplement-submit"><span class="field-hint">${!uploads.length ? "请先上传至少 1 份补件文件" : allMatched ? "提交后工单返回运营复核" : "还有文件未选择匹配材料项"}</span><button class="btn btn-primary" type="button" id="supplement-submit" ${allMatched ? "" : "disabled"}>提交补件材料</button></footer>
+          <footer class="supplement-submit"><span class="field-hint">${!uploads.length ? "请先上传至少 1 份补件文件" : allMatched ? "提交后工单返回合规复核" : "还有文件未选择匹配材料项"}</span><button class="btn btn-primary" type="button" id="supplement-submit" ${allMatched ? "" : "disabled"}>提交补件材料</button></footer>
         </section>
       </div><aside class="section"><div class="section-header"><div><h2>已有材料</h2><p>补件前快照，无需重复上传</p></div></div><div class="review-material-list">${snapshot.map(item => `<article class="review-material-row supplement-snapshot-row"><div><span class="doc-icon">PDF</span><span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.meta || "已上传材料")}</small></span></div><span class="status status-${statusTone(item.state)}">${escapeHtml(item.state)}</span></article>`).join("")}</div><div class="section-header supplement-history-header"><div><h2>工单记录</h2><p>最近处理动态</p></div></div><div class="order-history">${order.history.map((event, index) => `<div><i>${index + 1}</i><span>${escapeHtml(event)}</span></div>`).join("")}</div></aside></div></div>`;
   }
@@ -3320,52 +3365,51 @@ ${sections.join("\n\n")}
     customer.updated = "刚刚";
     const [done, total] = (order.completeness || "0 / 0").split("/").map(part => Number(part.trim()) || 0);
     order.completeness = `${Math.min(total || done + categories.length, done + categories.length)} / ${total || done + categories.length}`;
-    order.status = "待运营审核";
+    order.status = "待合规审核";
     order.stage = "补件复核";
     order.updated = "刚刚";
-    order.note = `交易员已补交 ${categories.join("、")}，等待运营复核。`;
+    order.note = `交易员已补交 ${categories.join("、")}，等待合规复核。`;
     order.history.unshift("刚刚 · 交易员提交补件材料");
     flow.mode = "list";
     flow.supplementUploads = [];
     const relatedCase = supplementRelatedCase(order);
     if (relatedCase) {
-      applyCaseTransition(relatedCase, "待运营审核", "补件已提交", detail);
+      applyCaseTransition(relatedCase, "待合规审核", "补件已提交", detail);
       return;
     }
     customer.timeline.unshift({ title: "补件已提交", detail, role: `交易员 ${customer.agent}`, time: "刚刚" });
     persistCustomers();
     render();
-    toast("补件材料已提交", `${order.id} 已返回运营复核`);
+    toast("补件材料已提交", `${order.id} 已返回合规复核`);
   }
 
   function renderMaterialWorkspace() {
     const flow = state.materialFlow;
     const customer = state.customers.find(item => item.id === flow.customerId);
     if (!customer) { flow.mode = "list"; return renderMaterialCustomerPicker(); }
-    const steps = ["开始", "客户与业务", "上传与 OCR", "编辑申请表", "确认与 PDF"];
+    const rejectCase = state.cases.find(item => item.customerId === customer.id && ["合规驳回", "待客户补件"].includes(item.status));
+    const rejectDocs = customer.documents.filter(doc => doc.state === "需补件").map(doc => doc.name);
+    const rejected = customer.status === "合规驳回" || rejectCase || rejectDocs.length;
     return `<div class="page material-page">${pageHeader("APPLICATION WORKSPACE", `${customer.name} · 发起申报`, `${flow.applicationId} · ${customer.type === "企业" ? "企业 KYB" : "个人 KYC"} · 草稿自动保存在当前浏览器`, `<button class="btn" id="material-back-list">← 返回客户列表</button>`)}
-      ${customer.status === "合规驳回" || customer.documents.some(doc => doc.state === "需补件") ? `<div class="material-reject-note"><strong>补件要求</strong><span>${customer.documents.find(doc => doc.state === "需补件")?.name || "地址证明"}需要重新提交；其余有效材料无需重复上传。</span></div>` : ""}
-      <div class="material-stepper">${steps.map((label, index) => `<button type="button" class="material-step ${flow.step === index + 1 ? "active" : flow.step > index + 1 ? "done" : ""}" data-material-goto="${index + 1}" ${index + 1 > flow.step ? "disabled" : ""}><i>${flow.step > index + 1 ? "✓" : index + 1}</i><span>${label}</span></button>`).join("")}</div>
+      ${rejected ? `<section class="supplement-reject-card material-reject-card"><header><span class="status status-${statusTone(rejectCase?.status || "合规驳回")}">${escapeHtml(rejectCase?.status || "合规驳回")}</span><strong>驳回说明</strong><small>${escapeHtml(rejectCase?.source || "合规退回")} · ${escapeHtml(rejectCase?.entered || customer.updated || "")}</small></header><p>${escapeHtml(rejectCase?.note || "材料被退回，请根据驳回意见补充后重新提交。")}</p>${rejectDocs.length ? `<div class="supplement-target-row"><span>需重新提交材料项</span>${rejectDocs.map(name => `<em>${escapeHtml(name)}</em>`).join("")}</div>` : ""}</section>` : ""}
       <div class="material-work-layout"><main class="material-work-main">${renderMaterialStep(customer, flow)}</main><aside class="material-work-aside">${renderMaterialAside(customer, flow)}</aside></div></div>`;
   }
 
   function renderMaterialStep(customer, flow) {
-    if (flow.step === 1) return `<section class="material-stage"><div class="stage-kicker">STEP 01</div><h2>开始一项客户申报</h2><p>本流程将根据客户类型生成材料要求，模拟 OCR 填充申请表，并由 交易员 完成人工确认。</p><div class="material-intro-grid"><div><span>客户</span><strong>${customer.name}</strong><small>${customer.id}</small></div><div><span>申报类型</span><strong>${customer.type === "企业" ? "企业 KYB" : "个人 KYC"}</strong><small>根据客户主档自动选择</small></div><div><span>处理责任</span><strong>交易员 ${customer.agent}</strong><small>提交后转交运营</small></div></div><label class="material-consent"><input id="material-authorized" type="checkbox" ${flow.authorized ? "checked" : ""} /><span><strong>我已获得客户授权</strong><small>确认可为该客户提交材料，并允许系统生成申请表。</small></span></label>${materialStageFooter(1, !flow.authorized)}</section>`;
-    if (flow.step === 2) return `<section class="material-stage"><div class="stage-kicker">STEP 02</div><h2>客户与业务</h2><p>客户主档只作为预填依据，本次申报会形成独立申请版本。</p><div class="field-grid"><label class="field"><span>客户类型</span><input value="${customer.type === "企业" ? "企业 KYB" : "个人 KYC"}" disabled /></label><label class="field"><span>所属 交易员</span><input value="${customer.agent} · A-018" disabled /></label><label class="field"><span>业务类型</span><select data-material-field="businessType"><option ${flow.form.businessType === "SINO" ? "selected" : ""}>SINO</option><option ${flow.form.businessType === "SGB" ? "selected" : ""}>SGB</option><option ${flow.form.businessType === "TransferEasy" ? "selected" : ""}>TransferEasy</option></select></label><label class="field"><span>预计月度业务量</span><input data-material-field="expectedVolume" value="${escapeHtml(flow.form.expectedVolume || "HKD 800,000")}" /></label><label class="field full"><span>业务说明</span><textarea data-material-field="businessPurpose">${escapeHtml(flow.form.businessPurpose || "客户申请跨境资金结算服务")}</textarea></label></div>${materialStageFooter(2)}</section>`;
+    if (flow.step === 1) return `<section class="material-stage"><div class="stage-kicker">STEP 01</div><h2>开始一项客户申报</h2><p>本流程将根据客户类型生成材料要求，材料上传完成后直接提交合规审核。</p><div class="material-intro-grid"><div><span>客户</span><strong>${customer.name}</strong><small>${customer.id}</small></div><div><span>申报类型</span><strong>${customer.type === "企业" ? "企业 KYB" : "个人 KYC"}</strong><small>根据客户主档自动选择</small></div><div><span>处理责任</span><strong>交易员 ${customer.agent}</strong><small>提交后转交合规</small></div></div><label class="material-consent"><input id="material-authorized" type="checkbox" ${flow.authorized ? "checked" : ""} /><span><strong>我已获得客户授权</strong><small>确认可为该客户提交材料，并允许系统生成申请表。</small></span></label>${materialStageFooter(1, !flow.authorized)}</section>`;
+    if (flow.step === 2) return `<section class="material-stage"><div class="stage-kicker">STEP 02</div><h2>客户与业务</h2><p>客户主档只作为预填依据，本次申报会形成独立申请版本。</p><div class="field-grid"><label class="field"><span>客户类型</span><input value="${customer.type === "企业" ? "企业 KYB" : "个人 KYC"}" disabled /></label><label class="field"><span>所属 交易员</span><input value="${customer.agent} · A-018" disabled /></label><label class="field"><span>交易类型</span><select data-material-field="businessType">${state.kycConfig.scenarios.map(scenario => `<option ${flow.form.businessType === scenario.name ? "selected" : ""}>${escapeHtml(scenario.name)}</option>`).join("")}</select></label><label class="field"><span>预计月度业务量</span><input data-material-field="expectedVolume" value="${escapeHtml(flow.form.expectedVolume || "HKD 800,000")}" /></label><label class="field full"><span>业务说明</span><textarea data-material-field="businessPurpose">${escapeHtml(flow.form.businessPurpose || "客户申请跨境资金结算服务")}</textarea></label></div>${materialStageFooter(2)}</section>`;
     if (flow.step === 3) return renderMaterialUploadStep(customer, flow);
-    if (flow.step === 4) return renderMaterialFormStep(customer, flow);
     return renderMaterialConfirmStep(customer, flow);
   }
 
   function materialStageFooter(step, disabled = false) {
-    return `<footer class="material-stage-footer"><button class="btn" type="button" data-material-prev ${step === 1 ? "disabled" : ""}>← 上一步</button><button class="btn btn-primary" type="button" data-material-next ${disabled ? "disabled" : ""}>${step === 4 ? "进入确认" : "继续"} →</button></footer>`;
+    return `<footer class="material-stage-footer"><button class="btn" type="button" data-material-prev ${step === 1 ? "disabled" : ""}>← 上一步</button><button class="btn btn-primary" type="button" data-material-next ${disabled ? "disabled" : ""}>继续 →</button></footer>`;
   }
 
   function renderMaterialUploadStep(customer, flow) {
     const uploaded = flow.files.filter(item => item.name).length;
-    const items = flow.files.map((item, index) => `<article class="material-item ${item.name ? "uploaded" : ""}"><div class="material-item-copy"><span class="doc-icon">${item.name ? (item.type.includes("pdf") ? "PDF" : "IMG") : String(index + 1).padStart(2, "0")}</span><div><strong>${item.category}${item.required ? " *" : ""}</strong><small>${item.description}</small>${item.name ? `<p>${escapeHtml(item.name)} · ${formatFileSize(item.size)} · ${item.ocrState}</p>` : ""}</div></div><div class="material-item-actions">${item.url ? `<a class="btn btn-sm" href="${item.url}" target="_blank" rel="noopener">预览</a>` : ""}<label class="btn btn-sm btn-primary">${item.name ? "替换" : "上传"}<input class="material-item-input" data-material-item="${index}" type="file" accept=".jpg,.jpeg,.png,.pdf" /></label>${item.name ? `<button class="icon-button" data-material-remove="${index}" type="button" aria-label="移除">×</button>` : ""}</div></article>`).join("");
-    const choices = uploaded ? `<div class="generation-choice"><div><h3>材料上传完成后，选择处理方式</h3><p>这一步由 交易员 决定，所有路径都会保留材料原件。</p></div><div class="generation-options">${[["ocr","OCR 识别并生成申请表","自动提取后进入可编辑表单"],["manual","手工填写并生成申请表","跳过 OCR，直接填写同一份表单"],["none","不生成申请表，直接送审","仅提交当前材料给运营审核"]].map(([value,title,desc]) => `<label class="generation-option ${flow.generationPath === value ? "selected" : ""}"><input type="radio" name="generationPath" value="${value}" ${flow.generationPath === value ? "checked" : ""}/><span><strong>${title}</strong><small>${desc}</small></span></label>`).join("")}</div></div>` : "";
-    return `<section class="material-stage"><div class="stage-kicker">STEP 03</div><h2>按材料项上传客户文件</h2><p>每份文件绑定明确材料项，运营与合规会按相同目录预览、下载和审核。支持 JPG、PNG、PDF。</p><div class="material-demo-row"><span>已上传 ${uploaded} / ${flow.files.length} 项</span><button class="link-button" id="material-demo-files" type="button">载入完整演示材料</button></div><div class="material-item-list">${items}</div>${choices}<footer class="material-stage-footer"><button class="btn" type="button" data-material-prev>← 上一步</button><button class="btn btn-primary" id="material-upload-continue" type="button" ${uploaded && flow.generationPath ? "" : "disabled"}>${flow.generationPath === "none" ? "进入提交确认" : flow.generationPath === "manual" ? "填写申请表" : "运行 OCR"} →</button></footer></section>`;
+    const items = flow.files.map((item, index) => `<article class="material-item ${item.name ? "uploaded" : ""}"><div class="material-item-copy"><span class="doc-icon">${item.name ? (item.type.includes("pdf") ? "PDF" : "IMG") : String(index + 1).padStart(2, "0")}</span><div><strong>${item.category}${item.required ? " *" : ""}</strong><small>${item.description}</small>${item.name ? `<p>${escapeHtml(item.name)} · ${formatFileSize(item.size)}</p>` : ""}</div></div><div class="material-item-actions">${item.url ? `<a class="btn btn-sm" href="${item.url}" target="_blank" rel="noopener">预览</a>` : ""}<label class="btn btn-sm btn-primary">${item.name ? "替换" : "上传"}<input class="material-item-input" data-material-item="${index}" type="file" accept=".jpg,.jpeg,.png,.pdf" /></label>${item.name ? `<button class="icon-button" data-material-remove="${index}" type="button" aria-label="移除">×</button>` : ""}</div></article>`).join("");
+    return `<section class="material-stage"><div class="stage-kicker">STEP 03</div><h2>按材料项上传客户文件</h2><p>每份文件绑定明确材料项，合规会按相同目录预览、下载和审核。支持 JPG、PNG、PDF。</p><div class="material-demo-row"><span>已上传 ${uploaded} / ${flow.files.length} 项</span><button class="link-button" id="material-demo-files" type="button">载入完整演示材料</button></div><div class="material-item-list">${items}</div><footer class="material-stage-footer"><button class="btn" type="button" data-material-prev>← 上一步</button><button class="btn btn-primary" id="material-upload-continue" type="button" ${uploaded ? "" : "disabled"}>进入提交确认 →</button></footer></section>`;
   }
 
   function renderMaterialFormStep(customer, flow) {
@@ -3393,10 +3437,7 @@ ${sections.join("\n\n")}
   }
 
   function renderMaterialConfirmStep(customer, flow) {
-    const fields = Object.entries(flow.form).filter(([, value]) => String(value || "").trim());
-    const latest = flow.pdfVersions[flow.pdfVersions.length - 1];
-    const noPdf = flow.generationPath === "none";
-    return `<section class="material-stage"><div class="stage-kicker">STEP 05</div><h2>${noPdf ? "确认材料并提交运营" : "确认并预览申请表"}</h2><p>${noPdf ? "本次选择不生成申请表，运营将直接审核材料目录。" : "系统会把上一步登记的基础资料、来源、用途、目的地和金额区间写入 TP 原始两页申请表。"}</p><div class="confirm-summary"><section><h3>本次处理方式</h3><div><span>申请表</span><strong>${noPdf ? "不生成" : flow.generationPath === "ocr" ? "OCR 填充生成" : "手工填写生成"}</strong></div><div><span>客户</span><strong>${escapeHtml(customer.name)}</strong></div><div><span>年度金额</span><strong>${escapeHtml(flow.form.annualAmount || "未登记")}</strong></div><div><span>单笔金额</span><strong>${escapeHtml(flow.form.perTxAmount || "未登记")}</strong></div></section><section><h3>材料目录</h3>${flow.files.filter(file => file.name).map(file => `<div><span>${file.category}</span><strong>${escapeHtml(file.name)}</strong></div>`).join("")}</section></div><label class="material-consent"><input id="material-confirmed" type="checkbox" ${flow.confirmed ? "checked" : ""} /><span><strong>我已核对资料、业务选项与材料目录</strong><small>${noPdf ? "确认可将材料直接提交运营。" : "确认表单内容准确，生成后将在弹窗中查看完整 PDF。"}</small></span></label><div class="pdf-action-bar"><button class="btn" type="button" data-material-prev>← 返回修改</button>${noPdf ? `<button class="btn btn-primary" id="material-submit-ops" ${flow.confirmed && !flow.submitted ? "" : "disabled"}>${flow.submitted ? "已提交运营" : "直接提交运营审核"}</button>` : `<button class="btn btn-primary" type="button" id="material-generate-pdf" ${flow.confirmed ? "" : "disabled"}>${latest ? "重新生成并查看 PDF" : "生成并查看 PDF"}</button>`}</div>${latest && !noPdf ? renderPdfResult(customer, flow, latest) : ""}</section>`;
+    return `<section class="material-stage"><div class="stage-kicker">STEP 04</div><h2>确认材料并提交合规</h2><p>本流程不生成申请表，合规将直接按材料目录审核；如被驳回，驳回说明会返回本工作台。</p><div class="confirm-summary"><section><h3>申报信息</h3><div><span>客户</span><strong>${escapeHtml(customer.name)}</strong></div><div><span>申报类型</span><strong>${customer.type === "企业" ? "企业 KYB" : "个人 KYC"}</strong></div><div><span>交易类型</span><strong>${escapeHtml(flow.form.businessType || "—")}</strong></div><div><span>预计月度业务量</span><strong>${escapeHtml(flow.form.expectedVolume || "未登记")}</strong></div></section><section><h3>材料目录</h3>${flow.files.filter(file => file.name).map(file => `<div><span>${file.category}</span><strong>${escapeHtml(file.name)}</strong></div>`).join("")}</section></div><label class="material-consent"><input id="material-confirmed" type="checkbox" ${flow.confirmed ? "checked" : ""} /><span><strong>我已核对资料、业务选项与材料目录</strong><small>确认后材料将直接提交合规审核。</small></span></label><div class="pdf-action-bar"><button class="btn" type="button" data-material-prev>← 返回修改</button><button class="btn btn-primary" id="material-submit-ops" ${flow.confirmed && !flow.submitted ? "" : "disabled"}>${flow.submitted ? "已提交合规审核" : "提交合规审核"}</button></div></section>`;
   }
 
   function renderPdfResult(customer, flow, latest) {
@@ -3405,7 +3446,7 @@ ${sections.join("\n\n")}
 
   function renderMaterialAside(customer, flow) {
     const required = materialCategories(customer).slice(0, customer.type === "企业" ? 4 : 3);
-    return `<section class="section material-aside-panel"><div class="section-header"><div><h2>申报概览</h2><p>${flow.applicationId}</p></div><span class="status status-${flow.submitted ? "success" : "warning"}">${flow.submitted ? "待运营审核" : "草稿"}</span></div><div class="material-aside-body"><div class="aside-progress"><span>流程进度</span><strong>${Math.round(((flow.step - 1) / 4) * 100)}%</strong><div class="progress-track"><i style="width:${Math.round(((flow.step - 1) / 4) * 100)}%"></i></div></div><h3>必要材料</h3>${required.map(category => { const hit = flow.files.find(file => file.category === category && file.name); return `<div class="required-doc"><i>${hit ? "✓" : ""}</i><span><strong>${category}</strong><small>${hit ? hit.name : "尚未上传"}</small></span></div>`; }).join("")}<h3>自动化边界</h3><p class="aside-note">OCR 只提供字段建议。交易员 必须确认低置信度字段，PDF 才可提交运营。</p></div></section>`;
+    return `<section class="section material-aside-panel"><div class="section-header"><div><h2>申报概览</h2><p>${flow.applicationId}</p></div><span class="status status-${flow.submitted ? "success" : "warning"}">${flow.submitted ? "待合规审核" : "草稿"}</span></div><div class="material-aside-body"><div class="aside-progress"><span>流程进度</span><strong>${Math.round(((flow.step - 1) / 3) * 100)}%</strong><div class="progress-track"><i style="width:${Math.round(((flow.step - 1) / 3) * 100)}%"></i></div></div><h3>必要材料</h3>${required.map(category => { const hit = flow.files.find(file => file.category === category && file.name); return `<div class="required-doc"><i>${hit ? "✓" : ""}</i><span><strong>${category}</strong><small>${hit ? hit.name : "尚未上传"}</small></span></div>`; }).join("")}<h3>审核说明</h3><p class="aside-note">材料提交后直接进入合规审核，不再生成申请表；如被合规驳回，驳回说明会显示在本工作台顶部。</p></div></section>`;
   }
 
   function materialCategories(customer) {
@@ -3766,6 +3807,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     const root = $("#dispatch-modal-root");
     if (!root) return;
     if (!state.dispatchModal) {
+      if (state.fundingModal) { renderFundingModal(root); return; }
       if (state.paymentModal) { renderPaymentModal(root); return; }
       if (state.orderModal) { renderOrderModal(root); return; }
       if (state.payoutReceiptModal) { renderPayoutReceiptModal(root); return; }
@@ -4164,6 +4206,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
   function bindDepartmentEvents() {
     $$('[data-department-tab]').forEach(el => el.addEventListener("click", () => {
       state.departmentTab = el.dataset.departmentTab;
+      state.selectedLeaveId = null;
       render();
     }));
     $("#department-prev-week")?.addEventListener("click", () => { state.departmentWeekOffset = (state.departmentWeekOffset || 0) - 1; render(); });
@@ -4180,11 +4223,11 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       render();
     }));
     $$('[data-leave-select]').forEach(el => el.addEventListener("click", () => {
-      const leave = state.departmentLeaves.find(item => item.id === el.dataset.leaveSelect);
-      if (!leave) return;
-      const member = state.departmentMembers.find(item => item.id === leave.employeeId);
-      toast(`${member?.name || "员工"} · ${leave.type}`, leaveFullLabel(leave));
+      state.selectedLeaveId = el.dataset.leaveSelect;
+      render();
     }));
+    const leaveDetailClose = $("#leave-detail-close"); if (leaveDetailClose) leaveDetailClose.addEventListener("click", () => { state.selectedLeaveId = null; render(); });
+    const leaveDetailBackdrop = $("#leave-detail-backdrop"); if (leaveDetailBackdrop) leaveDetailBackdrop.addEventListener("click", () => { state.selectedLeaveId = null; render(); });
     $("#leave-panel-close")?.addEventListener("click", () => { state.leavePanelOpen = false; render(); });
     $("#leave-cancel")?.addEventListener("click", () => { state.leavePanelOpen = false; render(); });
     $("#leave-panel-backdrop")?.addEventListener("click", event => {
@@ -4252,9 +4295,87 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     try { localStorage.setItem(customTradeTypeKey, JSON.stringify(customTradeTypes)); } catch { /* 本地存储不可用时仅保留在内存 */ }
     return trimmed;
   }
-  const orderStatuses = ["草稿", "已报价", "待客户付款", "待收款确认", "待排单", "出款审核中", "待出款", "已出款", "已完成", "已取消"];
-  const orderStages = ["创建订单", "报价", "客户付款", "收款确认", "排单", "出款审核", "出款", "完成"];
-  const orderStageIndex = { "草稿": 1, "已报价": 2, "待客户付款": 2, "待收款确认": 3, "待排单": 4, "出款审核中": 5, "待出款": 6, "已出款": 7, "已完成": 8 };
+  /* 订单主线状态。内部值保持稳定（排单/付款等子记录复用同名字符串，不做全局改名），
+     对外展示统一走 orderStatusLabel()，与业务口径「报价→交易登记→KYC→入款→排单→出款→完成」一致。 */
+  const orderStatuses = ["草稿", "已报价", "交易登记", "KYC处理中", "待客户付款", "待收款确认", "待排单", "出款审核中", "待出款", "已出款", "已完成", "已取消"];
+  const orderStatusLabels = { "草稿": "待报价", "待客户付款": "待客户入款", "待收款确认": "待入款确认", "出款审核中": "排单审核中", "待出款": "待出款执行", "已出款": "出款执行中" };
+  const orderStatusLabel = status => orderStatusLabels[status] || status;
+  /* ---------- 资金动作：订单里的两个节点 ---------- */
+  /* 交易类型决定资金形态与责任人：法币入款→财务、USDT 入款→钱包运营、法币出款→出款员、USDT 出款→钱包运营 */
+  function fundingKind(order, side) {
+    const currency = side === "inflow" ? order.sellCurrency : order.buyCurrency;
+    if (currency === "USDT") return "chain";
+    if (side === "inflow" && order.payMethod === "现金") return "cash";
+    if (side === "outflow" && /现金/.test(order.tradeType || "")) return "cash";
+    return "bank";
+  }
+  function fundingOwnerRole(order, side) {
+    const kind = fundingKind(order, side);
+    if (kind === "chain") return "wallet";
+    return side === "inflow" ? "finance" : "payout";
+  }
+  function fundingOwnerLabel(order, side) { return roles[fundingOwnerRole(order, side)].label; }
+  const fundingKindLabel = { bank: "银行入账", chain: "链上转账", cash: "现金交收" };
+
+  function fundingState(order, side) {
+    const status = order.status;
+    const mark = side === "inflow" ? order.inflowMark : order.outflowMark;
+    const kind = fundingKind(order, side);
+    const owner = fundingOwnerRole(order, side);
+    let state = "待发起";
+    if (side === "inflow") {
+      if (["草稿", "已报价", "交易登记", "KYC处理中"].includes(status)) state = "待发起";
+      else if (status === "待客户付款") state = "待客户操作";
+      else if (status === "待收款确认") state = "待到账确认";
+      else if (status === "已取消") state = mark ? "已到账" : "待发起";
+      else state = "已到账";
+      if (order.paymentRejected && status === "待客户付款") state = "异常";
+      if (order.exception && order.exception.reason === "金额不符") state = "异常";
+    } else {
+      if (status === "待排单") state = "待排单";
+      else if (status === "出款审核中") state = "待审核";
+      else if (status === "待出款") state = "待执行";
+      else if (status === "已出款") state = mark?.archived ? "已归档" : "已执行";
+      else if (status === "已完成") state = "已归档";
+      else state = "待发起";
+      if (order.dispatchRejected && status === "待排单") state = "异常";
+    }
+    return { kind, kindLabel: fundingKindLabel[kind], owner, ownerLabel: roles[owner].label, state, mark: mark || null };
+  }
+
+  /* 订单主流程从交易登记开始；报价是订单前置动作，只在概览「报价信息」里展示。
+     KYC 拆成「材料 / 审核」两个节点：材料由初级交易员负责，审核由合规负责。 */
+  const orderStages = ["交易登记", "KYC材料", "KYC审核", "客户入款", "入款确认", "出款排单", "排单审核", "出款执行", "完成"];
+  const orderStageIndex = { "草稿": 0, "已报价": 0, "交易登记": 1, "KYC处理中": 1, "待客户付款": 3, "待收款确认": 4, "待排单": 5, "出款审核中": 6, "待出款": 7, "已出款": 8, "已完成": 9 };
+  function orderStageCurrent(order) {
+    let current = orderStageIndex[order.status] ?? 0;
+    if (["交易登记", "KYC处理中"].includes(order.status)) {
+      const label = orderKyc(order).label;
+      current = label === "KYC 已通过" ? 3 : label === "KYC 待审核" ? 2 : 1;
+    }
+    return current;
+  }
+
+  /* 每个节点的责任角色 / 本阶段动作 / 下一步。资金四节点的文案随交易类型（法币 / 链上 / 现金）变化。 */
+  function orderStageMeta(order, index) {
+    const inflow = fundingKind(order, "inflow");
+    const outflow = fundingKind(order, "outflow");
+    const inflowDesc = { chain: "客户转入 USDT", cash: "客户交付现金", bank: "客户银行转账" }[inflow];
+    const confirmDesc = { chain: "钱包运营确认链上到账", cash: "现场清点确认现金", bank: "财务确认银行入账" }[inflow];
+    const dispatchDesc = { chain: "确认客户收 U 地址", cash: "安排线下现金交收", bank: "发起银行转账排单" }[outflow];
+    const execDesc = { chain: "钱包运营打 U", cash: "线下交付现金", bank: "出款员银行转账" }[outflow];
+    return [
+      { role: roles.agent.label, desc: "创建订单、关联报价并确认交易要素", next: "进入 KYC 环节" },
+      { role: roles.agent.label, desc: "收集并上传客户 KYC 材料", next: "提交合规审核" },
+      { role: roles.compliance.label, desc: "审核 KYC 材料，不通过退回补充", next: "通过后通知客户入款" },
+      { role: `客户 · ${roles.agent.label}跟进`, desc: inflowDesc, next: "登记后等待入款确认" },
+      { role: fundingOwnerLabel(order, "inflow"), desc: confirmDesc, next: "确认到账后进入出款排单" },
+      { role: roles.agent.label, desc: dispatchDesc, next: "提交排单审核" },
+      { role: roles.ops.label, desc: "审核排单要素与通道额度", next: "通过后进入出款执行" },
+      { role: fundingOwnerLabel(order, "outflow"), desc: execDesc, next: "回单归档后订单完成" },
+      { role: `${roles.agent.label} / ${roles.ops.label}`, desc: "核对回单与收益，确认订单闭环", next: "订单归档" }
+    ][index];
+  }
   const tradeTypePresets = { "现金换U": ["HKD", "USDT", "7.8200"], "U换现金": ["USDT", "HKD", "7.8000"], "转账换U": ["USD", "USDT", "1.0020"], "U换转账": ["USDT", "USD", "0.9980"], "法币换法币": ["HKD", "USD", "7.8000"] };
   const recentQuoteBook = [
     { id: "Q-20260824-01", pair: "HKD/USDT", rate: "7.8200", costRate: "7.7900", source: "快速报价", time: "今天 09:05" },
@@ -4324,14 +4445,21 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     target.tradeOrders = [
       base("TO-20260824-101", "C-2026-0607", "U换现金", "USDT", 5000, "HKD", 39000, "7.8000", "USDT 转入", "草稿", "杨澜", { createdAt: "今天 09:02", updated: "今天 09:02", timeline: [{ title: "创建订单草稿", detail: "客户计划卖出 5,000 USDT 换取港币现金", role: "初级交易员 杨澜", time: "今天 09:02" }] }),
       base("TO-20260824-102", "C-2026-0636", "转账换U", "USD", 30000, "USDT", 29940, "1.0020", "银行转账", "已报价", "杨澜", { quote: q("1.0020", "0.9990", "USD 30", "2026-08-24"), createdAt: "今天 08:40", updated: "今天 08:55", timeline: [{ title: "关联报价", detail: "成交价 1.0020 · 成本价 0.9990 · 手续费 USD 30", role: "初级交易员 杨澜", time: "今天 08:55" }, { title: "创建订单草稿", detail: "USD 30,000 转账买 U", role: "初级交易员 杨澜", time: "今天 08:40" }] }),
-      base("TO-20260823-103", "C-2026-0607", "现金换U", "HKD", 156400, "USDT", 20000, "7.8200", "现金", "待客户付款", "杨澜", { quote: q("7.8200", "7.7900", "HKD 300", "2026-08-23"), createdAt: "昨天 15:10", updated: "昨天 16:05", timeline: [{ title: "通知客户付款", detail: "等待客户交付 HKD 156,400 现金", role: "初级交易员 杨澜", time: "昨天 16:05" }, { title: "关联报价", detail: "汇率 7.8200 · 手续费 HKD 300", role: "初级交易员 杨澜", time: "昨天 15:40" }] }),
+      base("TO-20260823-103", "C-2026-0607", "现金换U", "HKD", 156400, "USDT", 20000, "7.8200", "现金", "待客户付款", "杨澜", { quote: q("7.8200", "7.7900", "HKD 300", "2026-08-23"), walletOps: { payoutAddress: "TWb5Yd8Nc2Kf7Rq3Hm9Ls1Xz6Gv4Tu0Pe", kya: "待核查" }, createdAt: "昨天 15:10", updated: "昨天 16:05", timeline: [{ title: "通知客户付款", detail: "等待客户交付 HKD 156,400 现金", role: "初级交易员 杨澜", time: "昨天 16:05" }, { title: "关联报价", detail: "汇率 7.8200 · 手续费 HKD 300", role: "初级交易员 杨澜", time: "昨天 15:40" }] }),
       base("TO-20260823-104", "C-2026-0636", "转账换U", "USD", 50000, "USDT", 49900, "1.0020", "银行转账", "待收款确认", "陈文静", { quote: q("1.0020", "0.9990", "USD 50", "2026-08-23"), paymentIds: ["PAY-2026-201"], createdAt: "昨天 14:20", updated: "昨天 16:40", timeline: [{ title: "客户付款已登记", detail: "PAY-2026-201 · USD 50,000 银行转账，等待付款审核", role: "初级交易员 杨澜", time: "昨天 16:40" }] }),
-      base("TO-20260819-105", "C-2026-0588", "U换转账", "USDT", 150300, "USD", 150000, "0.9980", "USDT 转入", "出款审核中", "陈文静", { quote: q("0.9980", "1.0010", "USD 150", "2026-08-19"), paymentIds: ["PAY-2026-202"], dispatchId: "SCH-20260819-001", freeze: { accountKey: "bank-SINO-USD", accountName: "SINO 清算账户 · USD", currency: "USD", amount: 150000, state: "已冻结" }, createdAt: "08-19 09:30", updated: "今天 10:18", timeline: [{ title: "排单已提交", detail: "SCH-20260819-001 进入出款审核", role: "初级交易员 杨澜", time: "今天 10:18" }, { title: "收款已确认", detail: "PAY-2026-202 · 150,300 USDT 到账，冻结 USD 150,000", role: "高级交易员 陈文静", time: "08-19 11:02" }] }),
+      base("TO-20260819-105", "C-2026-0588", "U换转账", "USDT", 150300, "USD", 150000, "0.9980", "USDT 转入", "出款审核中", "陈文静", { quote: q("0.9980", "1.0010", "USD 150", "2026-08-19"), paymentIds: ["PAY-2026-202"], dispatchId: "SCH-20260819-001",
+        walletOps: { depositAddress: "TXk7Rm2Qd9Vb4Nc8Hs1Lp6Wz3Ye5Gu0Tf", depositBy: "梁子豪", depositAt: "08-19 09:40", kya: "通过", kyaBy: "梁子豪", kyaAt: "08-19 10:05" },
+        inflowMark: { by: "梁子豪", at: "08-19 11:02", chain: "TRC20", hash: "9f2c7a1e5b34d806fa71c2e93b5d4087ac16e2f9d3b7c8514a0e6d9f2b3c7a15", confirms: "24", voucher: "trx-20260819.png" }, freeze: { accountKey: "bank-SINO-USD", accountName: "SINO 清算账户 · USD", currency: "USD", amount: 150000, state: "已冻结" }, createdAt: "08-19 09:30", updated: "今天 10:18", timeline: [{ title: "排单已提交", detail: "SCH-20260819-001 进入出款审核", role: "初级交易员 杨澜", time: "今天 10:18" }, { title: "收款已确认", detail: "PAY-2026-202 · 150,300 USDT 到账，冻结 USD 150,000", role: "高级交易员 陈文静", time: "08-19 11:02" }] }),
       base("TO-20260818-106", "C-2026-0677", "法币换法币", "HKD", 663000, "USD", 85000, "7.8000", "银行转账", "待出款", "陈文静", { quote: q("7.8000", "7.7650", "HKD 500", "2026-08-18"), paymentIds: ["PAY-2026-203"], dispatchId: "SCH-20260818-004", freeze: { accountKey: "bank-SINO-USD", accountName: "SINO 清算账户 · USD", currency: "USD", amount: 85000, state: "已冻结" }, createdAt: "08-18 10:12", updated: "昨天 17:30", timeline: [{ title: "排单审核通过", detail: "SCH-20260818-004 转入待出款", role: "高级交易员 陈文静", time: "昨天 17:30" }, { title: "收款已确认", detail: "PAY-2026-203 · HKD 663,000 到账", role: "高级交易员 陈文静", time: "08-18 14:20" }] }),
-      base("TO-20260817-107", "C-2026-0628", "U换转账", "USDT", 220440, "USD", 220000, "0.9980", "USDT 转入", "已完成", "何嘉敏", { quote: q("0.9980", "1.0020", "USD 220", "2026-08-17"), paymentIds: ["PAY-2026-204"], dispatchId: "SCH-20260817-002", receiptRef: "SGB-回单-20260818.pdf", freeze: { accountKey: "bank-SGB-USD", accountName: "SGB 银行账户 · USD", currency: "USD", amount: 220000, state: "已消耗" }, profit: { spread: 880, fee: 220, channelCost: 110, commission: 770, net: 220, currency: "USD" }, createdAt: "08-17 10:05", updated: "08-18 10:26", timeline: [{ title: "订单完成", detail: "出款完成，水单已归档，净收益 USD 220", role: "出款员 何嘉敏", time: "08-18 10:26" }, { title: "收款已确认", detail: "PAY-2026-204 · 220,440 USDT 到账", role: "高级交易员 陈文静", time: "08-17 13:40" }] }),
+      base("TO-20260817-107", "C-2026-0628", "U换转账", "USDT", 220440, "USD", 220000, "0.9980", "USDT 转入", "已完成", "何嘉敏", { quote: q("0.9980", "1.0020", "USD 220", "2026-08-17"), paymentIds: ["PAY-2026-204"], dispatchId: "SCH-20260817-002", receiptRef: "SGB-回单-20260818.pdf",
+        walletOps: { depositAddress: "TZp9Wc3Kd6Nb2Vq8Hm1Ls4Xy7Gt5Ru0Ef", depositBy: "梁子豪", depositAt: "08-17 10:20" },
+        inflowMark: { by: "梁子豪", at: "08-17 13:40", chain: "TRC20", hash: "6a4e9c02b7d158f3e0c74b295ad86031fc52e9b7d403a1685cf29d7e04b3a1c6", confirms: "32", voucher: "trx-20260817.png" },
+        outflowMark: { by: "何嘉敏", at: "08-18 10:26", account: "SGB 银行账户 · USD", time: "08-18 10:26", voucher: "SGB-回单-20260818.pdf", archived: true }, freeze: { accountKey: "bank-SGB-USD", accountName: "SGB 银行账户 · USD", currency: "USD", amount: 220000, state: "已消耗" }, profit: { spread: 880, fee: 220, channelCost: 110, commission: 770, net: 220, currency: "USD" }, createdAt: "08-17 10:05", updated: "08-18 10:26", timeline: [{ title: "订单完成", detail: "出款完成，水单已归档，净收益 USD 220", role: "出款员 何嘉敏", time: "08-18 10:26" }, { title: "收款已确认", detail: "PAY-2026-204 · 220,440 USDT 到账", role: "高级交易员 陈文静", time: "08-17 13:40" }] }),
       base("TO-20260823-108", "C-2026-0694", "转账换U", "USD", 50000, "USDT", 49900, "1.0020", "银行转账", "待收款确认", "陈文静", { quote: q("1.0020", "0.9990", "USD 50", "2026-08-23"), paymentIds: ["PAY-2026-205"], exception: { kind: "业务异常", reason: "金额不符", detail: "客户实付 USD 48,000，与应收 USD 50,000 不符", prevStatus: "待收款确认", escalated: false, since: "昨天 18:12" }, createdAt: "昨天 11:30", updated: "昨天 18:12", timeline: [{ title: "标记异常", detail: "付款金额不符：实付 48,000 / 应收 50,000", role: "高级交易员 陈文静", time: "昨天 18:12" }] }),
-      base("TO-20260822-109", "C-2026-0614", "转账换U", "USD", 120000, "USDT", 119760, "1.0020", "银行转账", "待客户付款", "Tina Lau", { exception: { kind: "合规异常", reason: "高风险客户", detail: "客户合规驳回记录未闭环，命中可疑交易规则，待合规复核", prevStatus: "待客户付款", escalated: true, since: "08-22 15:40" }, createdAt: "08-22 14:05", updated: "08-22 15:40", timeline: [{ title: "升级合规", detail: "命中高风险规则，已转合规复核", role: "高级交易员 陈文静", time: "08-22 15:40" }] }),
-      base("TO-20260824-110", "C-2026-0607", "U换转账", "USDT", 25060, "USD", 25000, "0.9976", "USDT 转入", "待排单", "杨澜", { quote: q("0.9976", "1.0006", "USD 25", "2026-08-24"), paymentIds: ["PAY-2026-206"], freeze: { accountKey: "bank-SGB-USD", accountName: "SGB 银行账户 · USD", currency: "USD", amount: 25000, state: "已冻结" }, createdAt: "今天 09:12", updated: "今天 09:26", timeline: [{ title: "收款已确认", detail: "PAY-2026-206 · 25,060 USDT 到账，冻结 USD 25,000，进入待排单", role: "高级交易员 陈文静", time: "今天 09:26" }] }),
+      base("TO-20260822-109", "C-2026-0614", "转账换U", "USD", 120000, "USDT", 119760, "1.0020", "银行转账", "KYC处理中", "Tina Lau", { exception: { kind: "合规异常", reason: "高风险客户", detail: "客户合规驳回记录未闭环，命中可疑交易规则，待合规复核", prevStatus: "KYC处理中", escalated: true, since: "08-22 15:40" }, createdAt: "08-22 14:05", updated: "08-22 15:40", timeline: [{ title: "升级合规", detail: "命中高风险规则，已转合规复核", role: "高级交易员 陈文静", time: "08-22 15:40" }] }),
+      base("TO-20260824-110", "C-2026-0607", "U换转账", "USDT", 25060, "USD", 25000, "0.9976", "USDT 转入", "待排单", "杨澜", { quote: q("0.9976", "1.0006", "USD 25", "2026-08-24"), paymentIds: ["PAY-2026-206"],
+        walletOps: { depositAddress: "TQm4Rf7Xb2Vd9Kc1Ns6Hp3Lw8Zy5Ge0Ur", depositBy: "梁子豪", depositAt: "今天 09:14" },
+        inflowMark: { by: "梁子豪", at: "今天 09:26", chain: "TRC20", hash: "3d8b1f60ac52e7194b0d6c83fa27e5b19d4c0a76e8f3b512c9a7d04e6b18f2c3", confirms: "20", voucher: "trx-20260824.png" }, freeze: { accountKey: "bank-SGB-USD", accountName: "SGB 银行账户 · USD", currency: "USD", amount: 25000, state: "已冻结" }, createdAt: "今天 09:12", updated: "今天 09:26", timeline: [{ title: "收款已确认", detail: "PAY-2026-206 · 25,060 USDT 到账，冻结 USD 25,000，进入待排单", role: "高级交易员 陈文静", time: "今天 09:26" }] }),
       base("TO-20260821-111", "C-2026-0628", "现金换U", "HKD", 78000, "USDT", 10000, "7.8000", "现金", "已取消", "杨澜", { createdAt: "08-21 10:40", updated: "08-21 15:02", timeline: [{ title: "订单取消", detail: "客户主动取消，未发生资金动作", role: "初级交易员 杨澜", time: "08-21 15:02" }] })
     ];
     target.payments = [
@@ -4471,7 +4599,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
   }
 
   function openOrderModal() {
-    const modal = { customerId: state.customers[0]?.id || "", tradeType: "转账换U", customTradeType: "", sellCurrency: "USD", buyCurrency: "USDT", sellAmount: "", buyAmount: "", rate: "1.0020", quoteId: "", payMethod: "银行转账", error: "" };
+    const modal = { customerId: state.customers[0]?.id || "", tradeType: "转账换U", customTradeType: "", sellCurrency: "USD", buyCurrency: "USDT", sellAmount: "", buyAmount: "", rate: "1.0020", quoteId: "", payMethod: "银行转账", remark: "", error: "" };
     refreshOrderModalQuote(modal);
     state.orderModal = modal;
     renderDispatchModal();
@@ -4487,12 +4615,13 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     if (!tradeType) { modal.error = "请选择或输入交易类型"; renderDispatchModal(); return; }
     const sellAmount = parseMoney(modal.sellAmount);
     if (!sellAmount) { modal.error = "请填写客户卖出金额"; renderDispatchModal(); return; }
-    const rate = Number(modal.rate) || 0;
-    const buyAmount = parseMoney(modal.buyAmount) || (rate ? Math.round(sellAmount / rate) : sellAmount);
+    const buyAmount = parseMoney(modal.buyAmount);
+    if (!buyAmount) { modal.error = "请填写客户买入金额（两侧金额均需手动填写）"; renderDispatchModal(); return; }
     const bookQuote = modal.quoteId ? recentQuoteBook.find(quote => quote.id === modal.quoteId) : null;
     const id = `TO-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${String(state.tradeOrders.length + 101)}`;
     const compliancePending = !customerComplianceReady(customer);
     const order = { id, customerId: customer.id, clientNo: customer.clientNo || "无编号", customerName: customer.name, personName: customer.enName || customer.name, tradeType, sellCurrency: modal.sellCurrency, sellAmount, buyCurrency: modal.buyCurrency, buyAmount, rate: modal.rate, payMethod: modal.payMethod,
+      remark: (modal.remark || "").trim(),
       quote: bookQuote ? { id: bookQuote.id, dealRate: bookQuote.rate, costRate: bookQuote.costRate, fee: `${modal.sellCurrency} ${fmtMoney(Math.round(sellAmount * 0.001))}`, quotedAt: bookQuote.time, by: roles.agent.name } : null,
       paymentIds: [], dispatchId: "", receiptRef: "", freeze: null, profit: null,
       status: bookQuote ? "已报价" : "草稿", handler: roles.agent.name, exception: null, createdAt: "刚刚", updated: "刚刚",
@@ -4729,14 +4858,13 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
 
   /* ---------- 交易订单页面 ---------- */
 
-  function orderStatusPill(status) { return `<span class="status status-${statusTone(status)}">${status}</span>`; }
+  function orderStatusPill(status) { return `<span class="status status-${statusTone(status)}">${orderStatusLabel(status)}</span>`; }
   function orderPayments(order) { return state.payments.filter(item => order.paymentIds.includes(item.id)); }
   function orderDispatch(order) { return state.payoutOrders.find(item => item.id === order.dispatchId) || null; }
 
   function renderTradeOrders() {
-    if (!["agent", "ops", "finance", "manager", "payout"].includes(state.role)) return `<div class="page">${pageHeader("TRADE ORDERS", "交易订单", "当前角色不能查看交易订单。")}<div class="empty-state"><div><i>锁</i><h2>无查看权限</h2></div></div></div>`;
+    if (!["agent", "ops", "finance", "manager", "payout", "wallet"].includes(state.role)) return `<div class="page">${pageHeader("TRADE ORDERS", "交易订单", "当前角色不能查看交易订单。")}<div class="empty-state"><div><i>锁</i><h2>无查看权限</h2></div></div></div>`;
     const detail = state.orderView ? findOrder(state.orderView) : null;
-    if (detail) return renderOrderDetail(detail);
     const todoDefs = orderTodoDefs[state.role] || orderTodoDefs.manager;
     const activeTodo = todoDefs.some(([label]) => label === state.orderTodo) ? state.orderTodo : todoDefs[0][0];
     const todoPredicate = todoDefs.find(([label]) => label === activeTodo)[1];
@@ -4748,126 +4876,518 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     });
     const count = status => state.tradeOrders.filter(order => order.status === status).length;
     const active = state.tradeOrders.filter(order => !["已完成", "已取消"].includes(order.status)).length;
-    const titles = { agent: "交易订单", ops: "交易订单", finance: "交易订单", manager: "交易订单总览", payout: "交易订单" };
-    const subtitles = { agent: "订单承载完整业务生命周期：报价、付款、收款确认、排单、出款审核与出款都在订单里操作。", ops: "复核订单推进情况：收款确认、出款审核与异常处理都在订单详情里完成。", finance: "确认到账与资金记录都以订单为主线。", manager: "全量订单总览，跟踪状态分布与异常。", payout: "出款任务以订单为主线，待出款订单在详情里执行打款。", };
+    const titles = { agent: "交易订单", ops: "交易订单", finance: "交易订单", manager: "交易订单总览", payout: "交易订单", wallet: "钱包任务" };
+    const subtitles = { agent: "订单承载完整业务生命周期：报价、付款、收款确认、排单、出款审核与出款都在订单里操作。", ops: "复核订单推进情况：收款确认、出款审核与异常处理都在订单详情里完成。", finance: "确认到账与资金记录都以订单为主线。", manager: "全量订单总览，跟踪状态分布与异常。", payout: "出款任务以订单为主线，待出款订单在详情里执行打款。", wallet: "按订单登记公司收 U 地址、客户地址 KYA、链上入款到账与链上出款哈希。" };
     return `<div class="page">${pageHeader("TRADE ORDERS", titles[state.role], subtitles[state.role], state.role === "agent" ? `<button class="btn btn-primary" id="order-new" type="button">＋ 新建订单</button>` : "")}
       <section class="metric-strip">${metric("进行中订单", String(active), "未完成/未取消", "◌")}${metric("待客户付款", String(count("待客户付款") + count("待收款确认")), "含待收款确认", "!")}${metric("待排单/出款中", String(count("待排单") + count("出款审核中") + count("待出款") + count("已出款")), "资金执行阶段", "◇")}${metric("附加异常", String(exceptionOrders().length), "不打断主线状态", "▲")}</section>
       <div class="order-todo-tabs">${todoDefs.map(([label, predicate]) => `<button type="button" class="${label === activeTodo ? "active" : ""}" data-order-todo="${escapeHtml(label)}">${escapeHtml(label)}<em>${state.tradeOrders.filter(predicate).length}</em></button>`).join("")}</div>
-      <div class="toolbar"><label class="search-control">⌕<input id="order-search" placeholder="搜索订单号 / 客户 / 类型" value="${escapeHtml(state.orderSearch)}" /></label><select class="select-control" id="order-status-filter"><option>全部状态</option>${orderStatuses.map(status => `<option ${state.orderStatusFilter === status ? "selected" : ""}>${status}</option>`).join("")}</select><span class="toolbar-count">${rows.length} 笔订单</span></div>
-      <div class="data-table-wrap"><table class="data-table"><thead><tr><th>订单编号</th><th>客户 / KYC</th><th>交易类型</th><th>卖出 → 买入</th><th>执行汇率</th><th>状态</th><th>当前处理人</th><th>更新</th><th>操作</th></tr></thead><tbody>
-      ${rows.length ? rows.map(order => { const kyc = orderKyc(order); return `<tr><td><strong>${order.id}</strong>${orderFlags(order).length ? `<div class="order-flag-row">${orderFlagBadges(order)}</div>` : ""}</td><td><div class="schedule-customer-cell"><strong>${escapeHtml(order.customerName)}</strong><span>${escapeHtml(order.clientNo)} · <em class="order-kyc-inline ${kyc.tone}">${kyc.label}</em></span></div></td><td>${order.tradeType}</td><td><div class="order-amount-cell"><strong>${moneyPair(order.sellCurrency, order.sellAmount)}</strong><span>→ ${moneyPair(order.buyCurrency, order.buyAmount)}</span></div></td><td class="mono">${escapeHtml(order.rate)}</td><td>${orderStatusPill(order.status)}</td><td>${escapeHtml(order.handler)}</td><td class="muted">${escapeHtml(order.updated)}</td><td><button class="btn btn-sm" type="button" data-order-open="${order.id}">查看详情</button></td></tr>`; }).join("") : `<tr><td colspan="9"><div class="empty-inline">没有匹配的订单</div></td></tr>`}
-      </tbody></table></div></div>`;
+      <div class="toolbar"><label class="search-control">⌕<input id="order-search" placeholder="搜索客户 / 类型 / 订单号" value="${escapeHtml(state.orderSearch)}" /></label><select class="select-control" id="order-status-filter"><option>全部状态</option>${orderStatuses.map(status => `<option value="${status}" ${state.orderStatusFilter === status ? "selected" : ""}>${orderStatusLabel(status)}</option>`).join("")}</select><span class="toolbar-count">${rows.length} 笔订单</span></div>
+      ${rows.length ? `<div class="order-card-list">${rows.map(order => {
+        const kyc = orderKyc(order);
+        const cta = orderCardCta(order);
+        return `<article class="order-card ${state.orderView === order.id ? "selected" : ""}">
+          <div class="order-card-main"><div class="order-card-id"><strong class="order-card-customer">${escapeHtml(order.customerName)}<em>（${escapeHtml(order.clientNo)}）</em></strong>${orderStatusPill(order.status)}${orderFlagBadges(order)}</div><div class="order-card-sub"><em class="order-kyc-inline ${kyc.tone}">${kyc.label}</em> · ${escapeHtml(order.tradeType)} · 创建 ${escapeHtml(order.createdAt)}</div></div>
+          <div class="order-card-amount"><strong>${moneyPair(order.sellCurrency, order.sellAmount)} → ${moneyPair(order.buyCurrency, order.buyAmount)}</strong><span>汇率 ${escapeHtml(order.rate)} · ${escapeHtml(order.payMethod)}</span></div>
+          <div class="order-card-meta"><span>${escapeHtml(order.handler)}</span><time>${escapeHtml(order.updated)}</time></div>
+          <button class="btn btn-sm ${cta === "查看" ? "" : "btn-primary"}" type="button" data-order-open="${order.id}">${cta} →</button>
+        </article>`; }).join("")}</div>` : `<div class="empty-state"><div><i>▤</i><h2>没有匹配的订单</h2><p>调整筛选条件，或创建新订单。</p></div></div>`}
+      ${detail ? renderOrderPanel(detail) : ""}</div>`;
+  }
+
+  function orderCardCta(order) {
+    const role = state.role;
+    if (role === "agent") {
+      if (order.status === "草稿") return "关联报价";
+      if (order.status === "已报价") return "通知付款";
+      if (order.status === "待客户付款") return "登记付款";
+      if (order.status === "待排单") return "去排单";
+      if (order.status === "已出款") return "确认完成";
+    }
+    if (["ops", "finance"].includes(role) && order.status === "待收款确认") return "确认到账";
+    if (role === "ops" && order.status === "出款审核中") return "去审核";
+    if (role === "ops" && order.exception) return "处理异常";
+    if (role === "payout" && order.status === "待出款") return "去出款";
+    return "查看";
   }
 
   const orderTodoDefs = {
-    agent: [["我的订单", () => true], ["待客户付款", order => ["待客户付款", "待收款确认"].includes(order.status)], ["待排单", order => order.status === "待排单"], ["出款进行中", order => ["出款审核中", "待出款", "已出款"].includes(order.status)], ["被驳回 / 异常", order => !!(order.exception || order.paymentRejected || order.dispatchRejected)]],
-    ops: [["全部订单", () => true], ["待收款确认", order => order.status === "待收款确认"], ["出款审核中", order => order.status === "出款审核中"], ["异常 / 驳回", order => !!(order.exception || order.paymentRejected || order.dispatchRejected)]],
-    finance: [["全部订单", () => true], ["待收款确认", order => order.status === "待收款确认"], ["已确认到账", order => ["待排单", "出款审核中", "待出款", "已出款", "已完成"].includes(order.status)], ["付款驳回记录", order => !!order.paymentRejected]],
-    manager: [["全部订单", () => true], ["进行中", order => !["已完成", "已取消"].includes(order.status)], ["附加异常", order => !!order.exception], ["已完成", order => order.status === "已完成"]],
-    payout: [["全部订单", () => true], ["待出款", order => order.status === "待出款"], ["已出款", order => ["已出款", "已完成"].includes(order.status)], ["异常出款", order => !!order.exception]]
+    agent: [
+      ["我的交易", () => true],
+      ["待 KYC", order => ["交易登记", "KYC处理中"].includes(order.status)],
+      ["待客户入款", order => ["待客户付款", "待收款确认"].includes(order.status)],
+      ["待排单", order => order.status === "待排单"],
+      ["被退回", order => !!(order.paymentRejected || order.dispatchRejected)]
+    ],
+    ops: [
+      ["待排单审核", order => order.status === "出款审核中"],
+      ["异常 / 驳回", order => !!(order.exception || order.paymentRejected || order.dispatchRejected)],
+      ["全部订单", () => true]
+    ],
+    finance: [
+      ["待法币入款确认", order => order.status === "待收款确认" && fundingKind(order, "inflow") !== "chain"],
+      ["已确认", order => ["待排单", "出款审核中", "待出款", "已出款", "已完成"].includes(order.status)],
+      ["全部订单", () => true]
+    ],
+    wallet: [
+      ["待链上入款确认", order => order.status === "待收款确认" && fundingKind(order, "inflow") === "chain"],
+      ["待地址 KYA", order => fundingKind(order, "outflow") === "chain" && ["待客户付款", "待收款确认", "待排单"].includes(order.status) && order.walletOps?.kya !== "通过"],
+      ["待链上出款", order => order.status === "待出款" && fundingKind(order, "outflow") === "chain"],
+      ["已处理", order => ["已出款", "已完成"].includes(order.status) && (fundingKind(order, "inflow") === "chain" || fundingKind(order, "outflow") === "chain")]
+    ],
+    payout: [
+      ["待银行出款", order => order.status === "待出款" && fundingKind(order, "outflow") !== "chain"],
+      ["已出款", order => ["已出款", "已完成"].includes(order.status)],
+      ["全部订单", () => true]
+    ],
+    manager: [
+      ["全部订单", () => true],
+      ["进行中", order => !["已完成", "已取消"].includes(order.status)],
+      ["附加异常", order => !!order.exception],
+      ["已完成", order => order.status === "已完成"]
+    ]
   };
 
   function orderStatusHint(order) {
-    const map = { "草稿": "交易员关联报价后进入已报价", "已报价": "等待交易员通知客户付款", "待客户付款": "等待客户付款并由交易员登记", "待收款确认": "等待运营 / 财务确认到账", "待排单": "等待交易员在订单内发起排单", "出款审核中": "等待高级交易员出款审核", "待出款": "等待出款员执行打款", "已出款": "出款水单匹配或人工确认后订单完成", "已完成": "订单已闭环", "已取消": "订单已取消" };
+    const inflowOwner = fundingOwnerLabel(order, "inflow");
+    const outflowOwner = fundingOwnerLabel(order, "outflow");
+    const map = {
+      "草稿": "交易员关联报价后进入已报价",
+      "已报价": "报价已锁定，交易员确认交易登记后进入 KYC 环节",
+      "交易登记": "交易要素已登记，等待核对客户 KYC 状态",
+      "KYC处理中": "等待合规完成 KYC 审核，通过后才可通知客户入款",
+      "待客户付款": "KYC 已通过，等待客户入款并由交易员登记",
+      "待收款确认": `等待${inflowOwner}确认入款到账`,
+      "待排单": "入款已确认、资金已冻结，等待交易员发起出款排单",
+      "出款审核中": "等待高级交易员审核排单",
+      "待出款": `排单审核通过，等待${outflowOwner}执行出款`,
+      "已出款": "出款已执行，回单 / 链上哈希归档后确认订单完成",
+      "已完成": "订单已闭环",
+      "已取消": "订单已取消"
+    };
     return map[order.status] || "当前状态由对应角色推进。";
   }
 
-  function orderActionBar(order) {
+  function actionBlock(tone, text, buttons = []) {
+    return `<div class="action-block ${tone}"><p>${text}</p>${buttons.length ? `<div class="action-block-buttons">${buttons.join("")}</div>` : ""}</div>`;
+  }
+
+  function orderActionBlock(order) {
     const role = state.role;
     const kyc = orderKyc(order);
     const dispatch = orderDispatch(order);
     const pendingPayment = orderPayments(order).find(item => item.status === "待确认");
-    const buttons = [];
+    const primary = (label, attrs, extra = "") => `<button class="btn btn-sm btn-primary" type="button" ${attrs} ${extra}>${label}</button>`;
+    const secondary = (label, attrs) => `<button class="btn btn-sm" type="button" ${attrs}>${label}</button>`;
+    const blocks = [];
+    if (role === "ops" && order.exception) blocks.push(actionBlock("danger", `附加异常：${escapeHtml(order.exception.reason)}。解除或取消后主线继续推进。`, [secondary("解除异常", `data-exception-restore="${order.id}"`), secondary("取消订单", `data-exception-cancel="${order.id}"`)]));
     if (role === "agent") {
-      if (order.status === "草稿") buttons.push(`<button class="btn btn-primary" type="button" data-order-quote="${order.id}">关联报价</button><button class="btn" type="button" data-view="quickQuote">前往报价管理</button>`);
-      if (order.status === "已报价") buttons.push(`<button class="btn btn-primary" type="button" data-order-notify="${order.id}">通知客户付款</button>`);
-      if (order.status === "待客户付款") buttons.push(`<button class="btn btn-primary" type="button" data-order-pay="${order.id}">登记客户付款</button>`);
-      if (order.status === "待排单") buttons.push(`<button class="btn btn-primary" type="button" data-dispatch-open="${order.id}">发起出款排单</button>`);
-      if (order.status === "已出款") buttons.push(`<button class="btn btn-primary" type="button" data-order-complete="${order.id}">确认订单完成</button>`);
+      if (order.status === "草稿") blocks.push(actionBlock("warning", "订单还未关联报价，锁定成交价后进入已报价。", [primary("关联报价", `data-order-quote="${order.id}"`), secondary("前往报价管理", `data-view="quickQuote"`)]));
+      if (order.status === "已报价") blocks.push(actionBlock("mint", "报价已锁定，确认交易要素后进入交易登记并核对客户 KYC。", [primary("确认交易登记", `data-order-register="${order.id}"`)]));
+      if (order.status === "KYC处理中") blocks.push(actionBlock("warning", `客户 KYC 尚未通过（${kyc.label}），可在业务准入补充材料；合规通过后同步结果即可通知客户入款。`, [primary("同步 KYC 结果", `data-order-kyc-sync="${order.id}"`), secondary("前往材料上传", `data-view="materialsUpload"`)]));
+      if (order.status === "待客户付款") blocks.push(actionBlock("warning", `等待客户入款 ${moneyPair(order.sellCurrency, order.sellAmount)}，收到后登记入款事实并提醒${fundingOwnerLabel(order, "inflow")}查收。`, [primary("登记客户入款", `data-order-pay="${order.id}"`)]));
+      if (order.status === "待排单") blocks.push(actionBlock("mint", "收款已确认、资金已冻结，可发起出款排单。", [primary("发起出款排单", `data-dispatch-open="${order.id}"`)]));
+      if (order.status === "已出款") blocks.push(actionBlock("mint", "出款已执行、回单已归档，核对后确认订单完成。", [primary("确认订单完成", `data-order-complete="${order.id}"`)]));
     }
-    if (["ops", "finance"].includes(role) && order.status === "待收款确认" && pendingPayment) {
-      buttons.push(kyc.ready
-        ? `<button class="btn btn-primary" type="button" data-payment-confirm="${pendingPayment.id}">确认到账</button>`
-        : `<button class="btn btn-primary" type="button" disabled title="当前客户 KYC 未通过，不能确认到账">确认到账（KYC 未通过）</button>`);
-      buttons.push(`<button class="btn" type="button" data-payment-reject="${pendingPayment.id}">驳回付款</button><button class="btn" type="button" data-payment-supplement="${pendingPayment.id}">要求补充凭证</button>`);
+    if (order.status === "待收款确认" && role === fundingOwnerRole(order, "inflow") && !pendingPayment) {
+      blocks.push(actionBlock("warning", `客户入款待你确认（${fundingKindLabel[fundingKind(order, "inflow")]}），确认后订单进入待排单。`, [primary(fundingKind(order, "inflow") === "chain" ? "标记链上入款到账" : "确认入款到账", `data-inflow-confirm="${order.id}"`)]));
     }
-    if (role === "ops" && order.status === "出款审核中" && dispatch) buttons.push(`<button class="btn btn-primary" type="button" data-dispatch-approve="${dispatch.id}">出款审核通过</button><button class="btn" type="button" data-dispatch-return="${dispatch.id}">退回重排</button>`);
-    if (role === "ops" && order.status === "已出款") buttons.push(`<button class="btn btn-primary" type="button" data-order-complete="${order.id}">确认订单完成</button>`);
-    if (role === "payout" && order.status === "待出款" && dispatch) buttons.push(`<button class="btn btn-primary" type="button" data-dispatch-paid="${dispatch.id}">标记已出款</button>`);
-    if (role === "ops" && order.exception) buttons.push(`<button class="btn" type="button" data-exception-restore="${order.id}">解除异常</button><button class="btn" type="button" data-exception-cancel="${order.id}">取消订单</button>${order.exception.escalated ? "" : `<button class="btn" type="button" data-exception-escalate="${order.id}">升级合规</button>`}`);
-    if (dispatch) buttons.push(`<button class="btn" type="button" data-dispatch-view="${dispatch.id}">查看排单文案</button>`);
-    return buttons.length ? `<div class="case-actions order-actions">${buttons.join("")}</div>` : `<p class="field-hint">${orderStatusHint(order)}</p>`;
+    if (["ops", "finance", "wallet"].includes(role) && order.status === "待收款确认" && pendingPayment) {
+      blocks.push(kyc.ready
+        ? actionBlock("mint", `付款 ${pendingPayment.id} 已登记（${moneyPair(pendingPayment.currency, pendingPayment.amount)}），KYC 已通过，可确认到账。`, [primary("确认到账", `data-payment-confirm="${pendingPayment.id}"`), secondary("驳回付款", `data-payment-reject="${pendingPayment.id}"`)])
+        : actionBlock("warning", `客户 KYC 未通过（${kyc.label}），暂不能确认到账；可先驳回或要求补充凭证。`, [primary("确认到账", "", `disabled title="当前客户 KYC 未通过，不能确认到账"`), secondary("驳回付款", `data-payment-reject="${pendingPayment.id}"`)]));
+    }
+    if (role === "ops" && order.status === "出款审核中" && dispatch) blocks.push(actionBlock("warning", `排单 ${dispatch.id} 待复核：核对金额与收款账户后给出结论。`, [primary("审核通过", `data-dispatch-approve="${dispatch.id}"`), secondary("退回重排", `data-dispatch-return="${dispatch.id}"`)]));
+    if (role === "ops" && order.status === "已出款" && !blocks.some(entry => entry.includes("data-order-complete"))) blocks.push(actionBlock("mint", "出款已执行，回单核对无误后确认订单完成。", [primary("确认订单完成", `data-order-complete="${order.id}"`)]));
+    if (order.status === "待出款" && role === fundingOwnerRole(order, "outflow")) {
+      const outKind = fundingKind(order, "outflow");
+      blocks.push(actionBlock("mint", outKind === "chain"
+        ? `排单审核已通过，可向客户地址转出 ${moneyPair(order.buyCurrency, order.buyAmount)}，并登记交易哈希。`
+        : `排单审核已通过，可执行${outKind === "cash" ? "现金交付" : "银行出款"}并归档凭证。`,
+        [primary(outKind === "chain" ? "登记链上转账" : outKind === "cash" ? "登记现金交付" : "执行银行出款", `data-outflow-execute="${order.id}"`), ...(dispatch ? [secondary("查看排单文案", `data-dispatch-view="${dispatch.id}"`)] : [])]));
+    }
+    if (!blocks.length) blocks.push(actionBlock("info", escapeHtml(orderStatusHint(order))));
+    return blocks.join("");
   }
 
   function renderOrderStageBar(order) {
-    if (order.status === "已取消") return `<div class="order-stage-cancelled"><span class="status status-danger">已取消</span><span>订单已取消，未走完主线流程；历史操作见时间线。</span></div>`;
-    const current = orderStageIndex[order.status] ?? 0;
-    return `<div class="order-stage-bar">${orderStages.map((stage, index) => `<div class="order-stage ${index < current ? "done" : ""}${index === current ? " active" : ""}"><i>${index < current ? "✓" : index + 1}</i><span>${stage}</span></div>`).join("")}</div>`;
+    if (order.status === "已取消") return `<div class="order-stage-cancelled"><span class="status status-danger">已取消</span><span>订单已取消，未走完主线流程；历史操作见「活动」。</span></div>`;
+    const current = orderStageCurrent(order);
+    const ratio = Math.min(1, Math.max(0, current / (orderStages.length - 1)));
+    return `<div class="order-stage-bar" style="--order-progress:${ratio.toFixed(4)}">${orderStages.map((stage, index) => {
+      const meta = orderStageMeta(order, index);
+      const stateLabel = index < current ? "已完成" : index === current ? "进行中" : "待开始";
+      return `<div class="order-stage ${index < current ? "done" : ""}${index === current ? " active" : ""}"><i>${index < current ? "\u2713" : index + 1}</i><span>${stage}</span><div class="order-stage-tip" role="tooltip"><strong>${stage} · ${stateLabel}</strong><p><b>责任角色</b>${escapeHtml(meta.role)}</p><p><b>本阶段</b>${escapeHtml(meta.desc)}</p><p><b>完成后</b>${escapeHtml(meta.next)}</p></div></div>`;
+    }).join("")}</div>`;
   }
 
-  function renderOrderDetail(order) {
+  function orderAttrRow(icon, label, value, cls = "") { return `<div class="order-attr-row${cls ? ` ${cls}` : ""}"><span class="order-attr-label"><i>${icon}</i>${label}</span><div class="order-attr-value">${value}</div></div>`; }
+
+  /* 两列属性网格：条目为 [icon, label, value, span?]，span 为 true 时整行占满。
+     末尾补齐占位格，避免网格线在空缺处露出背景色。 */
+  function orderAttrGrid(items) {
+    let half = 0;
+    const cells = items.filter(Boolean).map(([icon, label, value, span]) => {
+      if (span) { half = 0; return orderAttrRow(icon, label, value, "attr-span"); }
+      half = (half + 1) % 2;
+      return orderAttrRow(icon, label, value);
+    }).join("");
+    return `<div class="order-attr-table is-grid">${cells}${half === 1 ? `<div class="order-attr-row attr-filler"></div>` : ""}</div>`;
+  }
+
+  function orderRecordRow({ id, statusHtml = "", headline = "", meta = "", body = "", footer = "" }) {
+    return `<div class="order-confirm-row"><div class="order-confirm-head"><strong>${id}</strong>${statusHtml}</div>${headline ? `<div class="order-confirm-headline">${headline}</div>` : ""}${meta ? `<small>${meta}</small>` : ""}${body}${footer}</div>`;
+  }
+
+  function orderSection(title, content, meta = "") {
+    return `<section class="order-section"><div class="order-section-head"><h3>${title}</h3>${meta ? `<span class="order-section-meta">${meta}</span>` : ""}</div>${content}</section>`;
+  }
+
+  function fileRow(name, meta, actions = "") {
+    const ext = String(name || "").split(".").pop();
+    const badge = ext && ext !== name ? ext.toUpperCase().slice(0, 4) : "DOC";
+    return `<div class="file-row"><span class="doc-icon">${escapeHtml(badge)}</span><div><strong>${escapeHtml(name || "未命名文件")}</strong><small>${escapeHtml(meta || "")}</small></div>${actions}</div>`;
+  }
+
+  function activityGroups(timeline) {
+    const groups = [];
+    (timeline || []).forEach(item => {
+      const time = String(item.time || "");
+      const key = /刚刚|今天/.test(time) ? "今天" : /昨天/.test(time) ? "昨天" : (time.match(/\d{4}-\d{2}-\d{2}|\d{2}-\d{2}/) || [time || "更早"])[0];
+      let group = groups.find(entry => entry.key === key);
+      if (!group) { group = { key, items: [] }; groups.push(group); }
+      group.items.push(item);
+    });
+    return groups;
+  }
+
+  function renderOrderActivity(order) {
+    const groups = activityGroups(order.timeline);
+    if (!groups.length) return `<div class="empty-inline">暂无活动记录</div>`;
+    return groups.map(group => `<div class="activity-group"><h4>${escapeHtml(group.key)}</h4>${group.items.map(item => `<div class="activity-item"><i></i><div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.detail)}</p><time>${escapeHtml(item.role)} · ${escapeHtml(item.time)}</time></div></div>`).join("")}</div>`).join("");
+  }
+
+  /* ---------- 资金动作卡片 ---------- */
+  function fundingStateTone(state) {
+    if (["已到账", "已执行", "已归档"].includes(state)) return "success";
+    if (state === "异常") return "danger";
+    if (["待到账确认", "待审核", "待执行", "待客户操作", "待排单"].includes(state)) return "warning";
+    return "neutral";
+  }
+
+  function fundingFields(order, side, info) {
+    const mark = info.mark || {};
+    const wallet = order.walletOps || {};
+    const amount = side === "inflow" ? moneyPair(order.sellCurrency, order.sellAmount) : moneyPair(order.buyCurrency, order.buyAmount);
+    if (info.kind === "bank") return orderAttrGrid([
+      ["◇", side === "inflow" ? "应收金额" : "应付金额", `<strong>${amount}</strong>`],
+      ["◫", side === "inflow" ? "到账账户" : "出款账户", escapeHtml(mark.account || (side === "inflow" ? "待财务登记" : "待出款员登记")), true],
+      ["◷", side === "inflow" ? "到账时间" : "出款时间", escapeHtml(mark.time || "—")],
+      ["▧", side === "inflow" ? "银行流水 / 水单" : "水单 / MT103", mark.voucher ? escapeHtml(mark.voucher) : "未上传"]
+    ]);
+    if (info.kind === "chain") return orderAttrGrid([
+      ["◇", side === "inflow" ? "应收数量" : "应付数量", `<strong>${amount}</strong>`],
+      ["◈", "链 / 网络", escapeHtml(mark.chain || "TRC20")],
+      ["◫", side === "inflow" ? "公司收 U 地址" : "客户收 U 地址", escapeHtml(side === "inflow" ? (wallet.depositAddress || "待钱包运营提供") : (wallet.payoutAddress || "待客户提供")), true],
+      ["✓", "地址 KYA", `<span class="status status-${wallet.kya === "通过" ? "success" : wallet.kya === "不通过" ? "danger" : "warning"}">${escapeHtml(wallet.kya || "待核查")}</span>`],
+      ["≣", "交易哈希", mark.hash ? `<span class="mono order-hash">${escapeHtml(mark.hash)}</span>` : "—", true],
+      ["◌", "区块确认数", mark.confirms ? `${escapeHtml(String(mark.confirms))} 次确认` : "—"],
+      ["▧", "链上截图", mark.voucher ? escapeHtml(mark.voucher) : "未上传"]
+    ]);
+    return orderAttrGrid([
+      ["◇", side === "inflow" ? "应收现金" : "应付现金", `<strong>${amount}</strong>`],
+      ["◫", "交收地点", escapeHtml(mark.place || "待登记"), true],
+      ["◍", "交收人", escapeHtml(mark.handler || "待登记")],
+      ["≣", "信物编号", escapeHtml(mark.token || "—")],
+      ["◷", "确认时间", escapeHtml(mark.time || "—")]
+    ]);
+  }
+
+  function fundingActions(order, side, info) {
+    const role = state.role;
+    const btn = (label, attrs, primary = true) => `<button class="btn btn-sm ${primary ? "btn-primary" : ""}" type="button" ${attrs}>${label}</button>`;
+    const buttons = [];
+    if (side === "inflow") {
+      if (info.kind === "chain" && role === "wallet" && !order.walletOps?.depositAddress) buttons.push(btn("提供公司收 U 地址", `data-wallet-deposit="${order.id}"`));
+      if (info.state === "待到账确认" && role === info.owner) buttons.push(btn(info.kind === "chain" ? "标记链上入款到账" : info.kind === "cash" ? "确认现金交收" : "确认法币入账", `data-inflow-confirm="${order.id}"`));
+      if (info.state === "待到账确认" && role === info.owner) buttons.push(btn("入款异常", `data-inflow-reject="${order.id}"`, false));
+    } else {
+      if (info.kind === "chain" && role === "wallet" && order.walletOps?.kya !== "通过" && ["待客户付款", "待收款确认", "待排单", "待出款"].includes(order.status)) buttons.push(btn("登记客户地址并 KYA", `data-wallet-kya="${order.id}"`));
+      if (info.state === "待执行" && role === info.owner) buttons.push(btn(info.kind === "chain" ? "登记链上转账" : info.kind === "cash" ? "登记现金交付" : "执行银行出款", `data-outflow-execute="${order.id}"`));
+    }
+    return buttons.length ? `<div class="case-actions funding-actions">${buttons.join("")}</div>` : "";
+  }
+
+  function renderFundingCard(order, side) {
+    const info = fundingState(order, side);
+    const title = side === "inflow" ? "客户入款" : "平台出款";
+    const done = ["已到账", "已执行", "已归档"].includes(info.state);
+    return `<section class="funding-card ${done ? "is-done" : ""} ${info.state === "异常" ? "is-error" : ""}">
+      <header class="funding-card-head">
+        <div><span class="funding-card-title">${title}</span><em class="funding-kind ${info.kind}">${info.kindLabel}</em></div>
+        <span class="status status-${fundingStateTone(info.state)}">${info.state}</span>
+      </header>
+      <p class="funding-owner">责任人：<strong>${escapeHtml(info.ownerLabel)}</strong>${info.mark?.by ? ` · 已由 ${escapeHtml(info.mark.by)} 于 ${escapeHtml(info.mark.at || "")} 标记` : ""}</p>
+      ${fundingFields(order, side, info)}
+      ${fundingActions(order, side, info)}
+    </section>`;
+  }
+
+  /* ---------- 资金动作：执行 ---------- */
+  function actorLabel() { return `${roles[state.role].label} ${roles[state.role].name}`; }
+
+  function registerTradeOrder(orderId) {
+    const order = findOrder(orderId);
+    if (!order || order.status !== "已报价") return;
+    const customer = state.customers.find(item => item.id === order.customerId);
+    const ready = customerComplianceReady(customer);
+    order.status = ready ? "待客户付款" : "KYC处理中";
+    if (order.quote && !order.quote.confirmedAt) order.quote.confirmedAt = "刚刚";
+    orderLog(order, "交易登记完成", ready
+      ? `交易要素已登记，客户 KYC 已通过，进入待客户入款（入款确认人：${fundingOwnerLabel(order, "inflow")}）`
+      : `交易要素已登记，客户 KYC 状态「${kycStatusInfo(customer).label}」，进入 KYC 处理中`);
+    render();
+    toast("交易登记完成", ready ? `${order.id} 进入待客户入款` : `${order.id} 进入 KYC 处理中`);
+  }
+
+  function syncOrderKyc(orderId) {
+    const order = findOrder(orderId);
+    if (!order || order.status !== "KYC处理中") return;
+    const customer = state.customers.find(item => item.id === order.customerId);
+    if (!customerComplianceReady(customer)) { toast("KYC 仍未通过", `${customer?.name || order.customerName} 当前「${kycStatusInfo(customer).label}」，请先在业务准入完成审核`); return; }
+    order.status = "待客户付款";
+    orderLog(order, "KYC 审核通过", `客户 KYC 已通过，进入待客户入款（入款确认人：${fundingOwnerLabel(order, "inflow")}）`);
+    render();
+    toast("KYC 已通过", `${order.id} 进入待客户入款`);
+  }
+
+  function walletSetDepositAddress(orderId) {
+    const order = findOrder(orderId);
+    if (!order) return;
+    showConfirm(`提供公司收 U 地址 · ${order.id}`, `${order.customerName} · 应收 ${moneyPair(order.sellCurrency, order.sellAmount)}。地址将同步给交易员转交客户。`, "收 U 地址（TRC20）", "TXYZab8Kd3Np9QsRvW2mHc7Lf5Ug1Ye4Tz", "确认提供", value => {
+      order.walletOps = { ...(order.walletOps || {}), depositAddress: value.trim(), depositBy: roles.wallet.name, depositAt: dispatchNowLabel() };
+      orderLog(order, "提供公司收 U 地址", `${value.trim()} · 由钱包运营登记`);
+      render();
+      toast("收 U 地址已提供", `${order.id} 可通知客户转入`);
+    });
+  }
+
+  function walletKyaAddress(orderId) {
+    const order = findOrder(orderId);
+    if (!order) return;
+    showConfirm(`登记客户收 U 地址并做 KYA · ${order.id}`, `${order.customerName} · 应付 ${moneyPair(order.buyCurrency, order.buyAmount)}。KYA 通过后才能执行链上出款。`, "客户收 U 地址", order.walletOps?.payoutAddress || "TQm4Rf7Xb2Vd9Kc1Ns6Hp3Lw8Zy5Ge0Ur", "KYA 通过", value => {
+      order.walletOps = { ...(order.walletOps || {}), payoutAddress: value.trim(), kya: "通过", kyaBy: roles.wallet.name, kyaAt: dispatchNowLabel() };
+      orderLog(order, "客户地址 KYA 通过", `${value.trim()} · 白名单校验通过，建议先做小额测试`);
+      render();
+      toast("地址 KYA 已通过", `${order.id} 可执行链上出款`);
+    });
+  }
+
+  function openFundingModal(orderId, side) {
+    const order = findOrder(orderId);
+    if (!order) return;
+    const info = fundingState(order, side);
+    if (state.role !== info.owner) { toast("无操作权限", `该动作由${info.ownerLabel}执行`); return; }
+    const amount = side === "inflow" ? String(order.sellAmount) : String(order.buyAmount);
+    state.fundingModal = { orderId, side, kind: info.kind, amount, account: "", time: dispatchNowLabel(), voucher: "", chain: "TRC20", hash: "", confirms: "20", place: "", handler: "", token: "", error: "" };
+    renderDispatchModal();
+  }
+
+  function submitFundingModal() {
+    const modal = state.fundingModal;
+    if (!modal) return;
+    $$('[data-funding-field]').forEach(el => { modal[el.dataset.fundingField] = el.value; });
+    const order = findOrder(modal.orderId);
+    if (!order) { state.fundingModal = null; render(); return; }
+    if (modal.kind === "chain" && !modal.hash.trim()) { modal.error = "请填写链上交易哈希"; renderDispatchModal(); return; }
+    if (modal.kind === "bank" && !modal.account.trim()) { modal.error = `请填写${modal.side === "inflow" ? "到账" : "出款"}账户`; renderDispatchModal(); return; }
+    if (modal.kind === "cash" && !modal.place.trim()) { modal.error = "请填写交收地点"; renderDispatchModal(); return; }
+    const mark = { by: roles[state.role].name, at: dispatchNowLabel(), account: modal.account.trim(), time: modal.time, voucher: modal.voucher, chain: modal.chain, hash: modal.hash.trim(), confirms: modal.confirms, place: modal.place.trim(), handler: modal.handler.trim(), token: modal.token.trim() };
+    const detail = modal.kind === "chain" ? `链上哈希 ${mark.hash}（${mark.chain} · ${mark.confirms} 次确认）`
+      : modal.kind === "cash" ? `现金交收 ${mark.place}${mark.handler ? ` · 交收人 ${mark.handler}` : ""}${mark.token ? ` · 信物 ${mark.token}` : ""}`
+      : `账户 ${mark.account}${mark.voucher ? ` · 凭证 ${mark.voucher}` : ""}`;
+    state.fundingModal = null;
+    if (modal.side === "inflow") {
+      order.inflowMark = mark;
+      orderLog(order, modal.kind === "chain" ? "链上入款已到账" : modal.kind === "cash" ? "现金交收已确认" : "法币入款已到账", `${detail} · 由${actorLabel()}标记`);
+      const pending = orderPayments(order).find(item => ["待确认", "待补凭证"].includes(item.status));
+      if (pending) { reviewPayment(pending.id, "confirm"); return; }
+      const customer = state.customers.find(item => item.id === order.customerId);
+      if (customer && !customerComplianceReady(customer)) { toast("客户 KYC 未通过", "KYC 通过后才能确认到账"); render(); return; }
+      freezeOrderFunds(order);
+      order.status = "待排单";
+      order.handler = roles.agent.name;
+      orderLog(order, "入款确认完成", `冻结 ${moneyPair(order.buyCurrency, order.buyAmount)}，进入待排单`);
+      render();
+      toast("入款已确认到账", `${order.id} 进入待排单`);
+      return;
+    }
+    order.outflowMark = { ...mark, archived: true };
+    const dispatch = orderDispatch(order);
+    if (dispatch && dispatch.status === "待出款") {
+      dispatch.status = "已出款";
+      dispatch.paidBy = roles[state.role].name;
+      dispatch.paidAt = dispatchNowLabel();
+      dispatch.updated = "刚刚";
+      dispatch.receipt = { fileName: mark.voucher || (mark.hash ? `${mark.hash.slice(0, 12)}…` : "手工登记"), fileUrl: "", reference: mark.hash || mark.account, note: detail, uploadedBy: roles[state.role].name, uploadedAt: dispatchNowLabel(), matched: false };
+    }
+    consumeOrderFunds(order);
+    order.status = "已出款";
+    orderLog(order, modal.kind === "chain" ? "链上出款已完成" : modal.kind === "cash" ? "现金出款已交付" : "银行出款已完成", `${detail} · 由${actorLabel()}执行并归档`);
+    render();
+    toast(modal.kind === "chain" ? "链上转账已登记" : "出款已执行", `${order.id} 凭证已归档，待确认完成`);
+  }
+
+  function rejectOrderInflow(orderId) {
+    const order = findOrder(orderId);
+    if (!order) return;
+    showConfirm(`标记入款异常 · ${order.id}`, `${order.customerName} · 应收 ${moneyPair(order.sellCurrency, order.sellAmount)}。订单将转入异常处理，主线暂停。`, "异常说明", "实际到账金额与应收不符", "确认标记", note => {
+      setOrderException(order, "业务异常", "金额不符", note || "入款金额与应收不符");
+      render();
+      toast("已标记入款异常", `${order.id} 转入异常处理`);
+    });
+  }
+
+  function renderOrderPanelBody(order) {
+    const tab = state.orderPanelTab || "overview";
+    const role = state.role;
     const payments = orderPayments(order);
     const dispatch = orderDispatch(order);
-    const profit = order.profit;
-    const role = state.role;
     const customer = state.customers.find(item => item.id === order.customerId);
     const kyc = orderKyc(order);
-    const kycPill = `<span class="status status-${kyc.tone}">${kyc.label}</span>`;
     const active = !["已完成", "已取消"].includes(order.status);
     const pendingPayments = payments.filter(item => ["待确认", "待补凭证"].includes(item.status));
     const confirmedPayment = payments.find(item => item.status === "已到账");
-    const sgb = treasuryAccount("bank-SGB-USD");
-    const sino = treasuryAccount("bank-SINO-USD");
-    const paymentRow = item => `<tr><td><strong>${item.id}</strong><div class="muted-small">${escapeHtml(item.submittedBy)} · ${escapeHtml(item.submittedAt)}</div></td><td>${item.method}</td><td>${moneyPair(item.currency, item.amount)}</td><td class="muted">${escapeHtml(item.paidAt || "—")}</td><td>${escapeHtml(item.account)}</td><td>${escapeHtml(item.voucherName || "—")}${item.matched ? ` <span class="status status-success">已匹配</span>` : ""}</td><td><span class="status status-${statusTone(item.status)}">${item.status}</span></td></tr>`;
-    return `<div class="page order-workbench">${pageHeader("TRADE ORDER", `${order.id}`, `${order.customerName}（${order.clientNo}） · ${order.tradeType} · 创建于 ${order.createdAt}`, `<button class="btn" type="button" id="order-back">← 返回订单列表</button>`)}
-      <section class="order-head-card">
-        <div class="order-head-top"><div class="order-head-title"><h2>${order.id}</h2>${orderStatusPill(order.status)}${orderFlagBadges(order)}</div><div class="order-head-hint">${escapeHtml(orderStatusHint(order))}</div></div>
-        <div class="order-detail-strip order-head-strip">${caseFact("客户", `${escapeHtml(order.customerName)}（${escapeHtml(order.clientNo)}）`)}${caseFact("客户类型", customer ? escapeHtml(customerKind(customer)) : escapeHtml(order.personName))}${caseFact("KYC 状态", kycPill)}${caseFact("当前负责人", escapeHtml(order.handler))}${caseFact("风险等级", customer ? `${escapeHtml(customer.risk)}风险` : "—")}${caseFact("金额", `${moneyPair(order.sellCurrency, order.sellAmount)} → ${moneyPair(order.buyCurrency, order.buyAmount)}`)}</div>
-        ${renderOrderStageBar(order)}
-      </section>
-      <div class="order-detail-grid">
-        <main class="order-detail-main">
-          <section class="section"><div class="section-header"><div><h2>客户与准入</h2><p>KYC 状态决定资金确认能否推进</p></div>${kycPill}</div>
-            <div class="detail-grid">${detailField("客户", escapeHtml(`${order.customerName}（${order.clientNo}）`))}${detailField("客户姓名", escapeHtml(order.personName))}${detailField("客户类型", customer ? escapeHtml(customerKind(customer)) : "—")}${detailField("风险等级", customer ? `${escapeHtml(customer.risk)}风险` : "—")}${detailField("所属交易员", customer ? escapeHtml(customer.agent) : "—")}${detailField("准入状态", customer ? escapeHtml(customer.status) : "—")}</div>
-            ${!kyc.ready && active ? `<div class="form-warning">⚠ 当前客户 KYC 未通过（${kyc.label}），可继续创建订单和登记交易意向，但不能确认到账。${kyc.label === "需补件" ? "请先在业务准入完成补件。" : ""}</div>` : ""}
-            ${order.exception ? `<div class="form-error">附加异常：${order.exception.kind} · ${escapeHtml(order.exception.reason)} — ${escapeHtml(order.exception.detail)}${order.exception.escalated ? "（已升级合规）" : ""}</div>` : ""}
-            ${customer ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm" type="button" data-open-customer="${customer.id}">查看客户档案</button></div>` : ""}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>报价信息</h2><p>报价管理生成的成交与成本口径</p></div>${order.quote ? `<span class="status status-success">已关联</span>` : `<span class="status status-warning">未关联</span>`}</div>
-            ${order.quote ? `<div class="detail-grid">${detailField("成交价", escapeHtml(order.quote.dealRate))}${detailField("平台成本价", escapeHtml(order.quote.costRate))}${detailField("手续费", escapeHtml(order.quote.fee))}${detailField("报价时间 / 人", escapeHtml(`${order.quote.quotedAt} · ${order.quote.by}`))}</div>` : `<div class="empty-inline">尚未关联报价。</div>`}
-            ${role === "agent" && order.status === "草稿" ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm btn-primary" type="button" data-order-quote="${order.id}">关联报价</button><button class="btn btn-sm" type="button" data-view="quickQuote">前往报价管理</button></div>` : ""}
-            ${role === "agent" && order.status === "已报价" ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm btn-primary" type="button" data-order-notify="${order.id}">通知客户付款</button></div>` : ""}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>客户付款</h2><p>交易员登记付款事实（金额、方式、时间、凭证），不做到账确认</p></div></div>
-            ${payments.length ? `<div class="data-table-wrap" style="border:0"><table class="data-table"><thead><tr><th>付款编号</th><th>方式</th><th>金额</th><th>付款时间</th><th>到账账户</th><th>凭证</th><th>状态</th></tr></thead><tbody>${payments.map(paymentRow).join("")}</tbody></table></div>` : `<div class="empty-inline">暂无付款记录。</div>`}
-            ${order.paymentRejected ? `<div class="form-error">付款被驳回：${escapeHtml(order.paymentRejected.reason)}（${escapeHtml(order.paymentRejected.by)} · ${escapeHtml(order.paymentRejected.time)}），请重新登记付款。</div>` : ""}
-            ${role === "agent" && ["待客户付款", "待收款确认"].includes(order.status) ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm btn-primary" type="button" data-order-pay="${order.id}">登记客户付款</button>${pendingPayments.filter(item => item.status === "待补凭证").map(item => `<button class="btn btn-sm" type="button" data-payment-voucher="${item.id}">补充凭证（${item.id}）</button>`).join("")}</div>` : ""}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>收款确认</h2><p>运营 / 财务核对到账；KYC 未通过时不能确认</p></div></div>
-            ${pendingPayments.length ? pendingPayments.map(item => `<div class="order-confirm-row"><div><strong>${item.id}</strong><small>${moneyPair(item.currency, item.amount)} · ${item.method} · 付款时间 ${escapeHtml(item.paidAt || "—")}${item.note ? ` · ${escapeHtml(item.note)}` : ""}</small></div><span class="status status-${statusTone(item.status)}">${item.status}</span>${["ops", "finance"].includes(role) && item.status === "待确认" ? `<div class="case-actions">${kyc.ready ? `<button class="btn btn-sm btn-primary" type="button" data-payment-confirm="${item.id}">确认到账</button>` : `<button class="btn btn-sm btn-primary" type="button" disabled title="当前客户 KYC 未通过，不能确认到账">确认到账</button>`}<button class="btn btn-sm" type="button" data-payment-reject="${item.id}">驳回付款</button><button class="btn btn-sm" type="button" data-payment-supplement="${item.id}">要求补充凭证</button></div>` : ""}</div>`).join("") : confirmedPayment ? `<div class="detail-grid">${detailField("确认结果", `<span class="status status-success">已到账</span>`)}${detailField("确认人 / 时间", escapeHtml(`${confirmedPayment.confirmedBy} · ${confirmedPayment.confirmedAt}`))}${detailField("入账金额", moneyPair(confirmedPayment.currency, confirmedPayment.amount))}</div>` : `<div class="empty-inline">${["草稿", "已报价", "待客户付款"].includes(order.status) ? "客户付款登记后，运营 / 财务在此确认到账。" : "暂无待确认付款。"}</div>`}
-            ${["ops", "finance"].includes(role) && pendingPayments.some(item => item.status === "待确认") && !kyc.ready ? `<div class="form-warning">⚠ 当前客户 KYC 未通过（${kyc.label}），不能确认到账；KYC 通过后按钮自动恢复。</div>` : ""}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>出款排单</h2><p>收款确认后在订单内直接发起排单</p></div>${dispatch ? `<span class="status status-${statusTone(dispatch.status)}">${dispatch.status}</span>` : ""}</div>
-            ${order.dispatchRejected ? `<div class="form-error">出款审核驳回：${escapeHtml(order.dispatchRejected.reason)}（${escapeHtml(order.dispatchRejected.by)} · ${escapeHtml(order.dispatchRejected.time)}），请重新发起排单。</div>` : ""}
-            ${dispatch ? `<div class="detail-grid">${detailField("排单编号", dispatch.id)}${detailField("出款金额", `${dispatch.currency} ${dispatch.amount}`)}${detailField("出款通道", escapeHtml(dispatch.channel))}${detailField("收款账户", escapeHtml(`${dispatch.payee} · ${dispatch.payeeBank || ""}`))}${detailField("排单人 / 时间", escapeHtml(`${dispatch.submittedBy || ""} · ${dispatch.submittedAt || ""}`))}${detailField("期望出款日", escapeHtml(dispatch.expectedDate || "未指定"))}</div>` : order.status === "待排单" ? `<div class="order-channel-strip"><div><span>SGB 通道可用额度</span><strong>${sgb ? `USD ${fmtMoney(sgb.available)}` : "—"}</strong></div><div><span>SINO 通道可用额度</span><strong>${sino ? `USD ${fmtMoney(sino.available)}` : "—"}</strong></div><div><span>应付出款</span><strong>${moneyPair(order.buyCurrency, order.buyAmount)}</strong></div></div>${role === "agent" ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm btn-primary" type="button" data-dispatch-open="${order.id}">发起出款排单</button></div>` : `<div class="empty-inline">等待交易员在订单内发起排单。</div>`}` : `<div class="empty-inline">收款确认后进入排单环节。</div>`}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>出款审核</h2><p>高级交易员复核金额与收款账户</p></div></div>
-            ${dispatch && order.status === "出款审核中" ? `<div class="order-confirm-row"><div><strong>${dispatch.id}</strong><small>${dispatch.currency} ${dispatch.amount} · ${escapeHtml(dispatch.channel)} 通道 · ${escapeHtml(dispatch.payee)}</small></div><span class="status status-info">出款审核中</span>${role === "ops" ? `<div class="case-actions"><button class="btn btn-sm btn-primary" type="button" data-dispatch-approve="${dispatch.id}">审核通过</button><button class="btn btn-sm" type="button" data-dispatch-return="${dispatch.id}">退回重排</button></div>` : ""}</div>` : dispatch && dispatch.reviewedAt ? `<div class="detail-grid">${detailField("审核结果", `<span class="status status-success">审核通过</span>`)}${detailField("审核人 / 时间", escapeHtml(`${dispatch.reviewedBy || ""} · ${dispatch.reviewedAt || ""}`))}</div>` : `<div class="empty-inline">排单提交后进入出款审核。</div>`}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>出款执行</h2><p>出款员打款、上传回单并归档</p></div></div>
-            ${dispatch && order.status === "待出款" ? `<div class="order-confirm-row"><div><strong>${dispatch.id}</strong><small>${dispatch.currency} ${dispatch.amount} · 收款 ${escapeHtml(dispatch.payee)} · ${escapeHtml(dispatch.payeeBank || "")}</small></div><span class="status status-warning">待出款</span>${role === "payout" ? `<div class="case-actions"><button class="btn btn-sm btn-primary" type="button" data-dispatch-paid="${dispatch.id}">标记已出款</button><button class="btn btn-sm" type="button" data-dispatch-view="${dispatch.id}">查看排单文案</button></div>` : `<span class="muted-small">等待出款员执行</span>`}</div>` : dispatch?.receipt ? `<div class="detail-grid">${detailField("出款回单", escapeHtml(`${dispatch.receipt.fileName || "手工登记"}${dispatch.receipt.reference ? ` · ${dispatch.receipt.reference}` : ""}`))}${detailField("出款人 / 时间", escapeHtml(`${dispatch.paidBy || ""} · ${dispatch.paidAt || ""}`))}${detailField("凭证匹配", dispatch.receipt.matched ? `<span class="status status-success">已匹配</span>` : `<span class="status status-warning">待匹配</span>`)}</div>${order.status === "已出款" && ["agent", "ops"].includes(role) ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm btn-primary" type="button" data-order-complete="${order.id}">确认订单完成</button></div>` : ""}` : `<div class="empty-inline">出款审核通过后由出款员执行。</div>`}
-            ${profit ? `<div class="order-profit-block"><h4>佣金与收益</h4><div class="detail-grid">${detailField("汇差收益", moneyPair(profit.currency, profit.spread))}${detailField("手续费", moneyPair(profit.currency, profit.fee))}${detailField("渠道成本", `- ${moneyPair(profit.currency, profit.channelCost)}`)}${detailField("交易员佣金", `- ${moneyPair(profit.currency, profit.commission)}`)}${detailField("净收益", `<strong class="order-profit-net">${moneyPair(profit.currency, profit.net)}</strong>`)}</div></div>` : ""}
-          </section>
-        </main>
-        <aside class="order-detail-aside">
-          <section class="section"><div class="section-header"><div><h2>操作</h2><p>按角色与状态推进订单</p></div></div>${orderActionBar(order)}</section>
-          <section class="section"><div class="section-header"><div><h2>库存影响</h2><p>收款确认冻结 · 出款消耗 · 取消释放</p></div></div>
-            ${order.freeze ? `<div class="detail-grid">${detailField("冻结账户", escapeHtml(order.freeze.accountName))}${detailField("冻结金额", moneyPair(order.freeze.currency, order.freeze.amount))}${detailField("冻结状态", `<span class="status status-${statusTone(order.freeze.state === "已冻结" ? "等待" : order.freeze.state)}">${order.freeze.state}</span>`)}</div>` : `<div class="empty-inline">收款确认后自动冻结应付资金。</div>`}
-          </section>
-          <section class="section"><div class="section-header"><div><h2>订单时间线</h2><p>全链路操作记录</p></div></div><div class="timeline">${(order.timeline || []).map(timelineItem).join("") || `<div class="empty-inline">暂无记录</div>`}</div></section>
-        </aside>
-      </div>
+    const multiPending = payments.filter(item => item.status === "待确认").length > 1;
+    if (tab === "activity") return `<div class="order-panel-block">${orderSection("活动", renderOrderActivity(order), `${(order.timeline || []).length} 条记录`)}</div>`;
+    if (tab === "payment") {
+      const paymentNext = confirmedPayment
+        ? { tone: "mint", text: `已到账：应收 ${moneyPair(order.sellCurrency, order.sellAmount)} · 实收 ${moneyPair(confirmedPayment.currency, confirmedPayment.amount)}，${escapeHtml(confirmedPayment.confirmedBy)} 于 ${escapeHtml(confirmedPayment.confirmedAt)} 确认，可继续排单出款。` }
+        : pendingPayments.length
+          ? (kyc.ready
+            ? { tone: "warning", text: `应收 ${moneyPair(order.sellCurrency, order.sellAmount)}，已登记 ${pendingPayments.length} 笔待确认；确认到账后进入待排单。` }
+            : { tone: "warning", text: `应收 ${moneyPair(order.sellCurrency, order.sellAmount)}；客户 KYC 未通过（${kyc.label}），确认到账被拦截，不能继续排单出款。` })
+          : { tone: "info", text: `应收 ${moneyPair(order.sellCurrency, order.sellAmount)}（${escapeHtml(order.payMethod)}）；客户付款登记后由运营 / 财务确认到账。` };
+      return `<div class="order-panel-block">${orderSection("客户付款", `
+        ${actionBlock(paymentNext.tone, paymentNext.text)}
+        ${payments.length ? payments.map(item => orderRecordRow({
+          id: item.id,
+          statusHtml: `<span class="status status-${statusTone(item.status)}">${item.status}</span>`,
+          headline: `${moneyPair(item.currency, item.amount)} · ${escapeHtml(item.method)}`,
+          meta: `付款时间 ${escapeHtml(item.paidAt || item.submittedAt || "—")}${item.note ? ` · ${escapeHtml(item.note)}` : ""}`,
+          body: item.voucherName ? fileRow(item.voucherName, `付款凭证 · ${item.submittedBy} 上传 · ${item.submittedAt}${item.matched ? " · 已匹配" : ""}`) : "",
+          // 底部固定操作栏只作用于第一笔待确认付款；仅当存在多笔待确认时才在行内给出定向操作。
+          footer: ["ops", "finance"].includes(role) && item.status === "待确认" && multiPending ? `<div class="case-actions">${kyc.ready ? `<button class="btn btn-sm btn-primary" type="button" data-payment-confirm="${item.id}">确认到账</button>` : `<button class="btn btn-sm btn-primary" type="button" disabled title="当前客户 KYC 未通过，不能确认到账">确认到账</button>`}<button class="btn btn-sm" type="button" data-payment-reject="${item.id}">驳回付款</button><button class="btn btn-sm" type="button" data-payment-supplement="${item.id}">补充凭证</button></div>` : role === "agent" && item.status === "待补凭证" ? `<div class="case-actions"><button class="btn btn-sm" type="button" data-payment-voucher="${item.id}">补充凭证</button></div>` : item.confirmedBy ? `<span class="muted-small">${escapeHtml(item.confirmedBy)} · ${escapeHtml(item.confirmedAt)} 确认到账</span>` : ""
+        })).join("") : `<div class="empty-inline">暂无付款记录。</div>`}
+        ${order.paymentRejected ? `<div class="form-error">付款被驳回：${escapeHtml(order.paymentRejected.reason)}（${escapeHtml(order.paymentRejected.by)} · ${escapeHtml(order.paymentRejected.time)}），请重新登记付款。</div>` : ""}
+        ${["ops", "finance"].includes(role) && pendingPayments.some(item => item.status === "待确认") && !kyc.ready ? `<div class="form-warning">⚠ 当前客户 KYC 未通过（${kyc.label}），不能确认到账；KYC 通过后按钮自动恢复。</div>` : ""}
+        ${confirmedPayment && !pendingPayments.length ? `<div class="order-panel-note">收款确认：${escapeHtml(confirmedPayment.confirmedBy)} · ${escapeHtml(confirmedPayment.confirmedAt)} 确认 ${moneyPair(confirmedPayment.currency, confirmedPayment.amount)} 到账。</div>` : ""}
+      `, payments.length ? `${payments.length} 笔记录` : "")}</div>`;
+    }
+    if (tab === "payout") {
+      const sgb = treasuryAccount("bank-SGB-USD");
+      const sino = treasuryAccount("bank-SINO-USD");
+      const profit = order.profit;
+      return `<div class="order-panel-block">
+        ${orderSection("出款排单", `
+        ${order.dispatchRejected ? `<div class="form-error">出款审核驳回：${escapeHtml(order.dispatchRejected.reason)}（${escapeHtml(order.dispatchRejected.by)} · ${escapeHtml(order.dispatchRejected.time)}），请重新发起排单。</div>` : ""}
+        ${dispatch ? orderAttrGrid([
+          ["≣", "排单编号", `<strong>${dispatch.id}</strong>`],
+          ["◈", "出款通道", `${escapeHtml(dispatch.channel)} 通道`],
+          ["◇", "出款金额", `<strong>${dispatch.currency} ${dispatch.amount}</strong>`],
+          ["◷", "排单人 / 时间", escapeHtml(`${dispatch.submittedBy || ""} · ${dispatch.submittedAt || ""}`)],
+          ["◫", "收款账户", escapeHtml(`${dispatch.payee} · ${dispatch.payeeBank || ""}`), true]
+        ]) : order.status === "待排单" ? `<div class="order-channel-strip"><div><span>SGB 通道可用</span><strong>${sgb ? `USD ${fmtMoney(sgb.available)}` : "—"}</strong></div><div><span>SINO 通道可用</span><strong>${sino ? `USD ${fmtMoney(sino.available)}` : "—"}</strong></div><div><span>应付出款</span><strong>${moneyPair(order.buyCurrency, order.buyAmount)}</strong></div></div>${role === "agent" ? "" : `<div class="empty-inline">等待交易员在订单内发起排单。</div>`}` : `<div class="empty-inline">收款确认后进入排单环节。</div>`}
+        `)}
+        ${orderSection("出款审核", `
+        ${dispatch && order.status === "出款审核中" ? orderRecordRow({
+          id: dispatch.id,
+          statusHtml: `<span class="status status-info">出款审核中</span>`,
+          headline: `${dispatch.currency} ${dispatch.amount}`,
+          meta: `${escapeHtml(dispatch.channel)} 通道 · 收款 ${escapeHtml(dispatch.payee)}`,
+          footer: role === "ops" ? "" : `<span class="muted-small">等待高级交易员审核</span>`
+        }) : dispatch?.reviewedAt ? `<div class="order-panel-note"><span class="payout-check">审核通过</span> ${escapeHtml(`${dispatch.reviewedBy || ""} · ${dispatch.reviewedAt || ""}`)}</div>` : `<div class="empty-inline">排单提交后进入出款审核。</div>`}`)}
+        ${orderSection("出款执行", `
+        ${dispatch && order.status === "待出款" ? orderRecordRow({
+          id: dispatch.id,
+          statusHtml: `<span class="status status-warning">待出款</span>`,
+          headline: `${dispatch.currency} ${dispatch.amount}`,
+          meta: `收款 ${escapeHtml(dispatch.payee)} · ${escapeHtml(dispatch.payeeBank || "")}`,
+          footer: role === "payout" ? "" : `<span class="muted-small">等待出款员执行</span>`
+        }) : dispatch?.receipt ? fileRow(dispatch.receipt.fileName || "手工登记回单", `出款回单${dispatch.receipt.reference ? ` · ${dispatch.receipt.reference}` : ""} · ${dispatch.paidBy || ""} · ${dispatch.paidAt || ""}`, `<span class="status status-${dispatch.receipt.matched ? "success" : "warning"}">${dispatch.receipt.matched ? "已匹配" : "待匹配"}</span>`) : `<div class="empty-inline">出款审核通过后由出款员执行。</div>`}`)}
+        ${profit ? orderSection("佣金与收益", `<div class="order-profit">
+          <div class="order-profit-rows">
+            <div><span>汇差收益</span><b>${moneyPair(profit.currency, profit.spread)}</b></div>
+            <div><span>手续费</span><b>${moneyPair(profit.currency, profit.fee)}</b></div>
+            <div class="is-cost"><span>渠道成本</span><b>− ${moneyPair(profit.currency, profit.channelCost)}</b></div>
+            <div class="is-cost"><span>交易员佣金</span><b>− ${moneyPair(profit.currency, profit.commission)}</b></div>
+          </div>
+          <div class="order-profit-net"><span>净收益</span><strong>${moneyPair(profit.currency, profit.net)}</strong></div>
+        </div>`) : ""}
+      </div>`;
+    }
+    return `<div class="order-panel-block">
+      ${orderSection("报价信息", order.quote ? orderAttrGrid([
+        ["◈", "关联报价", `<span class="status status-success">已关联</span><b class="order-quote-chip">${escapeHtml(order.quote.id || "—")}</b>`, true],
+        ["₿", "成交汇率", `<strong class="mono">${escapeHtml(order.quote.dealRate)}</strong> · 成本价 ${escapeHtml(order.quote.costRate)}`],
+        ["◇", "手续费", escapeHtml(order.quote.fee)],
+        ["◷", "报价时间 / 报价人", escapeHtml(`${order.quote.quotedAt} · ${order.quote.by}`)],
+        ["✓", "客户确认报价", escapeHtml(order.quote.confirmedAt || (orderStageCurrent(order) >= 1 ? "已确认" : "待客户确认"))],
+        ["◉", "应收金额", `<strong>${moneyPair(order.sellCurrency, order.sellAmount)}</strong>`],
+        ["◎", "应付金额", `<strong>${moneyPair(order.buyCurrency, order.buyAmount)}</strong>`]
+      ]) : `<div class="empty-inline">该订单尚未关联报价，可在底部操作栏选择已报价记录关联。</div>`, order.quote ? "" : `<span class="status status-neutral">未关联</span>`)}
+      ${orderSection("客户与准入", `${orderAttrGrid([
+        ["◍", "准入状态", customer ? escapeHtml(customer.status) : "—"],
+        ["▲", "风险等级", customer ? `${escapeHtml(customer.risk)}风险` : "—"],
+        ["◫", "所属交易员", customer ? escapeHtml(customer.agent) : "—"],
+        ["≣", "客户编号", escapeHtml(order.clientNo || "—")]
+      ])}
+      ${!kyc.ready && active ? `<div class="form-warning">⚠ 当前客户 KYC 未通过（${kyc.label}），可继续创建订单和登记交易意向，但不能确认到账。${kyc.label === "需补件" ? "请先在业务准入完成补件。" : ""}</div>` : ""}
+      ${order.exception ? `<div class="form-error">附加异常：${order.exception.kind} · ${escapeHtml(order.exception.reason)} — ${escapeHtml(order.exception.detail)}${order.exception.escalated ? "（已升级合规）" : ""}</div>` : ""}
+      ${customer ? `<div class="case-actions order-inline-actions"><button class="btn btn-sm" type="button" data-open-customer="${customer.id}">查看客户档案</button></div>` : ""}`)}
+      ${orderSection("资金动作", `<div class="funding-grid">${renderFundingCard(order, "inflow")}${renderFundingCard(order, "outflow")}</div>`, "客户入款 / 平台出款")}
+      ${orderSection("库存影响", order.freeze ? orderAttrGrid([
+        ["◈", "冻结账户", escapeHtml(order.freeze.accountName), true],
+        ["◇", "冻结金额", moneyPair(order.freeze.currency, order.freeze.amount)],
+        ["◌", "冻结状态", `<span class="status status-${statusTone(order.freeze.state === "已冻结" ? "等待" : order.freeze.state)}">${order.freeze.state}</span>`]
+      ]) : `<div class="empty-inline">收款确认后自动冻结应付资金。</div>`)}
+      ${orderSection("补充说明", order.remark ? `<p class="order-remark-text">${escapeHtml(order.remark)}</p>` : `<div class="empty-inline">建单时未填写补充说明。</div>`)}
     </div>`;
+  }
+
+  function renderOrderPanel(order) {
+    const customer = state.customers.find(item => item.id === order.customerId);
+    const kyc = orderKyc(order);
+    const tab = state.orderPanelTab || "overview";
+    const tabs = [["overview", "概览"], ["payment", "付款"], ["payout", "排单出款"], ["activity", "活动"]];
+    return `<div class="order-panel-backdrop" id="order-panel-backdrop"></div>
+    <aside class="order-panel" role="dialog" aria-label="订单详情">
+      <header class="order-panel-head">
+        <div class="order-panel-topline"><span class="eyebrow">TRADE ORDER · ${escapeHtml(order.tradeType)}</span><div class="order-panel-icons"><button class="icon-button" type="button" title="关注订单">☆</button><button class="icon-button" type="button" title="更多操作">⋯</button><button class="icon-button" id="order-back" type="button" aria-label="关闭订单详情">×</button></div></div>
+        <div class="order-panel-title"><h2>${order.id}</h2>${orderStatusPill(order.status)}${orderFlagBadges(order)}</div>
+        <p class="order-panel-hint">${escapeHtml(orderStatusHint(order))}</p>
+        <div class="order-trade-hero">
+          <div class="order-trade-legs">
+            <div class="order-trade-leg"><span>客户卖出</span><strong>${moneyPair(order.sellCurrency, order.sellAmount)}</strong></div>
+            <i aria-hidden="true">→</i>
+            <div class="order-trade-leg"><span>客户买入</span><strong>${moneyPair(order.buyCurrency, order.buyAmount)}</strong></div>
+          </div>
+          <div class="order-trade-rate"><span>执行汇率</span><b class="mono">${escapeHtml(order.rate)}</b><em>${escapeHtml(order.payMethod)}</em></div>
+        </div>
+        ${renderOrderStageBar(order)}
+      </header>
+      <div class="order-panel-scroll">
+        <div class="order-panel-attrs">${orderAttrGrid([
+          ["◍", "客户", customer ? `<button class="link-button" type="button" data-open-customer="${customer.id}">${escapeHtml(`${order.customerName}（${order.clientNo}）`)}</button>` : escapeHtml(`${order.customerName}（${order.clientNo}）`), true],
+          ["◫", "客户类型", customer ? escapeHtml(customerKind(customer)) : escapeHtml(order.personName)],
+          ["✓", "KYC 状态", `<span class="status status-${kyc.tone}">${kyc.label}</span>`],
+          ["◉", "当前负责人", escapeHtml(order.handler)],
+          ["◷", "创建 / 最近更新", escapeHtml(`${order.createdAt} → ${order.updated}`)]
+        ])}</div>
+        <div class="order-panel-tabs">${tabs.map(([key, label]) => `<button type="button" class="${tab === key ? "active" : ""}" data-order-panel-tab="${key}">${label}</button>`).join("")}</div>
+        ${renderOrderPanelBody(order)}
+      </div>
+      <footer class="order-panel-actions">${orderActionBlock(order)}</footer>
+    </aside>`;
   }
 
   /* ---------- 客户付款 / 付款审核 ---------- */
@@ -4950,6 +5470,22 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
   /* ---------- 账务流水 / 库存 / 对账 / 资金管理 / 盈利 ---------- */
 
   const ledgerBizTypes = ["全部类型", "收款", "出款", "冻结", "释放", "消耗", "手续费", "汇差", "佣金", "补仓", "调仓", "修正", "冲正"];
+
+  function renderWalletRecords() {
+    if (state.role !== "wallet") return `<div class="page">${pageHeader("WALLET RECORDS", "哈希与凭证", "当前角色不能查看钱包记录。")}<div class="empty-state"><div><i>锁</i><h2>无查看权限</h2></div></div></div>`;
+    const rows = state.tradeOrders.filter(order => order.walletOps || (order.inflowMark?.hash) || (order.outflowMark?.hash));
+    return `<div class="page">${pageHeader("WALLET RECORDS", "哈希与凭证", "钱包运营登记的收 U 地址、地址 KYA 结果与链上出入款哈希，全部按订单编号归档。")}
+      <section class="metric-strip">${metric("已提供收 U 地址", String(state.tradeOrders.filter(order => order.walletOps?.depositAddress).length), "公司收款地址", "◈")}${metric("已 KYA 地址", String(state.tradeOrders.filter(order => order.walletOps?.kya === "通过").length), "白名单通过", "✓")}${metric("链上入款哈希", String(state.tradeOrders.filter(order => order.inflowMark?.hash).length), "已归档", "≣")}${metric("链上出款哈希", String(state.tradeOrders.filter(order => order.outflowMark?.hash).length), "已归档", "◌")}</section>
+      <div class="data-table-wrap"><table class="data-table"><thead><tr><th>订单</th><th>客户</th><th>方向</th><th>地址</th><th>KYA</th><th>交易哈希</th><th>确认数 / 时间</th></tr></thead><tbody>
+      ${rows.length ? rows.flatMap(order => {
+        const wallet = order.walletOps || {};
+        const list = [];
+        if (fundingKind(order, "inflow") === "chain") list.push(["客户入 U", wallet.depositAddress || "待提供", "—", order.inflowMark?.hash || "", order.inflowMark]);
+        if (fundingKind(order, "outflow") === "chain") list.push(["平台出 U", wallet.payoutAddress || "待登记", wallet.kya || "待核查", order.outflowMark?.hash || "", order.outflowMark]);
+        return list.map(([dir, addr, kya, hash, mark]) => `<tr><td><button class="link-button" type="button" data-order-open="${order.id}">${order.id}</button></td><td>${escapeHtml(order.customerName)}</td><td>${dir}</td><td class="mono order-hash">${escapeHtml(addr)}</td><td>${kya === "—" ? "—" : `<span class="status status-${kya === "通过" ? "success" : kya === "不通过" ? "danger" : "warning"}">${escapeHtml(kya)}</span>`}</td><td class="mono order-hash">${hash ? escapeHtml(hash) : "—"}</td><td class="muted">${escapeHtml(mark ? `${mark.confirms || "—"} 次 · ${mark.at || ""}` : "—")}</td></tr>`);
+      }).join("") : `<tr><td colspan="7"><div class="empty-inline">暂无钱包登记记录</div></td></tr>`}
+      </tbody></table></div></div>`;
+  }
 
   function renderLedgerCenter() {
     if (!["finance", "manager"].includes(state.role)) return `<div class="page">${pageHeader("LEDGER", "账务流水", "当前角色不能查看账务流水。")}<div class="empty-state"><div><i>锁</i><h2>无查看权限</h2></div></div></div>`;
@@ -5154,7 +5690,48 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       </div>
       ${body}
       ${state.leavePanelOpen ? renderLeavePanel() : ""}
+      ${state.selectedLeaveId ? renderLeaveDetailPanel() : ""}
     </div>`;
+  }
+
+  function renderLeaveDetailPanel() {
+    const leave = state.departmentLeaves.find(item => item.id === state.selectedLeaveId);
+    if (!leave) return "";
+    const member = state.departmentMembers.find(item => item.id === leave.employeeId);
+    const target = member ? recommendedHandoff(member) : null;
+    const status = member ? memberStatus(member) : null;
+    const activity = activityGroups([
+      ...(target ? [{ title: "建议接手人", detail: `系统按同岗位、在岗且待办最少推荐 ${target.name}（${target.role} · 当前待办 ${target.pending}）接手 ${member?.name || "员工"} 名下任务`, role: "系统建议", time: "今天" }] : []),
+      { title: "请假已登记", detail: `${leave.type} · ${leaveFullLabel(leave)}（${leave.source || "手工登记"}）`, role: leave.registeredBy || "运营经理", time: leave.registeredAt || "—" }
+    ]);
+    return `<div class="order-panel-backdrop" id="leave-detail-backdrop"></div>
+    <aside class="order-panel leave-detail-panel" role="dialog" aria-label="请假记录详情">
+      <header class="order-panel-head">
+        <div class="order-panel-topline"><span class="eyebrow">LEAVE RECORD · ${escapeHtml(leave.id)}</span><div class="order-panel-icons"><button class="icon-button" type="button" title="关注">☆</button><button class="icon-button" type="button" title="更多操作">⋯</button><button class="icon-button" id="leave-detail-close" type="button" aria-label="关闭请假详情">×</button></div></div>
+        <div class="order-panel-title"><h2>${escapeHtml(member?.name || "未知员工")} · ${escapeHtml(leave.type)}</h2><span class="status status-${leave.type === "病假" ? "danger" : "warning"}">${escapeHtml(leave.part === "全天" ? "全天不可用" : `${leave.part}不可用`)}</span>${status && status.label !== "在岗" ? `<span class="status status-neutral">今日 ${escapeHtml(status.label)}</span>` : ""}</div>
+        <p class="order-panel-hint">请假记录只作为内部调度参考；确认交接后请在任务交接页标记。</p>
+      </header>
+      <div class="order-panel-scroll">
+        <div class="order-attr-table order-panel-attrs">
+          ${orderAttrRow("◉", "员工", member ? escapeHtml(`${member.name} · ${member.role}（${member.group}）`) : "—")}
+          ${orderAttrRow("◷", "时间段", escapeHtml(leaveFullLabel(leave)))}
+          ${orderAttrRow("≡", "来源", `<span class="status ${/Lark|同步/.test(leave.source || "") ? "status-success" : "status-neutral"}">${escapeHtml(leave.source || "手工登记")}</span>`)}
+          ${orderAttrRow("✎", "登记人 / 时间", escapeHtml(`${leave.registeredBy || "—"} · ${leave.registeredAt || "—"}`))}
+        </div>
+        ${leave.note ? `<div class="order-panel-note">备注：${escapeHtml(leave.note)}</div>` : ""}
+        <div class="order-panel-block"><h3>影响任务</h3>
+          <div class="order-attr-table">
+            ${orderAttrRow("▤", "待处理任务", member ? `<strong>${member.pending}</strong> 项` : "—")}
+            ${orderAttrRow("!", "今日到期 / 超时", member ? `${member.dueToday} 项 · 超时 ${member.overdue} 项` : "—")}
+            ${orderAttrRow("◇", "主要任务", member ? escapeHtml(member.focus) : "—")}
+            ${orderAttrRow("♙", "建议接手人", target ? `<strong>${escapeHtml(target.name)}</strong> · ${escapeHtml(target.role)} · 当前待办 ${target.pending}` : "待安排")}
+          </div>
+          ${member ? actionBlock(target ? "mint" : "warning", target ? `${escapeHtml(target.name)} 同岗位在岗且待办最少，可接手 ${escapeHtml(member.name)} 名下 ${member.pending} 项任务。` : `暂无同岗位在岗人选，请在任务交接页手动安排接手人。`, [`<button class="btn btn-sm btn-primary" type="button" data-handoff-toast="${member.id}">标记交接</button>`, `<button class="btn btn-sm" type="button" data-department-tab="handoff">前往任务交接</button>`]) : ""}
+        <h3>交接活动</h3>
+        ${activity.map(group => `<div class="activity-group"><h4>${escapeHtml(group.key)}</h4>${group.items.map(entry => `<div class="activity-item"><i></i><div><strong>${escapeHtml(entry.title)}</strong><p>${escapeHtml(entry.detail)}</p><time>${escapeHtml(entry.role)} · ${escapeHtml(entry.time)}</time></div></div>`).join("")}</div>`).join("")}
+        </div>
+      </div>
+    </aside>`;
   }
 
   function renderDepartmentOverview() {
@@ -5269,12 +5846,33 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     let current = [];
     const close = () => { menu.hidden = true; };
     const creatable = query => allowCreate && query && !current.some(item => item.exact);
+    function placeMenu() {
+      menu.classList.remove("up");
+      menu.style.maxHeight = "";
+      const container = input.closest(".schedule-template-editor") || input.closest("form");
+      const anchor = input.getBoundingClientRect();
+      const containerRect = container ? container.getBoundingClientRect() : { top: 0, bottom: window.innerHeight };
+      const footer = container ? container.querySelector(":scope > footer") : null;
+      const limitBottom = Math.min(footer ? footer.getBoundingClientRect().top : containerRect.bottom, window.innerHeight);
+      const limitTop = Math.max(containerRect.top, 0);
+      const spaceBelow = limitBottom - anchor.bottom - 8;
+      const spaceAbove = anchor.top - limitTop - 8;
+      const natural = Math.min(menu.scrollHeight, 216);
+      if (natural > spaceBelow && spaceAbove > spaceBelow) {
+        menu.classList.add("up");
+        menu.style.maxHeight = `${Math.max(Math.min(natural, spaceAbove), 96)}px`;
+        return;
+      }
+      menu.style.maxHeight = `${Math.max(Math.min(natural, spaceBelow), 96)}px`;
+    }
+
     function buildMenu(query) {
       current = items(query);
       const rows = current.map((item, index) => `<button type="button" class="combobox-option ${index === highlight ? "active" : ""}" data-combo-index="${index}">${renderItem(item)}</button>`);
       if (creatable(query)) rows.push(`<button type="button" class="combobox-option combobox-create ${highlight === current.length ? "active" : ""}" data-combo-index="${current.length}">${escapeHtml(createLabel(query))}</button>`);
       menu.innerHTML = rows.length ? rows.join("") : `<div class="combobox-empty">无匹配结果</div>`;
       menu.hidden = false;
+      placeMenu();
       $$("[data-combo-index]", menu).forEach(el => el.addEventListener("mousedown", event => { event.preventDefault(); pick(Number(el.dataset.comboIndex), input.value.trim()); }));
     }
     function pick(index, query) {
@@ -5313,26 +5911,60 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     const complianceReady = customerComplianceReady(selectedCustomer);
     const quotes = quotedRatesForPair(modal.sellCurrency, modal.buyCurrency);
     const selectedQuote = quotes.find(quote => quote.id === modal.quoteId) || null;
-    root.innerHTML = `<div class="review-launch-backdrop" id="order-modal-backdrop"><section class="schedule-template-dialog payout-receipt-dialog" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+    const kyc = kycStatusInfo(selectedCustomer);
+    const sellPreview = parseMoney(modal.sellAmount);
+    const ratePreview = Number(modal.rate) || 0;
+    const buyPreview = parseMoney(modal.buyAmount);
+    root.innerHTML = `<div class="review-launch-backdrop" id="order-modal-backdrop"><section class="schedule-template-dialog order-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
       <header><div><span>NEW ORDER</span><h2 id="order-modal-title">新建交易订单</h2><p>订单是业务主线：创建后依次经过报价、客户付款、收款确认、排单与出款。</p></div><button class="icon-button" id="order-modal-close" aria-label="关闭" type="button">×</button></header>
-      <form class="schedule-template-editor" id="order-modal-form">
-        <div class="field-grid">
-          <label class="field full order-combobox-field"><span>客户（输入编号或名称匹配，↑↓ 选择，Enter 选中）</span><div class="order-combobox" id="order-customer-combo"><input id="order-customer-input" autocomplete="off" placeholder="输入客户编号或名称搜索" value="${escapeHtml(selectedCustomer ? `${selectedCustomer.clientNo || "无编号"} · ${selectedCustomer.name}` : "")}" /><div class="combobox-menu" hidden></div></div></label>
-          <label class="field order-combobox-field"><span>交易类型（可搜索，输入新类型可创建并保存）</span><div class="order-combobox" id="order-type-combo"><input id="order-type-input" autocomplete="off" placeholder="选择或输入交易类型" value="${escapeHtml(modal.tradeType || "")}" /><div class="combobox-menu" hidden></div></div></label>
-          <label class="field"><span>客户付款方式</span><select data-order-field="payMethod">${["现金", "FPS", "CHATS", "银行转账", "VA 入账", "USDT 转入"].map(method => `<option ${modal.payMethod === method ? "selected" : ""}>${method}</option>`).join("")}</select></label>
-        </div>
-        ${(() => { if (!selectedCustomer) return ""; const kyc = kycStatusInfo(selectedCustomer); return complianceReady
-          ? `<div class="dispatch-customer-brief"><span class="payout-check">KYC 已通过</span><small>${escapeHtml(`${selectedCustomer.clientNo || "无编号"} · ${selectedCustomer.name} · ${selectedCustomer.enName || selectedCustomer.name}`)}</small></div>`
-          : `<div class="form-warning"><span class="status status-${kyc.tone}">${kyc.label}</span> 当前客户 KYC 未通过，可继续创建订单和登记交易意向，<strong>但不能确认到账</strong>。${kyc.label === "需补件" ? "请提醒交易员在业务准入完成补件。" : kyc.label === "未提交 KYC" ? "可先在业务准入发起 KYC 材料提交。" : ""}</div>`; })()}
-        <div class="field-grid">
-          <label class="field"><span>客户卖出币种（应收）</span><select id="order-sell-currency" data-order-field="sellCurrency">${currencies.map(code => `<option ${modal.sellCurrency === code ? "selected" : ""}>${code}</option>`).join("")}</select></label>
-          <label class="field"><span>客户卖出金额</span><input data-order-field="sellAmount" inputmode="decimal" value="${escapeHtml(modal.sellAmount)}" placeholder="例如 50000" /></label>
-          <label class="field"><span>客户买入币种（应付）</span><select id="order-buy-currency" data-order-field="buyCurrency">${currencies.map(code => `<option ${modal.buyCurrency === code ? "selected" : ""}>${code}</option>`).join("")}</select></label>
-          <label class="field"><span>客户买入金额（可留空按汇率计算）</span><input data-order-field="buyAmount" inputmode="decimal" value="${escapeHtml(modal.buyAmount)}" placeholder="留空自动计算" /></label>
-          <label class="field full order-combobox-field"><span>执行汇率（直接输入数值，或从已报价中选择）</span><div class="order-combobox" id="order-rate-combo"><input id="order-rate-input" inputmode="decimal" autocomplete="off" placeholder="例如 7.8200 / 1.0020" value="${escapeHtml(modal.rate)}" /><div class="combobox-menu" hidden></div></div><span class="field-hint" id="order-rate-hint">${selectedQuote ? `已关联报价 ${selectedQuote.id} · 成本价 ${selectedQuote.costRate}（${selectedQuote.source} ${selectedQuote.time}）` : quotes.length ? `该币种对有 ${quotes.length} 条已报价，点击输入框选择；直接输入数值则按手动汇率创建草稿。` : "该币种对暂无报价记录，直接输入汇率数值，订单创建为草稿。"}</span></label>
-        </div>
+      <form class="schedule-template-editor order-modal-form" id="order-modal-form">
+        <section class="order-form-section">
+          <h3 class="order-form-legend"><i>1</i>客户</h3>
+          <label class="field order-combobox-field"><div class="order-combobox order-client-box" id="order-customer-combo"><input id="order-customer-input" autocomplete="off" placeholder="搜索客户编号或名称…" value="${escapeHtml(selectedCustomer ? `${selectedCustomer.clientNo || "无编号"} · ${selectedCustomer.name}` : "")}" />${selectedCustomer ? `<span class="order-client-chip"><em>拼音</em>${escapeHtml((selectedCustomer.enName || selectedCustomer.name).toUpperCase())}</span>` : ""}<div class="combobox-menu" hidden></div></div><span class="field-hint">支持编号或名称模糊匹配，↑↓ 选择，Enter 确认</span></label>
+          ${selectedCustomer && !complianceReady ? `<p class="order-inline-warning"><i aria-hidden="true">ⓘ</i><span>该客户 <strong>KYC 未通过</strong>，可继续创建订单并登记交易意向，<strong>但不能确认到账</strong>。${kyc.label === "需补件" ? "请在业务准入完成补件。" : kyc.label === "未提交 KYC" ? "可先在业务准入发起 KYC 材料提交。" : ""}</span></p>` : ""}
+        </section>
+
+        <section class="order-form-section">
+          <h3 class="order-form-legend"><i>2</i>交易内容</h3>
+          <div class="order-field-row">
+            <label class="field order-combobox-field"><span>交易类型</span><div class="order-combobox" id="order-type-combo"><input id="order-type-input" autocomplete="off" placeholder="选择或输入新类型" value="${escapeHtml(modal.tradeType || "")}" /><div class="combobox-menu" hidden></div></div><span class="field-hint">输入未有的类型可创建并保存</span></label>
+            <label class="field"><span>客户付款方式</span><select data-order-field="payMethod">${["现金", "FPS", "CHATS", "银行转账", "VA 入账", "USDT 转入"].map(method => `<option ${modal.payMethod === method ? "selected" : ""}>${method}</option>`).join("")}</select></label>
+          </div>
+          <div class="order-exchange">
+            <div class="order-exchange-side">
+              <span class="order-exchange-label">客户卖出 · 我方应收</span>
+              <div class="order-money">
+                <select id="order-sell-currency" class="order-money-cur" data-order-field="sellCurrency">${currencies.map(code => `<option ${modal.sellCurrency === code ? "selected" : ""}>${code}</option>`).join("")}</select>
+                <input class="order-money-amount" data-order-field="sellAmount" inputmode="decimal" value="${escapeHtml(modal.sellAmount)}" placeholder="0.00" />
+              </div>
+            </div>
+            <i class="order-exchange-arrow" aria-hidden="true">→</i>
+            <div class="order-exchange-side">
+              <span class="order-exchange-label">客户买入 · 我方应付</span>
+              <div class="order-money">
+                <select id="order-buy-currency" class="order-money-cur" data-order-field="buyCurrency">${currencies.map(code => `<option ${modal.buyCurrency === code ? "selected" : ""}>${code}</option>`).join("")}</select>
+                <input class="order-money-amount" data-order-field="buyAmount" inputmode="decimal" value="${escapeHtml(modal.buyAmount)}" placeholder="0.00" />
+              </div>
+            </div>
+            <p class="order-exchange-note">两侧金额均由交易员手动填写，系统不自动换算；执行汇率仅作留档与核算依据。</p>
+          </div>
+        </section>
+
+        <section class="order-form-section">
+          <h3 class="order-form-legend"><i>3</i>执行汇率</h3>
+          <label class="field order-combobox-field"><div class="order-combobox" id="order-rate-combo"><input id="order-rate-input" inputmode="decimal" autocomplete="off" placeholder="例如 7.8200 / 1.0020" value="${escapeHtml(modal.rate)}" /><div class="combobox-menu" hidden></div></div><span class="field-hint" id="order-rate-hint">${selectedQuote ? `已关联报价 <b class="order-quote-chip">${escapeHtml(selectedQuote.id)}</b> · 成本价 ${escapeHtml(selectedQuote.costRate)} <span class="order-quote-src">[${escapeHtml(selectedQuote.source)} ${escapeHtml(selectedQuote.time)}]</span>` : quotes.length ? `该币种对有 ${quotes.length} 条已报价，点击输入框选择；直接输入数值则创建为草稿。` : "该币种对暂无报价记录，直接输入汇率数值，订单创建为草稿。"}</span></label>
+        </section>
+
+        <section class="order-form-section">
+          <h3 class="order-form-legend"><i>4</i>补充说明<em class="order-legend-optional">选填</em></h3>
+          <label class="field"><textarea class="order-remark" data-order-field="remark" placeholder="本单的特殊约定、分成与交收安排、风控关注点、后续跟进事项等，可多行填写">${escapeHtml(modal.remark || "")}</textarea></label>
+        </section>
+
+        <div class="order-summary" id="order-summary">${sellPreview && buyPreview
+          ? `<span>本单概要</span><strong>${escapeHtml(moneyPair(modal.sellCurrency, sellPreview))} → ${escapeHtml(moneyPair(modal.buyCurrency, buyPreview))}</strong><small>汇率 ${escapeHtml(modal.rate || "未填写")}${selectedQuote ? ` · 报价 ${selectedQuote.id}` : " · 手动汇率"}</small>`
+          : `<span>本单概要</span><small>填写买卖双边金额后预览成交口径</small>`}</div>
         ${modal.error ? `<div class="form-error">${escapeHtml(modal.error)}</div>` : ""}
-        <footer><button class="btn" type="button" id="order-modal-cancel">取消</button><button class="btn btn-primary" type="submit">${selectedQuote ? "创建订单（已关联报价）" : "创建订单草稿"}</button></footer>
+        <footer><button class="btn" type="button" id="order-modal-cancel">取消</button><button class="btn btn-primary" type="submit" ${selectedCustomer ? "" : "disabled"}>${selectedQuote ? "创建订单（已关联报价）" : "创建订单草稿"}</button></footer>
       </form></section></div>`;
     document.body.classList.add("modal-open");
     const close = () => { state.orderModal = null; renderDispatchModal(); };
@@ -5412,6 +6044,10 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
         renderDispatchModal();
       }
     });
+    $$('[data-order-field]').forEach(el => el.addEventListener(el.tagName === "SELECT" ? "change" : "input", () => {
+      state.orderModal[el.dataset.orderField] = el.value;
+      refreshOrderSummary();
+    }));
     rateInput?.addEventListener("input", () => {
       const modalState = state.orderModal;
       modalState.rate = rateInput.value.trim();
@@ -5421,7 +6057,60 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       if (hint && !modalState.quoteId) hint.textContent = "手动输入汇率，订单将创建为草稿；点击输入框可改选已报价。";
       const submit = $("#order-modal-form footer button[type='submit']");
       if (submit) submit.textContent = modalState.quoteId ? "创建订单（已关联报价）" : "创建订单草稿";
+      refreshOrderSummary();
     });
+  }
+
+  function refreshOrderSummary() {
+    const box = $("#order-summary");
+    const modal = state.orderModal;
+    if (!box || !modal) return;
+    const sell = parseMoney(modal.sellAmount);
+    const buy = parseMoney(modal.buyAmount);
+    const quote = modal.quoteId ? recentQuoteBook.find(item => item.id === modal.quoteId) : null;
+    box.innerHTML = sell && buy
+      ? `<span>本单概要</span><strong>${escapeHtml(moneyPair(modal.sellCurrency, sell))} → ${escapeHtml(moneyPair(modal.buyCurrency, buy))}</strong><small>汇率 ${escapeHtml(modal.rate || "未填写")}${quote ? ` · 报价 ${quote.id}` : " · 手动汇率"}</small>`
+      : `<span>本单概要</span><small>填写买卖双边金额后预览成交口径</small>`;
+  }
+
+  function renderFundingModal(root) {
+    const modal = state.fundingModal;
+    const order = findOrder(modal.orderId);
+    if (!order) { state.fundingModal = null; renderDispatchModal(); return; }
+    const inflow = modal.side === "inflow";
+    const titles = { bank: inflow ? "确认法币入账" : "执行银行出款", chain: inflow ? "标记链上入款到账" : "登记链上转账", cash: inflow ? "确认现金交收" : "登记现金交付" };
+    const amount = inflow ? moneyPair(order.sellCurrency, order.sellAmount) : moneyPair(order.buyCurrency, order.buyAmount);
+    const fields = modal.kind === "bank" ? `
+        <label class="field"><span>${inflow ? "到账金额" : "出款金额"}</span><input data-funding-field="amount" value="${escapeHtml(modal.amount)}" inputmode="decimal" /></label>
+        <label class="field"><span>${inflow ? "到账账户" : "出款账户"} *</span><input data-funding-field="account" value="${escapeHtml(modal.account)}" placeholder="例如 SGB 银行账户 · 0729-88" /></label>
+        <label class="field"><span>${inflow ? "到账时间" : "出款时间"}</span><input data-funding-field="time" value="${escapeHtml(modal.time)}" /></label>
+        <label class="field"><span>${inflow ? "银行流水 / 水单" : "水单 / MT103"}</span><input data-funding-field="voucher" value="${escapeHtml(modal.voucher)}" placeholder="例如 SGB-回单-20260824.pdf" /></label>`
+      : modal.kind === "chain" ? `
+        <label class="field"><span>${inflow ? "到账数量" : "转账数量"}</span><input data-funding-field="amount" value="${escapeHtml(modal.amount)}" inputmode="decimal" /></label>
+        <label class="field"><span>链 / 网络</span><select data-funding-field="chain">${["TRC20", "ERC20", "BEP20"].map(chain => `<option ${modal.chain === chain ? "selected" : ""}>${chain}</option>`).join("")}</select></label>
+        <label class="field full"><span>交易哈希 *</span><input class="mono" data-funding-field="hash" value="${escapeHtml(modal.hash)}" placeholder="例如 9f2c7a1e5b34d806fa71c2e93b5d4087ac16e2f9d3b7c8514a0e6d9f2b3c7a15" /></label>
+        <label class="field"><span>区块确认数</span><input data-funding-field="confirms" value="${escapeHtml(modal.confirms)}" inputmode="numeric" /></label>
+        <label class="field"><span>链上截图</span><input data-funding-field="voucher" value="${escapeHtml(modal.voucher)}" placeholder="例如 trx-20260824.png" /></label>`
+      : `
+        <label class="field"><span>${inflow ? "验收金额" : "交付金额"}</span><input data-funding-field="amount" value="${escapeHtml(modal.amount)}" inputmode="decimal" /></label>
+        <label class="field"><span>交收地点 *</span><input data-funding-field="place" value="${escapeHtml(modal.place)}" placeholder="例如 Kingcoin 旺角店" /></label>
+        <label class="field"><span>交收人</span><input data-funding-field="handler" value="${escapeHtml(modal.handler)}" placeholder="现场交收同事" /></label>
+        <label class="field"><span>信物编号</span><input data-funding-field="token" value="${escapeHtml(modal.token)}" placeholder="唯一信物编号" /></label>
+        <label class="field"><span>确认时间</span><input data-funding-field="time" value="${escapeHtml(modal.time)}" /></label>`;
+    root.innerHTML = `<div class="review-launch-backdrop" id="funding-modal-backdrop"><section class="schedule-template-dialog payout-receipt-dialog" role="dialog" aria-modal="true" aria-labelledby="funding-modal-title">
+      <header><div><span>${inflow ? "CUSTOMER INFLOW" : "PLATFORM OUTFLOW"}</span><h2 id="funding-modal-title">${titles[modal.kind]}</h2><p>${escapeHtml(order.id)} · ${escapeHtml(order.customerName)} · ${escapeHtml(order.tradeType)}｜标记人：${escapeHtml(actorLabel())}</p></div><button class="icon-button" id="funding-modal-close" aria-label="关闭" type="button">×</button></header>
+      <form class="schedule-template-editor" id="funding-modal-form">
+        <div class="funding-modal-brief"><span>${inflow ? "客户应付我方" : "我方应付客户"}</span><strong>${amount}</strong><small>${fundingKindLabel[modal.kind]} · 责任人 ${escapeHtml(roles[fundingOwnerRole(order, modal.side)].label)}</small></div>
+        <div class="field-grid">${fields}</div>
+        ${modal.error ? `<div class="form-error">${escapeHtml(modal.error)}</div>` : ""}
+        <footer><button class="btn" type="button" id="funding-modal-cancel">取消</button><button class="btn btn-primary" type="submit">${inflow ? "确认到账" : "确认已出款"}</button></footer>
+      </form></section></div>`;
+    document.body.classList.add("modal-open");
+    const close = () => { state.fundingModal = null; renderDispatchModal(); };
+    $("#funding-modal-close")?.addEventListener("click", close);
+    $("#funding-modal-cancel")?.addEventListener("click", close);
+    $("#funding-modal-backdrop")?.addEventListener("click", event => { if (event.target === event.currentTarget) close(); });
+    $("#funding-modal-form")?.addEventListener("submit", event => { event.preventDefault(); submitFundingModal(); });
   }
 
   function renderPaymentModal(root) {
@@ -5472,7 +6161,16 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     const orderNew = $("#order-new"); if (orderNew) orderNew.addEventListener("click", openOrderModal);
     const paymentNew = $("#payment-new"); if (paymentNew) paymentNew.addEventListener("click", () => openPaymentModal(""));
     const orderBack = $("#order-back"); if (orderBack) orderBack.addEventListener("click", () => { state.orderView = null; render(); });
-    $$('[data-order-open]').forEach(el => el.addEventListener("click", () => { state.orderView = el.dataset.orderOpen; state.view = "tradeOrders"; if (!roleHasView(state.role, "tradeOrders")) state.view = state.view; render(); }));
+    const orderPanelBackdrop = $("#order-panel-backdrop"); if (orderPanelBackdrop) orderPanelBackdrop.addEventListener("click", () => { state.orderView = null; render(); });
+    $$('[data-order-panel-tab]').forEach(el => el.addEventListener("click", () => { state.orderPanelTab = el.dataset.orderPanelTab; render(); }));
+    $$('[data-order-open]').forEach(el => el.addEventListener("click", () => { state.orderView = el.dataset.orderOpen; state.orderPanelTab = "overview"; state.view = "tradeOrders"; if (!roleHasView(state.role, "tradeOrders")) state.view = state.view; render(); }));
+    $$('[data-order-register]').forEach(el => el.addEventListener("click", () => registerTradeOrder(el.dataset.orderRegister)));
+    $$('[data-order-kyc-sync]').forEach(el => el.addEventListener("click", () => syncOrderKyc(el.dataset.orderKycSync)));
+    $$('[data-wallet-deposit]').forEach(el => el.addEventListener("click", () => walletSetDepositAddress(el.dataset.walletDeposit)));
+    $$('[data-wallet-kya]').forEach(el => el.addEventListener("click", () => walletKyaAddress(el.dataset.walletKya)));
+    $$('[data-inflow-confirm]').forEach(el => el.addEventListener("click", () => openFundingModal(el.dataset.inflowConfirm, "inflow")));
+    $$('[data-inflow-reject]').forEach(el => el.addEventListener("click", () => rejectOrderInflow(el.dataset.inflowReject)));
+    $$('[data-outflow-execute]').forEach(el => el.addEventListener("click", () => openFundingModal(el.dataset.outflowExecute, "outflow")));
     $$('[data-order-quote]').forEach(el => el.addEventListener("click", () => orderAttachQuote(el.dataset.orderQuote)));
     $$('[data-order-notify]').forEach(el => el.addEventListener("click", () => orderNotifyPayment(el.dataset.orderNotify)));
     $$('[data-order-pay]').forEach(el => el.addEventListener("click", () => openPaymentModal(el.dataset.orderPay)));
@@ -6176,7 +6874,7 @@ Currency： ${data.currency || "未填写"}`;
     if (complianceFinalFilter) complianceFinalFilter.addEventListener("change", event => { state.complianceQueueConclusion = event.target.value; render(); });
     const complianceReset = $("#compliance-filter-reset");
     if (complianceReset) complianceReset.addEventListener("click", () => { Object.assign(state, { complianceQueueSearch: "", complianceQueueType: "全部审核类型", complianceQueueStatus: "全部状态", complianceQueueConclusion: "全部" }); render(); });
-    $$('[data-compliance-open-review]').forEach(el => el.addEventListener("click", () => { state.complianceReviewingCase = el.dataset.complianceOpenReview; state.selectedCase = el.dataset.complianceOpenReview; state.complianceConclusionDraft = { decision: "", note: "" }; render(); }));
+    $$('[data-compliance-open-review]').forEach(el => el.addEventListener("click", () => { state.complianceReviewingCase = el.dataset.complianceOpenReview; state.selectedCase = el.dataset.complianceOpenReview; state.complianceConclusionDraft = { decision: "", note: "" }; if (state.role === "compliance") state.view = "cases"; render(); }));
     const complianceReviewBack = $("#compliance-review-back");
     if (complianceReviewBack) complianceReviewBack.addEventListener("click", () => { state.complianceReviewingCase = null; state.complianceConclusionDraft = { decision: "", note: "" }; render(); });
     $$('[name="compliance-conclusion"]').forEach(el => el.addEventListener("change", () => { state.complianceConclusionDraft.decision = el.value; render(); }));
@@ -6610,8 +7308,6 @@ Currency： ${data.currency || "未填写"}`;
     const quickSubmitCnName = $("#quick-submit-cn-name"); if (quickSubmitCnName) quickSubmitCnName.addEventListener("input", event => { state.quickMaterialUpload.customerChineseName = event.target.value; });
     const quickSubmitEnName = $("#quick-submit-en-name"); if (quickSubmitEnName) quickSubmitEnName.addEventListener("input", event => { state.quickMaterialUpload.customerEnglishName = event.target.value; });
     $$('[name="quickDestination"]').forEach(el => el.addEventListener("change", event => { state.quickMaterialUpload.destination = event.target.value; render(); }));
-    $$('[name="quickArchiveTarget"]').forEach(el => el.addEventListener("change", event => { state.quickMaterialUpload.archiveTarget = event.target.value; render(); }));
-    $$('[name="quickSubMode"]').forEach(el => el.addEventListener("change", event => { state.quickMaterialUpload.archiveTarget = "sub"; state.quickMaterialUpload.subMode = event.target.value; render(); }));
     $$('[data-quick-file-remove]').forEach(el => el.addEventListener("click", () => { removeQuickUploadFile(Number(el.dataset.quickFileRemove)); }));
     $$('[data-quick-file-category]').forEach(el => el.addEventListener("change", event => {
       const file = state.quickMaterialUpload.files[Number(el.dataset.quickFileCategory)];
@@ -6623,10 +7319,9 @@ Currency： ${data.currency || "未填写"}`;
     const orderSearch = $("#material-order-search"); if (orderSearch) orderSearch.addEventListener("input", () => filterMaterialOrders());
     const orderFilter = $("#material-order-filter"); if (orderFilter) orderFilter.addEventListener("change", () => filterMaterialOrders());
     const materialBackList = $("#material-back-list"); if (materialBackList) materialBackList.addEventListener("click", () => { syncMaterialOrderDraft(); state.materialFlow.mode = "list"; render(); });
-    $$('[data-material-goto]').forEach(el => el.addEventListener("click", () => { state.materialFlow.step = Number(el.dataset.materialGoto); render(); }));
     const materialAuthorized = $("#material-authorized"); if (materialAuthorized) materialAuthorized.addEventListener("change", event => { state.materialFlow.authorized = event.target.checked; render(); });
     $$('[data-material-prev]').forEach(el => el.addEventListener("click", () => { state.materialFlow.step = Math.max(1, state.materialFlow.step - 1); syncMaterialOrderDraft(); render(); }));
-    $$('[data-material-next]').forEach(el => el.addEventListener("click", () => { saveMaterialFields(); state.materialFlow.step = Math.min(5, state.materialFlow.step + 1); syncMaterialOrderDraft(); render(); }));
+    $$('[data-material-next]').forEach(el => el.addEventListener("click", () => { saveMaterialFields(); state.materialFlow.step = Math.min(4, state.materialFlow.step + 1); syncMaterialOrderDraft(); render(); }));
     $$('.material-item-input').forEach(el => el.addEventListener("change", handleMaterialFiles));
     const materialDemoFiles = $("#material-demo-files"); if (materialDemoFiles) materialDemoFiles.addEventListener("click", loadDemoMaterialFiles);
     $$('[data-material-remove]').forEach(el => el.addEventListener("click", () => { const item = state.materialFlow.files[Number(el.dataset.materialRemove)]; Object.assign(item, { name: "", size: 0, type: "", url: "", ocrState: "未上传" }); state.materialFlow.ocrComplete = false; render(); }));
@@ -6642,14 +7337,11 @@ Currency： ${data.currency || "未填写"}`;
     $$('[data-supplement-match]').forEach(el => el.addEventListener("change", () => { state.materialFlow.supplementUploads[Number(el.dataset.supplementMatch)].itemKey = el.value; render(); }));
     $$('[data-supplement-remove]').forEach(el => el.addEventListener("click", () => { const removed = state.materialFlow.supplementUploads.splice(Number(el.dataset.supplementRemove), 1)[0]; if (removed?.url?.startsWith("blob:")) URL.revokeObjectURL(removed.url); render(); }));
     const supplementSubmit = $("#supplement-submit"); if (supplementSubmit) supplementSubmit.addEventListener("click", submitSupplement);
-    $$('input[name="generationPath"]').forEach(el => el.addEventListener("change", () => { state.materialFlow.generationPath = el.value; render(); }));
-    const uploadContinue = $("#material-upload-continue"); if (uploadContinue) uploadContinue.addEventListener("click", () => { if (state.materialFlow.generationPath === "ocr") runMaterialOcr(); else { state.materialFlow.step = state.materialFlow.generationPath === "none" ? 5 : 4; render(); } });
+    const uploadContinue = $("#material-upload-continue"); if (uploadContinue) uploadContinue.addEventListener("click", () => { state.materialFlow.step = 4; syncMaterialOrderDraft(); render(); });
     $$('[data-material-field]').forEach(el => el.addEventListener("input", () => { state.materialFlow.form[el.dataset.materialField] = el.value; state.materialFlow.editedFields.add(el.dataset.materialField); }));
     $$('[data-material-choice]').forEach(el => el.addEventListener("change", () => { const key = el.dataset.materialChoice; if (el.type === "checkbox") { const values = new Set(state.materialFlow.form[key] || []); el.checked ? values.add(el.value) : values.delete(el.value); state.materialFlow.form[key] = [...values]; } else state.materialFlow.form[key] = el.value; state.materialFlow.editedFields.add(key); render(); }));
     const materialConfirmed = $("#material-confirmed"); if (materialConfirmed) materialConfirmed.addEventListener("change", event => { state.materialFlow.confirmed = event.target.checked; render(); });
-    const generatePdf = $("#material-generate-pdf"); if (generatePdf) generatePdf.addEventListener("click", generateApplicationPdf);
     const submitMaterialOps = $("#material-submit-ops"); if (submitMaterialOps) submitMaterialOps.addEventListener("click", submitMaterialToOps);
-    const signedPdf = $("#signed-pdf-input"); if (signedPdf) signedPdf.addEventListener("change", event => attachSignedPdf(event.target.files[0]));
     $$('[data-pdf-preview]').forEach(el => el.addEventListener("click", () => openPdfPreview(el.dataset.pdfPreview, el.dataset.pdfName)));
     $$('[data-schedule-template]').forEach(el => el.addEventListener("click", () => selectScheduleTemplate(el.dataset.scheduleTemplate)));
     $$('[data-schedule-load-draft]').forEach(el => el.addEventListener("click", () => editScheduleDraft(el.dataset.scheduleLoadDraft)));
@@ -7175,26 +7867,8 @@ Swift Code/BIC 代码： CITIHKAX
     targetCustomer.documents = targetCustomer.documents || [];
     targetCustomer.timeline = targetCustomer.timeline || [];
     const intermediary = customerKind(customer) === "中介";
-    let archiveSubject = customer.name;
-    let archiveLineage = `${customerKind(customer)} · ${customerNo(customer)}`;
-    if (intermediary && upload.archiveTarget === "sub") {
-      if (upload.subMode === "new") {
-        const clientNo = nextAvailableClientNo();
-        const subName = upload.newSubName.trim() || `下级客户 ${clientNo}`;
-        customer.subCustomers = customer.subCustomers || [];
-        if (!customer.subCustomers.some(item => item.clientNo === clientNo || item.name === subName)) {
-          customer.subCustomers.push({ id: `${customer.id}-SUB-${Date.now().toString(36).toUpperCase()}`, name: subName, clientNo, status: "未准入", region: customer.region, type: "个人", updated: "刚刚同步" });
-        }
-        archiveSubject = subName;
-        archiveLineage = `中介 ${customerNo(customer)} · 新建下级客户 ${clientNo}`;
-      } else {
-        const selectedSub = (customer.subCustomers || []).find(item => item.clientNo) || (customer.subCustomers || [])[0];
-        archiveSubject = selectedSub?.name || customer.name;
-        archiveLineage = selectedSub ? `中介 ${customerNo(customer)} · 已有下级客户 ${selectedSub.clientNo || "待分配编号"}` : `中介 ${customerNo(customer)} · 下级客户`;
-      }
-    } else if (intermediary) {
-      archiveLineage = `中介 ${customerNo(customer)} · 自身主档案库`;
-    }
+    const archiveSubject = customer.name;
+    const archiveLineage = intermediary ? `中介 ${customerNo(customer)} · 主档案库` : `${customerKind(customer)} · ${customerNo(customer)}`;
     const materialRows = upload.files.map(file => ({
       name: file.name,
       meta: `${file.name} · ${formatFileSize(file.size)} · 刚刚上传`,
@@ -7246,6 +7920,7 @@ Swift Code/BIC 代码： CITIHKAX
         customerId: customer.id,
         customer: customer.name,
         type: customer.type === "企业" ? "企业 KYB" : "个人 KYC",
+        businessType: submittedBusinessType,
         auditType: rejectedCase ? "驳回" : "新提交",
         status: "待合规审核",
         source: rejectedCase ? "驳回重提" : destinationLabel,
@@ -7273,11 +7948,8 @@ Swift Code/BIC 代码： CITIHKAX
 
     const message = complianceDestination ? `已${destinationLabel}` : "已保存到客户材料库";
     persistCustomers();
-    toast(message, `${archiveLineage} · ${materialRows.length} 个文件`);
+    toast(message, `${customer.name} · ${archiveLineage} · ${materialRows.length} 个文件，可在客户管理查看归档`);
     state.quickMaterialUpload = initialQuickMaterialUpload();
-    state.customerSearch = customer.clientNo || customer.name;
-    state.customerStatus = "全部状态";
-    state.view = "customers";
     render();
   }
 
@@ -7287,8 +7959,9 @@ Swift Code/BIC 代码： CITIHKAX
     if (!order || flow.mode !== "work" || order.status === "待客户补件") return;
     const uploaded = flow.files.filter(item => item.name).length;
     order.step = flow.step;
-    order.status = flow.submitted ? "待运营审核" : "材料未完成";
-    order.stage = flow.submitted ? "运营审核" : ["开始申报", "客户与业务", "上传材料", "编辑申请表", "确认与 PDF"][flow.step - 1];
+    if (flow.form.businessType) order.businessType = flow.form.businessType;
+    order.status = flow.submitted ? "待合规审核" : "材料未完成";
+    order.stage = flow.submitted ? "合规审核" : ["开始申报", "客户与业务", "上传材料", "确认提交"][flow.step - 1];
     order.completeness = `${uploaded} / ${flow.files.length}`;
     order.updated = "刚刚";
   }
@@ -7304,7 +7977,7 @@ Swift Code/BIC 代码： CITIHKAX
       materialItems.slice(0, uploadedCount).forEach((item, index) => Object.assign(item, { name: `saved_${item.category.replaceAll(" / ", "_")}.pdf`, size: 86000 + index * 12000, type: "application/pdf", url: "assets/trustpass-stage1-template.pdf", versions: [{ version: "v1", name: `saved_${index + 1}.pdf`, time: order.updated }], ocrState: "等待识别" }));
     }
     state.materialFlow = {
-      ...initialMaterialFlow(), mode: "work", customerId, orderId, step: resumeStep, authorized: resumeStep > 1, pdfVersions: previousVersions,
+      ...initialMaterialFlow(), mode: "work", customerId, orderId, step: Math.min(4, resumeStep), authorized: resumeStep > 1, pdfVersions: previousVersions,
       applicationId: order?.id || `APP-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${customer.id.slice(-3)}`,
       files: materialItems,
       form: seedMaterialForm(customer)
@@ -7319,13 +7992,13 @@ Swift Code/BIC 代码： CITIHKAX
       registrationNo: customer.idMasked, incorporationDate: customer.dob, email: customer.email,
       registeredAddress: "18 Harbour Road, Hong Kong", businessAddress: "与注册地址一致",
       fundSource: "企业经营收入及股东投入", uboSummary: "董事 2 名，最终受益人 1 名",
-      businessType: customer.business, expectedVolume: "HKD 1,500,000", businessPurpose: "跨境资金结算服务",
+      businessType: "公户人民币买私户美金/港币/外币", expectedVolume: "HKD 1,500,000", businessPurpose: "跨境资金结算服务",
       sourceOfWealth: ["Investment", "Others"], servicePurpose: ["Own Funds", "Business"], destination: "Hong Kong", annualAmount: "500k-2m", perTxAmount: "150k-500k"
     } : {
       legalName: customer.name, englishName: customer.enName, birthDate: customer.dob,
       nationality: customer.region, gender: "Male", occupation: "客户经理", idType: "香港身份证", idNo: customer.idMasked, idExpiry: "2031-08-16",
       phone: customer.phone, email: customer.email, address: "香港湾仔港湾道 18 号 1208 室",
-      fundSource: "受雇收入及个人储蓄", businessType: customer.business,
+      fundSource: "受雇收入及个人储蓄", businessType: "港币/美元/外币私户打款买U",
       expectedVolume: "HKD 800,000", businessPurpose: "跨境资金结算服务",
       sourceOfWealth: ["Wages", "Investment"], servicePurpose: ["Own Funds"], destination: "Hong Kong", annualAmount: "500k-2m", perTxAmount: "150k-500k"
     };
@@ -7377,30 +8050,29 @@ Swift Code/BIC 代码： CITIHKAX
 
   function submitMaterialToOps() {
     const flow = state.materialFlow;
-    if (flow.submitted || !flow.confirmed || !flow.files.some(file => file.name) || (flow.generationPath !== "none" && !flow.signedPdf)) return;
+    if (flow.submitted || !flow.confirmed || !flow.files.some(file => file.name)) return;
     const customer = state.customers.find(item => item.id === flow.customerId);
     flow.submitted = true;
     const materialOrder = state.materialOrders.find(item => item.id === flow.orderId);
-    if (materialOrder) Object.assign(materialOrder, { status: "待运营审核", stage: "运营审核", step: 5, completeness: `${flow.files.filter(file => file.name).length} / ${flow.files.length}`, updated: "刚刚", note: "材料与申请表已提交运营审核。", history: [`刚刚 · 提交运营审核`, ...materialOrder.history] });
-    customer.materialSubmission = { applicationId: flow.applicationId, generationPath: flow.generationPath, items: flow.files.filter(file => file.name).map(file => ({ ...file })), applicationPdf: flow.pdfVersions.at(-1) || null, signedPdf: flow.signedPdf, submittedAt: "刚刚" };
-    setCustomerStatus(customer, "材料审核中", `交易员 ${roles.agent.name}`, "提交材料申报，进入审核流程");
+    if (materialOrder) Object.assign(materialOrder, { status: "待合规审核", stage: "合规审核", step: 4, businessType: flow.form.businessType || materialOrder.businessType, completeness: `${flow.files.filter(file => file.name).length} / ${flow.files.length}`, updated: "刚刚", note: "材料已直接提交合规审核。", history: [`刚刚 · 提交合规审核`, ...materialOrder.history] });
+    customer.materialSubmission = { applicationId: flow.applicationId, generationPath: "none", businessType: flow.form.businessType || "", items: flow.files.filter(file => file.name).map(file => ({ ...file })), applicationPdf: null, signedPdf: null, submittedAt: "刚刚" };
+    setCustomerStatus(customer, "材料审核中", `交易员 ${roles.agent.name}`, "提交材料申报，进入合规审核");
     customer.updated = "刚刚";
-    customer.owner = "运营 陈文静";
-    const submissionLabel = flow.generationPath === "none" ? "仅材料送审" : `签署申请表 ${flow.pdfVersions.at(-1).version}`;
-    customer.timeline.unshift({ title: "提交材料申报", detail: `${flow.applicationId} · ${submissionLabel}`, role: `交易员 ${roles.agent.name}`, time: "刚刚" });
-    const existing = state.cases.find(item => item.customerId === customer.id && item.status === "待运营审核");
+    customer.owner = `合规 ${roles.compliance.name}`;
+    customer.timeline.unshift({ title: "提交合规审核", detail: `${flow.applicationId} · 材料直接送审`, role: `交易员 ${roles.agent.name}`, time: "刚刚" });
+    const existing = state.cases.find(item => item.customerId === customer.id && item.status === "待合规审核");
     const count = customer.materialSubmission.items.length;
-    const note = flow.generationPath === "none" ? `${flow.applicationId} 未生成申请表，直接审核材料` : `${flow.applicationId} 已附未签署版与客户签署版申请表`;
+    const note = `${flow.applicationId} 材料直接提交合规审核，未生成申请表`;
     let reviewCase = existing;
-    if (existing) Object.assign(existing, { source: "交易员 材料申报", entered: "刚刚", sla: "剩余 4h", owner: "陈文静", completeness: `${count} / ${count}`, previous: "交易员 提交材料", next: "逐项审核材料与申请表", note, result: "待处理" });
+    if (existing) Object.assign(existing, { source: "交易员 材料申报", businessType: flow.form.businessType || existing.businessType, entered: "刚刚", sla: "剩余 4h", owner: roles.compliance.name, completeness: `${count} / ${count}`, previous: "交易员 提交材料", next: "合规人工复核", note, result: "待合规结论" });
     else {
-      reviewCase = { id: `OPS-${flow.applicationId.slice(-6)}`, customerId: customer.id, customer: customer.name, type: customer.type === "企业" ? "企业 KYB" : "个人 KYC", status: "待运营审核", source: "交易员 材料申报", agent: customer.agent, owner: "陈文静", entered: "刚刚", sla: "剩余 4h", risk: customer.risk, completeness: `${count} / ${count}`, previous: "交易员 提交材料", next: "逐项审核材料与申请表", note, bankRef: "未提交", result: "待处理" };
+      reviewCase = { id: `CMP-${flow.applicationId.slice(-6)}`, customerId: customer.id, customer: customer.name, type: customer.type === "企业" ? "企业 KYB" : "个人 KYC", businessType: flow.form.businessType || "", status: "待合规审核", source: "交易员 材料申报", agent: customer.agent, owner: roles.compliance.name, entered: "刚刚", sla: "剩余 4h", risk: customer.risk, completeness: `${count} / ${count}`, previous: "交易员 提交材料", next: "合规人工复核", note, bankRef: "未提交", result: "待合规结论" };
       state.cases.unshift(reviewCase);
     }
     if (reviewCase) state.caseReviewDrafts[reviewCase.id] = createCaseReviewDraft(reviewCase, customer);
     persistCustomers();
     render();
-    toast("已提交运营审核", `${flow.applicationId} 已进入运营处理队列`);
+    toast("已提交合规审核", `${flow.applicationId} 已进入合规审核队列`);
   }
 
   async function generateApplicationPdf() {
@@ -7516,7 +8188,7 @@ Swift Code/BIC 代码： CITIHKAX
   function openPdfPreview(url, filename = "申请表.pdf") {
     if (!url) return;
     const root = $("#pdf-modal-root");
-    root.innerHTML = `<div class="pdf-modal-backdrop"><section class="pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title"><header><div><span>PDF PREVIEW</span><h2 id="pdf-modal-title">${escapeHtml(filename)}</h2></div><div class="case-actions"><a class="btn btn-primary" href="${url}" download="${escapeHtml(filename)}">下载 PDF</a><button class="btn" id="pdf-modal-close" type="button">关闭</button></div></header><iframe title="${escapeHtml(filename)} PDF 预览" src="${url}"></iframe></section></div>`;
+    root.innerHTML = `<div class="pdf-modal-backdrop"><section class="pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title"><header><div><span>FILE PREVIEW</span><h2 id="pdf-modal-title">${escapeHtml(filename)}</h2></div><div class="case-actions"><a class="btn btn-primary" href="${url}" download="${escapeHtml(filename)}">下载文件</a><button class="btn" id="pdf-modal-close" type="button">关闭</button></div></header><iframe title="${escapeHtml(filename)} 文件预览" src="${url}"></iframe></section></div>`;
     $("#pdf-modal-close").addEventListener("click", closePdfModal);
     $(".pdf-modal-backdrop").addEventListener("click", event => { if (event.target === event.currentTarget) closePdfModal(); });
     document.body.classList.add("modal-open");
@@ -8452,16 +9124,25 @@ Swift Code/BIC 代码： CITIHKAX
     return "案件";
   }
 
+  /* 客户档案的申请列表对外只展示四种审核状态 */
+  function applicationStatusDisplay(status = "") {
+    if (/通过|已排单|交易中|已成交|已批准/.test(status)) return { label: "审核通过", tone: "success" };
+    if (/终止|拒绝/.test(status)) return { label: "审核拒绝", tone: "danger" };
+    if (/驳回|补件|退回/.test(status)) return { label: "审核驳回", tone: "warning" };
+    if (/草稿|未完成/.test(status)) return { label: "草稿", tone: "neutral" };
+    return { label: "审核中", tone: "info" };
+  }
+
   function customerApplications(c) {
     const accessType = c.type === "企业" ? "企业 KYB 准入" : "个人 KYC 准入";
     const orders = state.materialOrders.filter(order => order.customerId === c.id).map(order => ({
-      kind: "准入申请", icon: "APP", id: order.id, type: accessType, status: order.status,
+      kind: "准入申请", icon: "APP", id: order.id, type: order.businessType || accessType, status: order.status,
       source: `交易员 ${order.owner} 提交`, agent: order.owner, owner: order.owner, time: order.updated,
       stage: order.stage, completeness: order.completeness, note: order.note, history: order.history || [],
       withMaterials: true
     }));
     const cases = state.cases.filter(item => item.customerId === c.id).map(item => ({
-      kind: "审核案件", icon: applicationCaseIcon(item.type), id: item.id, type: item.type, status: item.status,
+      kind: "审核案件", icon: applicationCaseIcon(item.type), id: item.id, type: item.businessType || item.type, status: item.status,
       source: item.source, agent: item.agent, owner: item.owner, time: item.entered,
       sla: item.sla, completeness: item.completeness, note: item.note,
       bankRef: item.bankRef, result: item.result, history: [],
@@ -8504,11 +9185,12 @@ Swift Code/BIC 代码： CITIHKAX
     const expandedId = state.drawerApplication === null ? records[0].id : state.drawerApplication;
     return `<h3>业务申请</h3><p class="drawer-section-hint">共 ${records.length} 条记录，来自 交易员 在业务准入提交的申请及后续审核案件。点击记录查看已提交材料与办理进度。</p><div class="application-list">${records.map(record => {
       const open = record.id === expandedId;
+      const display = applicationStatusDisplay(record.status);
       return `<article class="application-card ${open ? "open" : ""}">
         <button class="application-summary" type="button" data-drawer-app="${escapeHtml(record.id)}" aria-expanded="${open}">
           <span class="doc-icon">${escapeHtml(record.icon)}</span>
           <div><strong>${escapeHtml(record.type)}</strong><small>${escapeHtml(record.id)} · ${escapeHtml(record.kind)} · ${escapeHtml(record.time)}</small></div>
-          <span class="status status-${statusTone(record.status)}">${escapeHtml(record.status)}</span>
+          <span class="status status-${display.tone}">${display.label}</span>
           <i class="application-caret">${open ? "▾" : "▸"}</i>
         </button>
         ${open ? renderApplicationDetail(c, record) : ""}
