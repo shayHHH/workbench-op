@@ -19,7 +19,7 @@
     ],
     ops: [
       ["dashboard", "工作台", "⌂", 6], ["customers", "客户管理", "♙"], ["tradeOrders", "交易订单", "▤"],
-      ["quoteCenter", "报价管理", "₿"], ["businessAccess", "业务准入", "⇪"], ["exceptionCenter", "异常处理", "▲"]
+      ["quoteCenter", "报价管理", "₿"], ["businessAccess", "业务准入", "⇪"]
     ],
     wallet: [
       ["dashboard", "工作台", "⌂"], ["tradeOrders", "交易订单", "▤"], ["walletRecords", "哈希与凭证", "◈"]
@@ -231,6 +231,13 @@
     { id: "OPS-260633", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业交易", status: "交易中", source: "运营建单", agent: "陈浩", owner: "陈文静", entered: "07-08 16:40", sla: "T+1", risk: "中", completeness: "12 / 12", previous: "已关联额度和水单", next: "更新交易进度", note: "HKD 702,000 等值交易处理中。", bankRef: "BK-20260708-019", result: "执行中" },
     { id: "OPS-260601", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", businessType: "公户人民币买私户美金/港币/外币", status: "已终止", source: "银行结果", agent: "杨澜", owner: "陈文静", entered: "07-06 14:12", sla: "已关闭", risk: "中", completeness: "9 / 9", previous: "银行审核拒绝", next: "无后续操作", note: "银行未接受本次申请，需新建业务后方可重提。", bankRef: "BK-20260705-008", result: "银行拒绝", terminationType: "银行拒绝", terminationReason: "银行内部准入标准未满足" },
     { id: "CMP-260702", customerId: "C-2026-0718", customer: "陈嘉宁", type: "个人 KYC", businessType: "港币/美元/外币私户打款买U", status: "待合规审核", source: "运营提交", agent: "杨澜", owner: "Tina Lau", entered: "今天 10:08", sla: "剩余 3h 52m", risk: "低", completeness: "9 / 9", previous: "运营材料审核通过", next: "合规人工复核", note: "规则建议低风险，地址证明异常已由运营确认。", bankRef: "未提交", result: "待合规结论" },
+    { id: "CMP-260706", customerId: "C-2026-0662", customer: "吴思颖", type: "个人 KYC", businessType: "U换现金", auditType: "新提交", status: "待合规审核", source: "交易员 材料申报", agent: "杨澜", owner: "Tina Lau", entered: "今天 09:46", submittedAt: "今天 09:46", sla: "剩余 3h 30m", risk: "低", completeness: "8 / 8", previous: "交易员 提交材料", next: "合规人工复核", note: "个人客户首笔现金业务准入，材料齐备。", bankRef: "未提交", result: "待合规结论" },
+    { id: "CMP-260708", customerId: "C-2026-0658", customer: "Blue Harbor Services Limited", type: "企业 KYB", businessType: "公户人民币买公户美金/港币/外币", auditType: "新提交", status: "待合规审核", source: "交易员 材料申报", agent: "周辰", owner: "Tina Lau", entered: "今天 09:12", submittedAt: "今天 09:12", sla: "剩余 2h 58m", risk: "中", completeness: "11 / 12", previous: "交易员 提交材料", next: "合规人工复核", note: "企业公户换汇准入，UBO 名单已更新至最新版。", bankRef: "未提交", result: "待合规结论" },
+    { id: "CMP-260710", customerId: "C-2026-0636", customer: "Mosaic Ventures Pte. Ltd.", type: "企业 KYB", businessType: "公户人民币买私户美金/港币/外币", auditType: "新提交", status: "待合规审核", source: "交易员 材料申报", agent: "杨澜", owner: "Tina Lau", entered: "昨天 17:20", submittedAt: "昨天 17:20", sla: "剩余 1h 05m", risk: "中", completeness: "12 / 12", previous: "交易员 提交材料", next: "合规人工复核", note: "已有转账换U准入，本次为新增业务类型申请。", bankRef: "未提交", result: "待合规结论" },
+    { id: "CMP-260712", customerId: "C-2026-0607", customer: "郑凯文", type: "个人 KYC", businessType: "卖U换私户人民币转账", auditType: "驳回", status: "待合规审核", source: "驳回重提", agent: "杨澜", owner: "Tina Lau", entered: "今天 08:40", submittedAt: "今天 08:40", sla: "剩余 2h 20m", risk: "低", completeness: "9 / 9", previous: "交易员 补充材料后重新提交", next: "复核补充后的资金来源说明", note: "上一轮驳回原因：资金来源说明不完整；已补充最近三个月流水。", bankRef: "未提交", result: "待合规结论" },
+    { id: "CMP-260714", customerId: "C-2026-0614", customer: "Sunrise Exchange HK Limited", type: "企业 KYB", businessType: "港币/美元/外币公户打款买U", auditType: "新提交", status: "待合规审核", source: "交易员 材料申报", agent: "陈浩", owner: "Tina Lau", entered: "昨天 16:05", submittedAt: "昨天 16:05", sla: "已超时 40m", risk: "高", completeness: "10 / 12", previous: "交易员 提交材料", next: "高风险客户需加强尽调", note: "命中高风险规则：注册地与经营地不一致，需人工复核。", bankRef: "未提交", result: "待合规结论" },
+    { id: "CMP-260688", customerId: "C-2026-0628", customer: "李婉晴", type: "个人 KYC", businessType: "U换转账", auditType: "新提交", status: "待提交银行", source: "合规通过", agent: "杨澜", owner: "陈文静", entered: "昨天 11:26", submittedAt: "昨天 10:15", reviewedAt: "昨天 11:26", finalizedAt: "昨天 11:26", sla: "已完成", risk: "低", completeness: "9 / 9", previous: "合规审核通过", next: "运营提交银行", note: "合规审核通过，材料与资金来源说明一致。", bankRef: "未提交", result: "审核通过" },
+    { id: "CMP-260676", customerId: "C-2026-0677", customer: "Aurora Capital Pte. Ltd.", type: "企业 KYB", businessType: "U换内地公户人民币", auditType: "新提交", status: "已终止", source: "合规终止", agent: "陈浩", owner: "Tina Lau", entered: "08-21 15:44", submittedAt: "08-21 14:02", reviewedAt: "08-21 15:44", finalizedAt: "08-21 15:44", sla: "已关闭", risk: "中", completeness: "12 / 12", previous: "合规审核终止", next: "重新发起新申请", note: "该业务类型暂不符合内地资金合规要求，明确拒绝本次准入。", bankRef: "未提交", result: "审核终止", terminationType: "合规终止" },
     { id: "OPS-260731", customerId: "C-2026-0588", customer: "林雅雯", type: "个人 KYC", businessType: "U换现金", status: "待运营审核", source: "交易员 新申报", agent: "周辰", owner: "陈文静", entered: "今天 10:42", sla: "剩余 3h 18m", risk: "低", completeness: "7 / 8", previous: "交易员 提交材料", next: "核对银行月结单与地址证明", note: "申请表已签署，银行月结单文件名与材料项不一致。", bankRef: "未提交", result: "待处理" },
     { id: "OPS-260728", customerId: "C-2026-0718", customer: "陈嘉宁", type: "地址证明补件", status: "待客户补件", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "今天 09:26", sla: "剩余 1d 6h", risk: "低", completeness: "7 / 8", previous: "合规发起补件", next: "等待 交易员 上传地址证明第二页", note: "当前地址证明缺少签发机构信息页。", bankRef: "未提交", result: "等待客户材料" },
     { id: "OPS-260724", customerId: "C-2026-0694", customer: "Northstar Trading Limited", type: "企业 KYB", businessType: "公户人民币买私户美金/港币/外币", status: "合规驳回", source: "合规退回", agent: "杨澜", owner: "陈文静", entered: "昨天 18:05", sla: "已等待 16h", risk: "高", completeness: "11 / 12", previous: "合规驳回", next: "补充 UBO 资金来源证明", note: "最终受益人资金来源说明缺少支持文件。", bankRef: "未提交", result: "合规驳回" },
@@ -1580,7 +1587,7 @@
     customer.updated = "刚刚";
     /* KYC 通过的瞬间，该客户所有待KYC订单自动推进到待客户入款（表4：本单业务准入审核通过） */
     if (tradeMarkableStatuses.includes(nextStatus)) {
-      (state?.tradeOrders || []).filter(order => order.customerId === customer.id && order.status === "待KYC").forEach(order => {
+      (state?.tradeOrders || []).filter(order => order.customerId === customer.id && order.status === "待KYC" && orderKyc(order).ready).forEach(order => {
         order.status = "待客户入款";
         order.updated = "刚刚";
         order.timeline?.unshift({ title: "KYC 审核通过", detail: `客户准入审核通过，订单进入待客户入款（入款登记人：${fundingOwnerLabel(order, "inflow")}）`, role: "系统", time: "刚刚" });
@@ -1885,7 +1892,7 @@ ${sections.join("\n\n")}
   function render() {
     if (state.view === "quoteCenter") state.view = "quickQuote";
     if (state.view === "businessAccess") state.view = "materialsUpload";
-    if (["customerPayments", "paymentReview"].includes(state.view)) state.view = "tradeOrders";
+    if (["customerPayments", "paymentReview"].includes(state.view) || (state.role === "ops" && state.view === "exceptionCenter")) state.view = "tradeOrders";
     if (state.role === "agent" && (isScheduleChildView(state.view) || ["scheduleCenter"].includes(state.view))) state.view = "tradeOrders";
     if (state.role === "ops" && state.view === "schedulingOps") state.view = "scheduleReviewCenter";
     if (!roleHasView(state.role, state.view)) {
@@ -2009,7 +2016,7 @@ ${sections.join("\n\n")}
     if (state.role === "payout" && view === "dashboard") return state.payoutOrders.filter(item => item.status === "待出款").length;
     if (state.role === "payout" && view === "receipts") { const unmatched = state.payments.filter(item => item.voucherName && !item.matched && item.status !== "金额不符").length + state.payoutOrders.filter(item => item.receipt && !item.receipt.matched).length; return unmatched; }
     if (state.role === "ops" && view === "scheduleReviewCenter") return state.payoutOrders.filter(item => item.status === "出款审核中").length;
-    if (["ops", "manager"].includes(state.role) && ["exceptionCenter", "exceptionMonitor"].includes(view)) return exceptionOrders().length;
+    if (state.role === "manager" && view === "exceptionMonitor") return exceptionOrders().length;
     if (state.role === "agent" && view === "scheduleCenter") return dispatchPendingOrders().length;
     if (state.role === "agent" && view === "tradeOrders") return state.tradeOrders.filter(order => ["待KYC", "待客户入款", "待出款排单"].includes(order.status)).length;
     if (state.role === "finance" && view === "dailyRecon") return state.recon?.status === "有差异" ? state.recon.diffs.length : 0;
@@ -2177,21 +2184,17 @@ ${sections.join("\n\n")}
         (state.customerStatus === "全部状态" || customerLifecycle(customer).label === state.customerStatus) &&
         (state.customerType === "全部类型" || customerKind(customer) === state.customerType || (state.customerType === "中介下级客户" && (customer.subCustomers || []).length));
     });
-    const totalPages = Math.max(1, Math.ceil(filtered.length / customerPageSize));
-    if (state.customerPage > totalPages) state.customerPage = totalPages;
-    if (state.customerPage < 1) state.customerPage = 1;
-    const pageStart = (state.customerPage - 1) * customerPageSize;
-    const paged = filtered.slice(pageStart, pageStart + customerPageSize);
+    const pageInfo = paginate("customers", filtered, customerPageSize);
+    const paged = pageInfo.rows;
     const title = state.role === "admin" ? "全部客户" : "客户管理";
     const visibleRows = paged.flatMap(customer => [customerRow(customer), ...(state.expandedIntermediaries.includes(customer.id) ? (customer.subCustomers || []).map((child, index) => subCustomerRow(customer, child, index)) : [])]);
-    const pageEnd = Math.min(pageStart + paged.length, filtered.length);
     const actions = ["agent", "ops"].includes(state.role) ? `<button class="btn btn-primary" id="customer-create-open" type="button">＋ 新建客户</button>` : "";
     return `<div class="page">${pageHeader("CLIENT MASTER", title, "一个客户主档承载多次申请、钱包地址、额度、凭证和审批记录。", actions)}
       <div class="toolbar"><label class="search-control">⌕<input id="customer-search" value="${escapeHtml(state.customerSearch)}" placeholder="搜索客户名称、编号或 交易员" aria-label="搜索客户" /></label>
       <select class="select-control" id="status-filter" aria-label="按状态筛选">${statuses.map(status => `<option ${status === state.customerStatus ? "selected" : ""}>${status}</option>`).join("")}</select>
-      <select class="select-control" id="type-filter" aria-label="按客户类型筛选"><option>全部类型</option><option ${state.customerType === "直客" ? "selected" : ""}>直客</option><option ${state.customerType === "中介" ? "selected" : ""}>中介</option><option ${state.customerType === "中介下级客户" ? "selected" : ""}>中介下级客户</option></select><span class="toolbar-count">显示 ${filtered.length ? `${pageStart + 1}-${pageEnd}` : "0"} / ${filtered.length}，共 ${state.customers.length} 位客户</span></div>
+      <select class="select-control" id="type-filter" aria-label="按客户类型筛选"><option>全部类型</option><option ${state.customerType === "直客" ? "selected" : ""}>直客</option><option ${state.customerType === "中介" ? "selected" : ""}>中介</option><option ${state.customerType === "中介下级客户" ? "selected" : ""}>中介下级客户</option></select><span class="toolbar-count">共 ${filtered.length} / ${state.customers.length} 位客户</span></div>
       <div class="data-table-wrap">${filtered.length ? `<table class="data-table customer-master-table"><thead><tr><th>客户</th><th>客户类型 / 地区</th><th>当前状态</th><th>风险</th><th>负责人</th><th>最后更新</th><th>操作</th></tr></thead><tbody>${visibleRows.join("")}</tbody></table>` : `<div class="empty-state"><div><i>⌕</i><h2>没有匹配的客户</h2><p>调整关键词或清除筛选条件。</p><button class="btn" id="clear-filters">清除筛选</button></div></div>`}</div>
-      ${filtered.length ? `<div class="pagination-bar"><span>第 ${state.customerPage} / ${totalPages} 页</span><div><button class="btn btn-sm" type="button" data-customer-page="${state.customerPage - 1}" ${state.customerPage <= 1 ? "disabled" : ""}>上一页</button><button class="btn btn-sm" type="button" data-customer-page="${state.customerPage + 1}" ${state.customerPage >= totalPages ? "disabled" : ""}>下一页</button></div></div>` : ""}</div>`;
+      ${renderPager(pageInfo)}</div>`;
   }
 
   function renderQuoteReplica(viewName) {
@@ -2930,6 +2933,7 @@ ${sections.join("\n\n")}
     const pending = filteredComplianceCases("pending");
     const processed = filteredComplianceCases("processed");
     const activeRows = state.complianceQueueTab === "processed" ? processed : pending;
+    const pageInfo = paginate("complianceQueue", activeRows);
     return `<div class="page compliance-queue-page">${pageHeader("COMPLIANCE QUEUE", "审核队列", "交易员或运营提交过来的合规审核工单会进入待处理审核，审核通过或驳回后进入已处理审核。")}
       <div class="compliance-tabs" role="tablist" aria-label="合规审核队列">
         <button type="button" class="${state.complianceQueueTab === "pending" ? "active" : ""}" data-compliance-tab="pending" role="tab" aria-selected="${state.complianceQueueTab === "pending"}">待处理审核</button>
@@ -2937,9 +2941,9 @@ ${sections.join("\n\n")}
       </div>
       ${state.complianceQueueTab === "processed" ? renderProcessedComplianceToolbar() : renderPendingComplianceToolbar()}
       ${state.complianceQueueTab === "processed"
-        ? `<div class="data-table-wrap compliance-table-wrap"><table class="data-table compliance-table">${renderProcessedComplianceTable(processed)}</table></div>`
-        : renderPendingComplianceCards(pending)}
-      <div class="pagination-bar compliance-pagination"><span>共 ${activeRows.length} 条</span><div><button class="btn btn-sm" disabled>‹</button><button class="btn btn-sm btn-primary">1</button><button class="btn btn-sm" disabled>›</button></div><span>10 条/页</span></div>
+        ? `<div class="data-table-wrap compliance-table-wrap"><table class="data-table compliance-table">${renderProcessedComplianceTable(pageInfo.rows)}</table></div>`
+        : renderPendingComplianceCards(pageInfo.rows)}
+      ${renderPager(pageInfo)}
     </div>`;
   }
 
@@ -3046,6 +3050,8 @@ ${sections.join("\n\n")}
     if (customer) customer.kycTerminated = null;
     syncMaterialOrder("审核通过", "已完成", trimmed || "合规审核通过。", "合规审核通过");
     applyCaseTransition(item, "待提交银行", "合规审核通过", trimmed || "客户准入审核通过");
+    advanceOrdersAfterKyc(item.customerId, `「${item.businessType || item.type}」准入审核通过`);
+    render();
   }
 
   function filteredComplianceCases(tab) {
@@ -3404,7 +3410,7 @@ ${sections.join("\n\n")}
     return `<div class="page">${pageHeader("REVIEW WORK ORDERS", "材料与补件", "管理已经发起的客户审核工单、材料草稿和指定补件。")}
       <div class="material-picker-summary four"><div><strong>${orders.length}</strong><span>进行中与历史工单</span></div><div><strong>${draftCount}</strong><span>草稿待提交</span></div><div><strong>${supplementCount}</strong><span>待处理补件</span></div><div><strong>${reviewCount}</strong><span>待合规审核</span></div></div>
       <div class="toolbar"><label class="search-control">⌕<input id="material-order-search" placeholder="搜索工单号、客户名称或编号" /></label><select class="select-control" id="material-order-filter"><option>全部状态</option><option>草稿</option><option>待审核</option><option>待补件</option><option>审核拒绝</option><option>审核通过</option><option>已过期</option><option>已暂停</option><option>已取消</option></select><span class="toolbar-count">${orders.length} 个工单</span></div>
-      <div class="material-order-table"><div class="material-order-head"><span>客户</span><span>当前状态</span><span>材料完整度</span><span>最后更新</span><span>操作</span></div>${orders.map(order => materialOrderRow(order)).join("")}</div></div>`;
+      ${(() => { const pageInfo = paginate("materialOrders", orders); return `<div class="material-order-table"><div class="material-order-head"><span>客户</span><span>当前状态</span><span>材料完整度</span><span>最后更新</span><span>操作</span></div>${pageInfo.rows.map(order => materialOrderRow(order)).join("")}</div>${renderPager(pageInfo, { unit: "个" })}`; })()}</div>`;
   }
 
   const materialStatusFlow = {
@@ -4267,6 +4273,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
   function openDispatchReviewModal(orderId) {
     const order = findOrder(orderId);
     if (!order || !orderDispatch(order)) { toast("暂无排单可审", "该订单尚未关联出款排单"); return; }
+    if (order.status !== "出款审核中") { toast("该订单不在待审核状态", `当前状态：${order.status}`); return; }
     state.dispatchReviewModal = { orderId };
     renderDispatchModal();
   }
@@ -4603,7 +4610,53 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     return { label: "待KYC", tone: "neutral", ready: false };
   }
 
-  function orderKyc(order) { return kycStatusInfo(state.customers.find(item => item.id === order.customerId)); }
+  /* 准入按「客户 + 业务类型」独立成立：优先查该业务类型的准入申请 / 案件（表2 八态归一），
+     再映射为订单 KYC 子状态（表3）；订单未指定业务类型或查无记录时回落客户整体状态。 */
+  function normalizeAdmissionStatus(status = "") {
+    if (/已过期/.test(status)) return "已过期";
+    if (/已暂停/.test(status)) return "已暂停";
+    if (/终止|拒绝/.test(status)) return "审核拒绝";
+    if (/取消/.test(status)) return "已取消";
+    if (/通过|已排单|交易中|已成交|已批准|银行/.test(status)) return "审核通过";
+    if (/补件|驳回/.test(status)) return "待补件";
+    if (/草稿|未完成/.test(status)) return "草稿";
+    return "待审核";
+  }
+  function admissionStatusFor(customerId, businessType) {
+    if (!businessType) return null;
+    const statuses = [
+      ...state.cases.filter(item => item.customerId === customerId && item.businessType === businessType),
+      ...state.materialOrders.filter(order => order.customerId === customerId && order.businessType === businessType)
+    ].map(record => normalizeAdmissionStatus(record.status));
+    if (!statuses.length) return null;
+    const rank = ["审核通过", "待审核", "待补件", "已过期", "已暂停", "审核拒绝", "已取消", "草稿"];
+    return rank.find(status => statuses.includes(status)) || "待审核";
+  }
+  const admissionKycBadge = {
+    "审核通过": { label: "KYC已通过", tone: "success", ready: true },
+    "待审核": { label: "合规审核中", tone: "info", ready: false },
+    "待补件": { label: "KYC被驳回", tone: "warning", ready: false },
+    "已过期": { label: "KYC已过期", tone: "warning", ready: false },
+    "已暂停": { label: "KYC已暂停", tone: "neutral", ready: false },
+    "审核拒绝": { label: "KYC被终止", tone: "danger", ready: false },
+    "已取消": { label: "待KYC", tone: "neutral", ready: false },
+    "草稿": { label: "待KYC", tone: "neutral", ready: false }
+  };
+  function orderBusinessType(order) { return order.businessType || ""; }
+  function orderKyc(order) {
+    const admission = admissionStatusFor(order.customerId, orderBusinessType(order));
+    if (admission) return { ...admissionKycBadge[admission], admission, businessType: orderBusinessType(order) };
+    return kycStatusInfo(state.customers.find(item => item.id === order.customerId));
+  }
+
+  /* KYC / 准入通过后推进该客户可就绪的待KYC订单（按业务类型逐单判定） */
+  function advanceOrdersAfterKyc(customerId, reason = "客户准入审核通过") {
+    (state.tradeOrders || []).filter(order => order.customerId === customerId && order.status === "待KYC" && orderKyc(order).ready).forEach(order => {
+      order.status = "待客户入款";
+      order.updated = "刚刚";
+      order.timeline?.unshift({ title: "KYC 审核通过", detail: `${reason}，订单进入待客户入款（入款登记人：${fundingOwnerLabel(order, "inflow")}）`, role: "系统", time: "刚刚" });
+    });
+  }
 
   function orderFlags(order) {
     const flags = [];
@@ -4694,7 +4747,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
         { title: "KYC 校验通过", detail: "建单时客户 Northstar Trading 已准入，订单直接进入待客户入款", role: "系统", time: "昨天 11:30" },
         { title: "关联报价", detail: "Q-20260823 · 成交价 1.0020 · 成本价 0.9990 · 手续费 USD 50", role: "初级交易员 杨澜", time: "昨天 11:32" },
         { title: "订单创建", detail: "转账换U · 卖出 USD 50,000 买入 USDT 49,900 · 创建人 杨澜", role: "初级交易员 杨澜", time: "昨天 11:30" }] }),
-      base("TO-20260822-109", "C-2026-0614", "转账换U", "USD", 120000, "USDT", 119760, "1.0020", "银行转账", "待KYC", "Tina Lau", { exception: { kind: "合规异常", reason: "高风险客户", detail: "客户合规驳回记录未闭环，命中可疑交易规则，待合规复核", prevStatus: "待KYC", escalated: true, since: "08-22 15:40" }, createdAt: "08-22 14:05", updated: "08-22 15:40", timeline: [
+      base("TO-20260822-109", "C-2026-0614", "转账换U", "USD", 120000, "USDT", 119760, "1.0020", "银行转账", "待KYC", "Tina Lau", { businessType: "港币/美元/外币公户打款买U", exception: { kind: "合规异常", reason: "高风险客户", detail: "客户合规驳回记录未闭环，命中可疑交易规则，待合规复核", prevStatus: "待KYC", escalated: true, since: "08-22 15:40" }, createdAt: "08-22 14:05", updated: "08-22 15:40", timeline: [
         { title: "升级合规", detail: "命中高风险规则，已转合规复核，主线停留在待KYC", role: "高级交易员 陈文静", time: "08-22 15:40" },
         { title: "合规提示", detail: "客户当前状态「合规驳回」，本单进入待KYC；准入审核通过后自动进入待客户入款", role: "系统", time: "08-22 14:05" },
         { title: "订单创建", detail: "转账换U · 卖出 USD 120,000 买入 USDT 119,760 · 创建人 陈浩", role: "交易员 陈浩", time: "08-22 14:05" }] }),
@@ -4839,8 +4892,14 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     $$('[data-order-field]').forEach(el => { state.orderModal[el.dataset.orderField] = el.value; });
   }
 
+  function defaultBusinessTypeFor(customerId) {
+    const scenarios = state.kycConfig?.scenarios || [];
+    const passed = scenarios.find(scenario => admissionStatusFor(customerId, scenario.name) === "审核通过");
+    return (passed || scenarios[0])?.name || "";
+  }
+
   function openOrderModal() {
-    const modal = { customerId: state.customers[0]?.id || "", tradeType: "转账换U", customTradeType: "", sellCurrency: "USD", buyCurrency: "USDT", sellAmount: "", buyAmount: "", rate: "1.0020", quoteId: "", payMethod: "银行转账", remark: "", error: "" };
+    const modal = { customerId: state.customers[0]?.id || "", businessType: defaultBusinessTypeFor(state.customers[0]?.id || ""), tradeType: "转账换U", customTradeType: "", sellCurrency: "USD", buyCurrency: "USDT", sellAmount: "", buyAmount: "", rate: "1.0020", quoteId: "", payMethod: "银行转账", remark: "", error: "" };
     refreshOrderModalQuote(modal);
     state.orderModal = modal;
     renderDispatchModal();
@@ -4860,15 +4919,18 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     if (!buyAmount) { modal.error = "请填写客户买入金额（两侧金额均需手动填写）"; renderDispatchModal(); return; }
     const bookQuote = modal.quoteId ? recentQuoteBook.find(quote => quote.id === modal.quoteId) : null;
     const id = `TO-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${String(state.tradeOrders.length + 101)}`;
-    const compliancePending = !customerComplianceReady(customer);
-    const order = { id, customerId: customer.id, clientNo: customer.clientNo || "无编号", customerName: customer.name, personName: customer.enName || customer.name, tradeType, sellCurrency: modal.sellCurrency, sellAmount, buyCurrency: modal.buyCurrency, buyAmount, rate: modal.rate, payMethod: modal.payMethod,
+    const businessType = modal.businessType || defaultBusinessTypeFor(customer.id);
+    const admission = admissionStatusFor(customer.id, businessType);
+    const entryKyc = admission ? admissionKycBadge[admission] : kycStatusInfo(customer);
+    const compliancePending = !entryKyc.ready;
+    const order = { id, customerId: customer.id, businessType, clientNo: customer.clientNo || "无编号", customerName: customer.name, personName: customer.enName || customer.name, tradeType, sellCurrency: modal.sellCurrency, sellAmount, buyCurrency: modal.buyCurrency, buyAmount, rate: modal.rate, payMethod: modal.payMethod,
       remark: (modal.remark || "").trim(),
       quote: bookQuote ? { id: bookQuote.id, dealRate: bookQuote.rate, costRate: bookQuote.costRate, source: bookQuote.source, pair: bookQuote.pair, confirmedAt: "刚刚", fee: `${modal.sellCurrency} ${fmtMoney(Math.round(sellAmount * 0.001))}`, quotedAt: bookQuote.time, by: roles.agent.name } : null,
       paymentIds: [], dispatchId: "", receiptRef: "", freeze: null, profit: null,
       status: compliancePending ? "待KYC" : "待客户入款", handler: roles.agent.name, exception: null, createdAt: "刚刚", updated: "刚刚",
       timeline: [
         ...(bookQuote ? [{ title: "关联报价", detail: `${bookQuote.id} · 成交价 ${bookQuote.rate} · 成本价 ${bookQuote.costRate}（${bookQuote.source} ${bookQuote.time}）`, role: `初级交易员 ${roles.agent.name}`, time: "刚刚" }] : []),
-        ...(compliancePending ? [{ title: "合规提示", detail: `客户当前状态「${customer.status}」，本单进入待KYC；准入审核通过后自动进入待客户入款`, role: "系统", time: "刚刚" }] : [{ title: "KYC 校验通过", detail: `建单时客户已准入（${customer.status}），订单直接进入待客户入款`, role: "系统", time: "刚刚" }]),
+        ...(compliancePending ? [{ title: "合规提示", detail: `「${businessType}」准入状态「${entryKyc.label}」，本单进入待KYC；该业务类型准入通过后自动进入待客户入款${entryKyc.label === "KYC被终止" ? "；准入被终止，须重新发起新申请后才能收款" : ""}`, role: "系统", time: "刚刚" }] : [{ title: "KYC 校验通过", detail: `建单时客户已准入（${customer.status}），订单直接进入待客户入款`, role: "系统", time: "刚刚" }]),
         { title: "订单创建", detail: `${tradeType} · 卖出 ${moneyPair(modal.sellCurrency, sellAmount)} 买入 ${moneyPair(modal.buyCurrency, buyAmount)} · 创建人 ${roles.agent.name}`, role: `初级交易员 ${roles.agent.name}`, time: "刚刚" }
       ] };
     state.tradeOrders.unshift(order);
@@ -5107,8 +5169,8 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       <section class="metric-strip">${metric("进行中订单", String(active), "未完成/未取消", "◌")}${metric("待KYC", String(count("待KYC")), "等待业务准入", "◍")}${metric("待客户入款", String(count("待客户入款")), "等待入款登记", "!")}${metric("资金执行阶段", String(count("待出款排单") + count("出款审核中") + count("待出款执行")), "排单 / 审核 / 执行", "◇")}${metric("附加异常", String(exceptionOrders().length), "不打断主线状态", "▲")}</section>
       <div class="order-todo-tabs">${todoDefs.map(([label, predicate]) => `<button type="button" class="${label === activeTodo ? "active" : ""}" data-order-todo="${escapeHtml(label)}">${escapeHtml(label)}<em>${state.tradeOrders.filter(predicate).length}</em></button>`).join("")}</div>
       <div class="toolbar"><label class="search-control">⌕<input id="order-search" placeholder="搜索客户 / 类型 / 订单号" value="${escapeHtml(state.orderSearch)}" /></label><select class="select-control" id="order-status-filter"><option>全部状态</option>${orderStatuses.map(status => `<option value="${status}" ${state.orderStatusFilter === status ? "selected" : ""}>${orderStatusLabel(status)}</option>`).join("")}</select><span class="toolbar-count">${rows.length} 笔订单 · 点击任意行在右侧展开详情</span></div>
-      ${rows.length ? `<div class="data-table-wrap"><table class="data-table order-table"><thead><tr><th>订单编号</th><th>客户主体</th><th>KYC 状态</th><th>类型</th><th>交易对 / 金额</th><th>执行汇率</th><th>当前状态</th><th class="order-table-action">操作</th></tr></thead><tbody>
-      ${rows.map(order => {
+      ${(() => { const pageInfo = paginate("tradeOrders", rows); const pagedRows = pageInfo.rows; return rows.length ? `<div class="data-table-wrap"><table class="data-table order-table"><thead><tr><th>订单编号</th><th>客户主体</th><th>KYC 状态</th><th>类型</th><th>交易对 / 金额</th><th>执行汇率</th><th>当前状态</th><th class="order-table-action">操作</th></tr></thead><tbody>
+      ${pagedRows.map(order => {
         const kyc = orderKyc(order);
         const cta = orderCardCta(order);
         const flags = orderFlags(order);
@@ -5122,7 +5184,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
           <td>${orderStatusPill(order.status)}${flags.length ? `<div class="order-table-flags">${orderFlagBadges(order)}</div>` : ""}</td>
           <td class="order-table-action"><button class="btn btn-sm ${cta === "查看" ? "" : "btn-primary"}" type="button"${cta === "开始审核" ? ` data-dispatch-start-review="${order.id}"` : ""}>${cta} →</button></td>
         </tr>`; }).join("")}
-      </tbody></table></div>` : `<div class="empty-state"><div><i>▤</i><h2>没有匹配的订单</h2><p>调整筛选条件，或创建新订单。</p></div></div>`}
+      </tbody></table></div>${renderPager(pageInfo, { unit: "笔" })}` : `<div class="empty-state"><div><i>▤</i><h2>没有匹配的订单</h2><p>调整筛选条件，或创建新订单。</p></div></div>`; })()}
             ${detail ? renderOrderPanel(detail) : ""}</div>`;
   }
 
@@ -5242,6 +5304,35 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     }).join("")}</div>`;
   }
 
+  /* ---------- 通用分页器（B 端 SaaS 风格）：总数 · 每页条数 · 页码省略号 · 快速跳转 ---------- */
+  function pagerGet(key, defaultSize = 10) {
+    state.pagers = state.pagers || {};
+    if (!state.pagers[key]) state.pagers[key] = { page: 1, size: defaultSize };
+    return state.pagers[key];
+  }
+  function pagerReset(key) { if (state.pagers?.[key]) state.pagers[key].page = 1; }
+  function paginate(key, rows, defaultSize = 10) {
+    const pager = pagerGet(key, defaultSize);
+    const total = rows.length;
+    const pages = Math.max(1, Math.ceil(total / pager.size));
+    if (pager.page > pages) pager.page = pages;
+    if (pager.page < 1) pager.page = 1;
+    const start = (pager.page - 1) * pager.size;
+    return { key, rows: rows.slice(start, start + pager.size), total, pages, page: pager.page, size: pager.size };
+  }
+  function pagerNumbers(page, pages) {
+    if (pages <= 7) return Array.from({ length: pages }, (_, i) => i + 1);
+    const nums = [...new Set([1, pages, page - 1, page, page + 1].filter(n => n >= 1 && n <= pages))].sort((a, b) => a - b);
+    const out = [];
+    nums.forEach((n, i) => { if (i && n - nums[i - 1] > 1) out.push("…"); out.push(n); });
+    return out;
+  }
+  function renderPager(info, options = {}) {
+    const sizes = [...new Set([...(options.sizes || [10, 20, 50]), info.size])].sort((a, b) => a - b);
+    const unit = options.unit || "条";
+    return `<div class="pager"><span class="pager-total">共 ${info.total} ${unit}</span><div class="pager-controls"><label class="pager-size"><select data-pager-size="${info.key}" aria-label="每页条数">${sizes.map(size => `<option value="${size}" ${size === info.size ? "selected" : ""}>${size} ${unit}/页</option>`).join("")}</select></label><div class="pager-pages"><button class="pager-btn" type="button" data-pager-nav="${info.key}:prev" ${info.page <= 1 ? "disabled" : ""} aria-label="上一页">‹</button>${pagerNumbers(info.page, info.pages).map(n => n === "…" ? `<span class="pager-ellipsis">…</span>` : `<button class="pager-btn pager-num ${n === info.page ? "active" : ""}" type="button" data-pager-nav="${info.key}:${n}">${n}</button>`).join("")}<button class="pager-btn" type="button" data-pager-nav="${info.key}:next" ${info.page >= info.pages ? "disabled" : ""} aria-label="下一页">›</button></div><label class="pager-jump">跳至<input data-pager-jump="${info.key}" inputmode="numeric" value="${info.page}" aria-label="跳转页码" />/ ${info.pages} 页</label></div></div>`;
+  }
+
   function orderAttrRow(icon, label, value, cls = "") { return `<div class="order-attr-row${cls ? ` ${cls}` : ""}"><span class="order-attr-label"><i>${icon}</i>${label}</span><div class="order-attr-value">${value}</div></div>`; }
 
   /* 两列属性网格：条目为 [icon, label, value, span?]，span 为 true 时整行占满。
@@ -5311,20 +5402,20 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       const stateLabel = info.state === "异常" ? "异常" : info.state === "已到账" ? "已收款" : "未收款";
       const stateTone = info.state === "异常" ? "danger" : info.state === "已到账" ? "success" : "warning";
       return orderAttrGrid([
-        ["◇", "应收数量", `<strong>${amount}</strong>`],
+        ["◇", "应收数量", `<strong>${amount}</strong>${(mark.amount || 0) ? `<div class="funding-actual ${Math.abs(mark.amount - (side === "inflow" ? order.sellAmount : order.buyAmount)) > 0.01 ? "is-mismatch" : ""}">实收 ${moneyPair(mark.currency || order.sellCurrency, mark.amount)}${Math.abs(mark.amount - order.sellAmount) > 0.01 ? " · 与应收不符" : ""} · ${escapeHtml(mark.by || "")}确认</div>` : ""}`],
         ["◈", "收款方式", escapeHtml(methodLabel)],
         ["▧", "收款凭证", voucherCell],
         ["◌", "收款状态", `<span class="status status-${stateTone}">${stateLabel}</span>`]
       ]);
     }
     if (info.kind === "bank") return orderAttrGrid([
-      ["◇", "应付金额", `<strong>${amount}</strong>`],
+      ["◇", "应付金额", `<strong>${amount}</strong>${(mark.amount || 0) ? `<div class="funding-actual ${Math.abs(mark.amount - order.buyAmount) > 0.01 ? "is-mismatch" : ""}">实付 ${moneyPair(mark.currency || order.buyCurrency, mark.amount)}${Math.abs(mark.amount - order.buyAmount) > 0.01 ? " · 与应付不符" : ""} · ${escapeHtml(mark.by || "")}执行</div>` : ""}`],
       ["◫", "出款账户", escapeHtml(mark.account || "待出款员登记"), true],
       ["◷", "出款时间", escapeHtml(mark.time || "—")],
       ["▧", "水单 / MT103", mark.voucher ? escapeHtml(mark.voucher) : "未上传"]
     ]);
     if (info.kind === "chain") return orderAttrGrid([
-      ["◇", "应付数量", `<strong>${amount}</strong>`],
+      ["◇", "应付数量", `<strong>${amount}</strong>${(mark.amount || 0) ? `<div class="funding-actual ${Math.abs(mark.amount - order.buyAmount) > 0.01 ? "is-mismatch" : ""}">实付 ${moneyPair(mark.currency || order.buyCurrency, mark.amount)}${Math.abs(mark.amount - order.buyAmount) > 0.01 ? " · 与应付不符" : ""} · ${escapeHtml(mark.by || "")}执行</div>` : ""}`],
       ["◈", "链 / 网络", escapeHtml(mark.chain || "TRC20")],
       ["◫", "客户收 U 地址", escapeHtml(wallet.payoutAddress || "待客户提供"), true],
       ["✓", "地址 KYA", `<span class="status status-${wallet.kya === "通过" ? "success" : wallet.kya === "不通过" ? "danger" : "warning"}">${escapeHtml(wallet.kya || "待核查")}</span>`],
@@ -5333,7 +5424,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       ["▧", "链上截图", mark.voucher ? escapeHtml(mark.voucher) : "未上传"]
     ]);
     return orderAttrGrid([
-      ["◇", "应付现金", `<strong>${amount}</strong>`],
+      ["◇", "应付现金", `<strong>${amount}</strong>${(mark.amount || 0) ? `<div class="funding-actual ${Math.abs(mark.amount - order.buyAmount) > 0.01 ? "is-mismatch" : ""}">实付 ${moneyPair(mark.currency || order.buyCurrency, mark.amount)}${Math.abs(mark.amount - order.buyAmount) > 0.01 ? " · 与应付不符" : ""} · ${escapeHtml(mark.by || "")}交付</div>` : ""}`],
       ["◫", "交收地点", escapeHtml(mark.place || "待登记"), true],
       ["◍", "交收人", escapeHtml(mark.handler || "待登记")],
       ["≣", "信物编号", escapeHtml(mark.token || "—")],
@@ -5447,10 +5538,12 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
   function openFundingModal(orderId, side) {
     const order = findOrder(orderId);
     if (!order) return;
+    if (side === "outflow" && order.status !== "待出款执行") { toast("不能执行出款", `排单需先通过高级交易员审核（当前状态：${order.status}）`); return; }
     const info = fundingState(order, side);
     if (state.role !== info.owner) { toast("无操作权限", `该动作由${info.ownerLabel}执行`); return; }
     const amount = side === "inflow" ? String(order.sellAmount) : String(order.buyAmount);
-    state.fundingModal = { orderId, side, kind: info.kind, amount, account: "", time: dispatchNowLabel(), voucher: "", chain: "TRC20", hash: "", confirms: "20", place: "", handler: "", token: "", method: info.kind === "chain" ? "链上收款" : "电汇转账", note: "", error: "" };
+    const currency = side === "inflow" ? order.sellCurrency : order.buyCurrency;
+    state.fundingModal = { orderId, side, kind: info.kind, amount, currency, account: "", time: dispatchNowLabel(), voucher: "", chain: "TRC20", hash: "", confirms: "20", place: "", handler: "", token: "", method: info.kind === "chain" ? "链上收款" : "电汇转账", note: "", error: "" };
     renderDispatchModal();
   }
 
@@ -5463,7 +5556,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     if (modal.kind === "chain" && !modal.hash.trim()) { modal.error = "请填写 Transaction Hash"; renderDispatchModal(); return; }
     if (modal.kind === "bank" && modal.side === "outflow" && !modal.account.trim()) { modal.error = "请填写出款账户"; renderDispatchModal(); return; }
     if (modal.kind === "cash" && !modal.place.trim()) { modal.error = "请填写交收地点"; renderDispatchModal(); return; }
-    const mark = { by: roles[state.role].name, at: dispatchNowLabel(), account: modal.account.trim(), time: modal.time, voucher: modal.voucher, voucherUrl: modal.voucherUrl || "", chain: modal.chain, hash: modal.hash.trim(), confirms: modal.confirms, place: modal.place.trim(), handler: modal.handler.trim(), token: modal.token.trim(), method: modal.method || "", note: (modal.note || "").trim() };
+    const mark = { by: roles[state.role].name, at: dispatchNowLabel(), amount: parseMoney(modal.amount) || 0, currency: modal.currency || "", account: modal.account.trim(), time: modal.time, voucher: modal.voucher, voucherUrl: modal.voucherUrl || "", chain: modal.chain, hash: modal.hash.trim(), confirms: modal.confirms, place: modal.place.trim(), handler: modal.handler.trim(), token: modal.token.trim(), method: modal.method || "", note: (modal.note || "").trim() };
     const inflowAmountLabel = modal.side === "inflow" ? moneyPair(findOrder(modal.orderId)?.sellCurrency || "", modal.amount) : "";
     const detail = (modal.kind === "chain" ? (modal.side === "inflow" ? `链上收款 · 实际到账 ${inflowAmountLabel} · 哈希 ${mark.hash.slice(0, 16)}…` : `链上哈希 ${mark.hash}（${mark.chain} · ${mark.confirms} 次确认）`)
       : modal.kind === "cash" ? `现金交收 ${mark.place}${mark.handler ? ` · 交收人 ${mark.handler}` : ""}${mark.token ? ` · 信物 ${mark.token}` : ""}`
@@ -5485,6 +5578,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       toast("入款已登记确认", `${order.id} 进入待出款排单`);
       return;
     }
+    if (order.status !== "待出款执行") { state.fundingModal = null; render(); toast("不能执行出款", `订单已不在待出款执行状态（当前：${order.status}），请等待排单审核通过`); return; }
     order.outflowMark = { ...mark, archived: true };
     const dispatch = orderDispatch(order);
     if (dispatch && dispatch.status === "待出款") {
@@ -5599,7 +5693,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
         <div class="order-trade-hero">
           <div class="order-trade-row">
             <div class="order-trade-cell"><span>客户类型</span><strong>${customer ? escapeHtml(customerKind(customer)) : "—"}</strong></div>
-            <div class="order-trade-cell"><span>KYC 状态</span><span class="status status-${kyc.tone}">${kyc.label}</span></div>
+            <div class="order-trade-cell"><span>KYC 状态</span><span class="status status-${kyc.tone}">${kyc.label}</span>${orderBusinessType(order) ? `<em class="order-trade-bt" title="准入业务类型">${escapeHtml(orderBusinessType(order))}</em>` : ""}</div>
             <div class="order-trade-rate"><span>执行汇率</span><b class="mono">${escapeHtml(order.rate)}</b><em>${escapeHtml(order.payMethod)}</em></div>
           </div>
           <div class="order-trade-legs">
@@ -5700,11 +5794,12 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       if (state.ledgerBizFilter !== "全部类型" && entry.bizType !== state.ledgerBizFilter) return false;
       return true;
     });
+    const pageInfo = paginate("ledger", rows);
     return `<div class="page">${pageHeader("LEDGER", "账务流水", "每一个影响资金的动作都会生成流水：收款、出款、冻结、释放、消耗、手续费、汇差、佣金、补仓、冲正。")}
       <div class="toolbar"><label class="search-control">⌕<input id="ledger-search" placeholder="搜索流水号 / 订单号 / 客户 / 账户" value="${escapeHtml(state.ledgerQuery)}" /></label><select class="select-control" id="ledger-biz-filter">${ledgerBizTypes.map(type => `<option ${state.ledgerBizFilter === type ? "selected" : ""}>${type}</option>`).join("")}</select><span class="toolbar-count">${rows.length} 条流水</span></div>
       <div class="data-table-wrap"><table class="data-table ledger-table"><thead><tr><th>流水号</th><th>关联订单</th><th>业务类型</th><th>方向</th><th>金额</th><th>账户</th><th>前余额 → 后余额</th><th>状态</th><th>操作人 / 时间</th></tr></thead><tbody>
-      ${rows.length ? rows.map(entry => `<tr><td><strong>${entry.id}</strong></td><td>${entry.orderId ? `<button class="link-button" type="button" data-order-open="${entry.orderId}">${entry.orderId}</button>` : "—"}</td><td>${entry.bizType}</td><td><span class="ledger-dir ${entry.direction === "入账" || entry.direction === "解冻" ? "in" : entry.direction === "冻结" ? "hold" : "out"}">${entry.direction}</span></td><td><strong>${moneyPair(entry.currency, entry.amount)}</strong></td><td>${escapeHtml(entry.account)}<div class="muted-small">${escapeHtml(entry.note)}</div></td><td class="mono muted">${fmtMoney(entry.before)} → ${fmtMoney(entry.after)}</td><td><span class="status status-${statusTone(entry.status)}">${entry.status}</span></td><td class="muted">${escapeHtml(`${entry.operator} · ${entry.time}`)}</td></tr>`).join("") : `<tr><td colspan="9"><div class="empty-inline">没有匹配的流水</div></td></tr>`}
-      </tbody></table></div></div>`;
+      ${rows.length ? pageInfo.rows.map(entry => `<tr><td><strong>${entry.id}</strong></td><td>${entry.orderId ? `<button class="link-button" type="button" data-order-open="${entry.orderId}">${entry.orderId}</button>` : "—"}</td><td>${entry.bizType}</td><td><span class="ledger-dir ${entry.direction === "入账" || entry.direction === "解冻" ? "in" : entry.direction === "冻结" ? "hold" : "out"}">${entry.direction}</span></td><td><strong>${moneyPair(entry.currency, entry.amount)}</strong></td><td>${escapeHtml(entry.account)}<div class="muted-small">${escapeHtml(entry.note)}</div></td><td class="mono muted">${fmtMoney(entry.before)} → ${fmtMoney(entry.after)}</td><td><span class="status status-${statusTone(entry.status)}">${entry.status}</span></td><td class="muted">${escapeHtml(`${entry.operator} · ${entry.time}`)}</td></tr>`).join("") : `<tr><td colspan="9"><div class="empty-inline">没有匹配的流水</div></td></tr>`}
+      </tbody></table></div>${renderPager(pageInfo)}</div>`;
   }
 
   function currencyPositions() {
@@ -6113,10 +6208,12 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     const modal = state.orderModal;
     const currencies = ["USD", "HKD", "CNY", "EUR", "USDT"];
     const selectedCustomer = state.customers.find(customer => customer.id === modal.customerId);
-    const complianceReady = customerComplianceReady(selectedCustomer);
+    const admission = admissionStatusFor(modal.customerId, modal.businessType);
+    const kycProbe = admission ? { ...admissionKycBadge[admission], admission } : kycStatusInfo(selectedCustomer);
+    const complianceReady = kycProbe.ready;
     const quotes = quotedRatesForPair(modal.sellCurrency, modal.buyCurrency);
     const selectedQuote = quotes.find(quote => quote.id === modal.quoteId) || null;
-    const kyc = kycStatusInfo(selectedCustomer);
+    const kyc = kycProbe;
     const sellPreview = parseMoney(modal.sellAmount);
     const ratePreview = Number(modal.rate) || 0;
     const buyPreview = parseMoney(modal.buyAmount);
@@ -6126,6 +6223,10 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
         <section class="order-form-section">
           <h3 class="order-form-legend"><i>1</i>客户</h3>
           <label class="field order-combobox-field"><div class="order-combobox order-client-box" id="order-customer-combo"><input id="order-customer-input" autocomplete="off" placeholder="搜索客户编号或名称…" value="${escapeHtml(selectedCustomer ? `${selectedCustomer.clientNo || "无编号"} · ${selectedCustomer.name}` : "")}" />${selectedCustomer ? `<span class="order-client-chip"><em>拼音</em>${escapeHtml((selectedCustomer.enName || selectedCustomer.name).toUpperCase())}</span>` : ""}<div class="combobox-menu" hidden></div></div><span class="field-hint">支持编号或名称模糊匹配，↑↓ 选择，Enter 确认</span></label>
+          <div class="order-field-row order-business-row">
+            <label class="field"><span>准入业务类型</span><select id="order-business-type" data-order-field="businessType">${(state.kycConfig?.scenarios || []).map(scenario => `<option ${modal.businessType === scenario.name ? "selected" : ""}>${escapeHtml(scenario.name)}</option>`).join("")}</select><span class="field-hint">一个订单只对应一条业务类型；创建时按「客户 + 业务类型」校验准入</span></label>
+            <label class="field"><span>该业务准入状态</span><div class="order-admission-slot"><span class="status status-${kyc.tone}">${kyc.label}</span><small>${admission ? "按业务类型独立校验" : "该业务类型暂无准入记录，按客户整体状态"}</small></div></label>
+          </div>
           ${selectedCustomer && !complianceReady ? `<p class="order-inline-warning"><i aria-hidden="true">ⓘ</i><span>该客户 <strong>KYC 未通过</strong>，可继续创建订单并登记交易意向，<strong>但不能确认到账</strong>。${kyc.label === "需补件" ? "请在业务准入完成补件。" : kyc.label === "未提交 KYC" ? "可先在业务准入发起 KYC 材料提交。" : ""}</span></p>` : ""}
         </section>
 
@@ -6177,6 +6278,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     $("#order-modal-cancel")?.addEventListener("click", close);
     $("#order-modal-backdrop")?.addEventListener("click", event => { if (event.target === event.currentTarget) close(); });
     $("#order-modal-form")?.addEventListener("submit", event => { event.preventDefault(); submitOrderModal(); });
+    $("#order-business-type")?.addEventListener("change", event => { syncOrderModalFields(); state.orderModal.businessType = event.target.value; renderDispatchModal(); });
     ["#order-sell-currency", "#order-buy-currency"].forEach(id => $(id)?.addEventListener("change", () => {
       syncOrderModalFields();
       refreshOrderModalQuote(state.orderModal);
@@ -6201,6 +6303,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
       onPick: ({ customer }) => {
         syncOrderModalFields();
         state.orderModal.customerId = customer.id;
+        state.orderModal.businessType = defaultBusinessTypeFor(customer.id);
         renderDispatchModal();
       }
     });
@@ -6429,7 +6532,7 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     $$('[data-payment-reject]').forEach(el => el.addEventListener("click", () => reviewPayment(el.dataset.paymentReject, "reject")));
     $$('[data-payment-supplement]').forEach(el => el.addEventListener("click", () => reviewPayment(el.dataset.paymentSupplement, "supplement")));
     $$('[data-payment-voucher]').forEach(el => el.addEventListener("click", () => supplementPaymentVoucher(el.dataset.paymentVoucher)));
-    $$('[data-order-todo]').forEach(el => el.addEventListener("click", () => { state.orderTodo = el.dataset.orderTodo; render(); }));
+    $$('[data-order-todo]').forEach(el => el.addEventListener("click", () => { state.orderTodo = el.dataset.orderTodo; pagerReset("tradeOrders"); render(); }));
     $$('[data-payment-tab]').forEach(el => el.addEventListener("click", () => { state.paymentTab = el.dataset.paymentTab; render(); }));
     $$('[data-exception-restore]').forEach(el => el.addEventListener("click", () => resolveOrderException(el.dataset.exceptionRestore, "restore")));
     $$('[data-exception-cancel]').forEach(el => el.addEventListener("click", () => resolveOrderException(el.dataset.exceptionCancel, "cancel")));
@@ -6453,8 +6556,8 @@ Swift Code/BIC 代碼：CCBQHKAXXXX`;
     };
     bindSearch("#order-search", "orderSearch");
     bindSearch("#ledger-search", "ledgerQuery");
-    const orderStatusFilter = $("#order-status-filter"); if (orderStatusFilter) orderStatusFilter.addEventListener("change", event => { state.orderStatusFilter = event.target.value; render(); });
-    const ledgerBizFilter = $("#ledger-biz-filter"); if (ledgerBizFilter) ledgerBizFilter.addEventListener("change", event => { state.ledgerBizFilter = event.target.value; render(); });
+    const orderStatusFilter = $("#order-status-filter"); if (orderStatusFilter) orderStatusFilter.addEventListener("change", event => { state.orderStatusFilter = event.target.value; pagerReset("tradeOrders"); render(); });
+    const ledgerBizFilter = $("#ledger-biz-filter"); if (ledgerBizFilter) ledgerBizFilter.addEventListener("change", event => { state.ledgerBizFilter = event.target.value; pagerReset("ledger"); render(); });
   }
 
   function payoutMetricGrid(cards, modifier = "") {
@@ -6525,7 +6628,8 @@ Currency： ${data.currency || "未填写"}`;
   }
 
   function renderLedgerPage(eyebrow, title, subtitle, headers, rows, actionLabel) {
-    return `<div class="page">${pageHeader(eyebrow, title, subtitle, `<button class="btn btn-primary" id="ledger-action">＋ ${actionLabel}</button>`)}<div class="toolbar"><label class="search-control">⌕<input placeholder="搜索编号或客户" /></label><select class="select-control"><option>全部状态</option><option>待确认</option><option>异常</option><option>已完成</option></select><span class="toolbar-count">${rows.length} 条记录</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(row => `<tr>${row.map((cell, index) => `<td>${index === 4 ? `<span class="status status-${statusTone(cell)}">${cell}</span>` : index === 0 ? `<strong>${cell}</strong>` : cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
+    const pageInfo = paginate(`ledger-${eyebrow}`, rows);
+    return `<div class="page">${pageHeader(eyebrow, title, subtitle, `<button class="btn btn-primary" id="ledger-action">＋ ${actionLabel}</button>`)}<div class="toolbar"><label class="search-control">⌕<input placeholder="搜索编号或客户" /></label><select class="select-control"><option>全部状态</option><option>待确认</option><option>异常</option><option>已完成</option></select><span class="toolbar-count">${rows.length} 条记录</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr></thead><tbody>${pageInfo.rows.map(row => `<tr>${row.map((cell, index) => `<td>${index === 4 ? `<span class="status status-${statusTone(cell)}">${cell}</span>` : index === 0 ? `<strong>${cell}</strong>` : cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>${renderPager(pageInfo)}</div>`;
   }
 
   function renderCommissions() {
@@ -6707,7 +6811,8 @@ Currency： ${data.currency || "未填写"}`;
 
   function renderAudit() {
     const events = state.customers.flatMap(c => c.timeline.map(item => ({ ...item, customer: c.name, id: c.id })));
-    return `<div class="page">${pageHeader("AUDIT TRAIL", "审计日志", "记录谁在什么时间对哪个业务对象执行了什么动作。", `<button class="btn">导出审计记录</button>`)}<div class="toolbar"><label class="search-control">⌕<input placeholder="搜索客户、操作人或动作" /></label><select class="select-control"><option>全部角色</option><option>交易员</option><option>运营</option><option>合规</option></select><span class="toolbar-count">${events.length} 个事件</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>时间</th><th>客户</th><th>动作</th><th>详情</th><th>操作人</th></tr></thead><tbody>${events.map(event => `<tr data-open-customer="${event.id}"><td class="muted">${event.time}</td><td><strong>${event.customer}</strong><div class="muted">${event.id}</div></td><td>${event.title}</td><td>${event.detail}</td><td>${event.role}</td></tr>`).join("")}</tbody></table></div></div>`;
+    const pageInfo = paginate("audit", events, 20);
+    return `<div class="page">${pageHeader("AUDIT TRAIL", "审计日志", "记录谁在什么时间对哪个业务对象执行了什么动作。", `<button class="btn">导出审计记录</button>`)}<div class="toolbar"><label class="search-control">⌕<input placeholder="搜索客户、操作人或动作" /></label><select class="select-control"><option>全部角色</option><option>交易员</option><option>运营</option><option>合规</option></select><span class="toolbar-count">${events.length} 个事件</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>时间</th><th>客户</th><th>动作</th><th>详情</th><th>操作人</th></tr></thead><tbody>${pageInfo.rows.map(event => `<tr data-open-customer="${event.id}"><td class="muted">${event.time}</td><td><strong>${event.customer}</strong><div class="muted">${event.id}</div></td><td>${event.title}</td><td>${event.detail}</td><td>${event.role}</td></tr>`).join("")}</tbody></table></div>${renderPager(pageInfo, { unit: "个" })}</div>`;
   }
 
   function renderTracking() {
@@ -7099,7 +7204,7 @@ Currency： ${data.currency || "未填写"}`;
       state.selectedCase = first?.id || null;
       render();
     }));
-    $$('[data-compliance-tab]').forEach(el => el.addEventListener("click", () => {
+    $$('[data-compliance-tab]').forEach(el => el.addEventListener("click", () => { pagerReset("complianceQueue");
       state.complianceQueueTab = el.dataset.complianceTab;
       state.complianceReviewingCase = null;
       state.complianceQueueType = "全部审核类型";
@@ -7218,7 +7323,7 @@ Currency： ${data.currency || "未填写"}`;
       const cursorStart = event.target.selectionStart ?? event.target.value.length;
       const cursorEnd = event.target.selectionEnd ?? cursorStart;
       state.customerSearch = event.target.value;
-      state.customerPage = 1;
+      pagerReset("customers");
       render();
       const nextInput = $("#customer-search");
       if (nextInput) {
@@ -7226,9 +7331,18 @@ Currency： ${data.currency || "未填写"}`;
         nextInput.setSelectionRange(cursorStart, cursorEnd);
       }
     });
-    const statusFilter = $("#status-filter"); if (statusFilter) statusFilter.addEventListener("change", event => { state.customerStatus = event.target.value; state.customerPage = 1; render(); });
-    const typeFilter = $("#type-filter"); if (typeFilter) typeFilter.addEventListener("change", event => { state.customerType = event.target.value; state.customerPage = 1; render(); });
-    $$('[data-customer-page]').forEach(el => el.addEventListener("click", () => { state.customerPage = Number(el.dataset.customerPage); render(); }));
+    const statusFilter = $("#status-filter"); if (statusFilter) statusFilter.addEventListener("change", event => { state.customerStatus = event.target.value; pagerReset("customers"); render(); });
+    const typeFilter = $("#type-filter"); if (typeFilter) typeFilter.addEventListener("change", event => { state.customerType = event.target.value; pagerReset("customers"); render(); });
+    $$('[data-pager-nav]').forEach(el => el.addEventListener("click", () => {
+      const [key, action] = el.dataset.pagerNav.split(":");
+      const pager = pagerGet(key);
+      if (action === "prev") pager.page -= 1;
+      else if (action === "next") pager.page += 1;
+      else pager.page = Number(action) || 1;
+      render();
+    }));
+    $$('[data-pager-size]').forEach(el => el.addEventListener("change", () => { const pager = pagerGet(el.dataset.pagerSize); pager.size = Number(el.value) || 10; pager.page = 1; render(); }));
+    $$('[data-pager-jump]').forEach(el => el.addEventListener("keydown", event => { if (event.key !== "Enter") return; const pager = pagerGet(el.dataset.pagerJump); pager.page = Number(el.currentTarget?.value ?? el.value) || 1; render(); }));
     const clearFilters = $("#clear-filters"); if (clearFilters) clearFilters.addEventListener("click", () => { state.customerSearch = ""; state.customerStatus = "全部状态"; state.customerType = "全部类型"; state.customerPage = 1; render(); });
     const createCustomerOpen = $("#customer-create-open"); if (createCustomerOpen) createCustomerOpen.addEventListener("click", openCustomerModal);
     const muCreateCustomer = $("#mu-create-customer"); if (muCreateCustomer) muCreateCustomer.addEventListener("click", openCustomerModal);
