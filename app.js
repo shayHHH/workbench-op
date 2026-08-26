@@ -1849,6 +1849,11 @@ ${sections.join("\n\n")}
       }
       if (event.key === "Escape") { closeDrawer(); closePdfModal(); closeMaterialReviewModal(); closeScheduleTemplateModal(); closeCustomerMasterModal(); }
     });
+    window.addEventListener("message", event => {
+      if (event.data?.type !== "bv-workbench-open-customer-modal") return;
+      if (event.source !== $(".quote-replica-frame")?.contentWindow) return;
+      openCustomerModal();
+    });
     $("#drawer-backdrop").addEventListener("click", closeDrawer);
     render();
   }
@@ -1913,7 +1918,12 @@ ${sections.join("\n\n")}
       walletRecords: renderWalletRecords, ledger: renderLedgerCenter, inventory: renderInventoryCenter, dailyRecon: renderDailyRecon, fundOps: renderFundOps, profitBoard: renderProfitBoard,
       department: renderDepartmentManagement, commissions: renderCommissions, config: renderConfig, kycConfig: renderKycConfig, audit: renderAudit, tracking: renderTracking
     };
-    main.innerHTML = (renderers[state.view] || renderDashboard)();
+    /* 报价复刻视图是 iframe，重设 innerHTML 会令其整页重载并丢失状态（如新建客户弹窗交互期间），同视图同角色时保留 */
+    const replicaKey = isQuoteChildView(state.view) ? `${state.view}|${state.role}` : "";
+    if (!replicaKey || main.dataset.replicaKey !== replicaKey) {
+      main.innerHTML = (renderers[state.view] || renderDashboard)();
+    }
+    main.dataset.replicaKey = replicaKey;
     renderCustomerMasterModal();
     renderDispatchModal();
     bindPageEvents();
@@ -6865,14 +6875,7 @@ Currency： ${data.currency || "未填写"}`;
       toast("已新增报价项", "可以编辑公式后重新计算");
     });
     const newCustomer = $("#quote-new-customer");
-    if (newCustomer) newCustomer.addEventListener("click", () => {
-      const id = `QC-${10000 + state.quote.customers.length + 20}`;
-      state.quote.customers.push({ id, name: "新客户", code: id.slice(3), broker: "直营", brokerCode: "-", note: "手工新增", quotes: [{ tradeType: "USD", prefix: "美元报价", suffix: "", formula: "usdBid", brokerPoint: 0, bvPoint: 0, digits: 4, roundMode: "45", result: "--", expanded: true, lastQuotedAt: "-" }] });
-      state.quote.selectedCustomerId = id;
-      state.quote.customerQuery = `新客户 (${id.slice(3)})`;
-      render();
-      toast("报价客户已创建", "已添加一条演示客户报价配置");
-    });
+    if (newCustomer) newCustomer.addEventListener("click", openCustomerModal);
     $$('[data-quote-formula-input]').forEach(el => {
       const save = event => {
         state.quote.formulaCursor = { index: Number(event.target.dataset.quoteFormulaInput), position: event.target.selectionStart ?? event.target.value.length };
@@ -9148,11 +9151,24 @@ Swift Code/BIC 代码： CITIHKAX
       state.quickMaterialUpload.customerDropdownOpen = false;
       state.quickMaterialUpload.customerHighlightIndex = 0;
     }
+    /* 从快速报价页发起新建时，通知报价工作台 iframe 把新客户加入下拉并选中 */
+    const fromQuickQuote = state.view === "quickQuote";
     persistCustomers();
     render();
+    if (fromQuickQuote) {
+      const parentBroker = draft.customerKind === "中介下级客户" ? state.customers.find(c => c.id === draft.parentId) : null;
+      $(".quote-replica-frame")?.contentWindow?.postMessage({
+        type: "bv-workbench-customer-created",
+        name: draft.name,
+        clientNo: displayNo,
+        brokerLabel: parentBroker ? `${parentBroker.name} - ${parentBroker.clientNo || "-"}` : draft.customerKind === "中介" ? "-" : ""
+      }, "*");
+    }
     toast("客户已新建", fromMaterialUpload
       ? `${displayNo || "无编号"} · ${draft.name}，已在客户管理建档并选入本次上传`
-      : `${displayNo || "无编号"} · ${draft.name}`);
+      : fromQuickQuote
+        ? `${displayNo || "无编号"} · ${draft.name}，已在客户管理建档并选入快速报价`
+        : `${displayNo || "无编号"} · ${draft.name}`);
   }
 
   function openNumberEdit(customerId) {

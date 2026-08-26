@@ -4234,7 +4234,7 @@
               <input class="customer-search-input" id="customerSearch" value="ravi (10004)" autocomplete="off" placeholder="輸入客戶名稱 / 編號搜索" />
               <span style="color: var(--gray-400);"><svg class="ui-icon small"><use href="#i-chevron-down"></use></svg></span>
             </div>
-            <button class="btn"><svg class="ui-icon small"><use href="#i-plus"></use></svg>新建客戶</button>
+            <button class="btn" id="newCustomerBtn" type="button"><svg class="ui-icon small"><use href="#i-plus"></use></svg>新建客戶</button>
 
             <div class="dropdown" id="customerDropdown"></div>
           </div>
@@ -5361,6 +5361,33 @@ HKD-TT/CNH-TT： 2.654661329</div>
     dropdown.addEventListener("click", event => {
       const item = event.target.closest(".dropdown-item");
       if (item) selectQuickCustomer(item.dataset.label);
+    });
+
+    document.getElementById("newCustomerBtn")?.addEventListener("click", () => {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: "bv-workbench-open-customer-modal" }, "*");
+      } else {
+        showToast("請在工作台中打開快速報價後再新建客戶");
+      }
+    });
+
+    window.addEventListener("message", event => {
+      const data = event.data;
+      if (!data || data.type !== "bv-workbench-customer-created" || event.source !== window.parent) return;
+      const name = String(data.name || "").trim();
+      if (!name) return;
+      const code = String(data.clientNo || "").trim();
+      const label = code ? `${name} (${code})` : name;
+      const info = code ? `${name} - ${code}` : `${name} - 無編號`;
+      const brokerLabel = String(data.brokerLabel || "").trim();
+      if (!customers.some(item => item.label === label)) {
+        customers.unshift({ label, info, ...(brokerLabel ? { broker: brokerLabel } : {}) });
+      }
+      if (typeof systemCustomers !== "undefined" && !systemCustomers.some(item => item.label === label)) {
+        systemCustomers.unshift({ label, info, name, tag: code ? `#${code}` : "", ...(brokerLabel ? { broker: brokerLabel } : {}) });
+      }
+      selectQuickCustomer(label);
+      showToast(`已新建客戶：${label}`);
     });
 
     document.addEventListener("click", event => {
