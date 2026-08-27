@@ -2,6 +2,24 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/hsy/Desktop/bv-workbench", "run", "dev", "-w", "@bv/web"],
+      "port": 5173
+    },
+    {
+      "name": "web-access",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/hsy/Desktop/bv-workbench", "run", "dev", "-w", "@bv/web", "--", "--port", "5273", "--strictPort", "--force"],
+      "port": 5273
+    },
+    {
+      "name": "api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/hsy/Desktop/bv-workbench", "run", "start:dev", "-w", "@bv/api"],
+      "port": 3000
+    },
+    {
       "name": "static",
       "runtimeExecutable": "node",
       "runtimeArgs": [".claude/serve.js"],
